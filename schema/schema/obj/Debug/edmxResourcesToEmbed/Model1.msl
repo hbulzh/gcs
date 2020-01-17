@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="DEPT_DICT">
+      <EntityTypeMapping TypeName="Model1.DEPT_DICT">
+        <MappingFragment StoreEntitySet="DEPT_DICT">
+          <ScalarProperty Name="SERIAL_NO" ColumnName="SERIAL_NO" />
+          <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="INPUT_CODE" ColumnName="INPUT_CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAT_CLASS_NOTE">
+      <EntityTypeMapping TypeName="Model1.PAT_CLASS_NOTE">
+        <MappingFragment StoreEntitySet="PAT_CLASS_NOTE">
+          <ScalarProperty Name="SERIAL_NO" ColumnName="SERIAL_NO" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+          <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+          <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+          <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
+          <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
+          <ScalarProperty Name="ITEM_DETAIL_CODE" ColumnName="ITEM_DETAIL_CODE" />
+          <ScalarProperty Name="NOTE_ID" ColumnName="NOTE_ID" />
+          <ScalarProperty Name="BAR_CODE" ColumnName="BAR_CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHYSICAL_MASTER_INDEX">
+      <EntityTypeMapping TypeName="Model1.PHYSICAL_MASTER_INDEX">
+        <MappingFragment StoreEntitySet="PHYSICAL_MASTER_INDEX">
+          <ScalarProperty Name="SERIAL_NO" ColumnName="SERIAL_NO" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+          <ScalarProperty Name="PAT_VISIT" ColumnName="PAT_VISIT" />
+          <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+          <ScalarProperty Name="IC_CREATE_DATE" ColumnName="IC_CREATE_DATE" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+          <ScalarProperty Name="ID_CARD" ColumnName="ID_CARD" />
+          <ScalarProperty Name="BED_NO" ColumnName="BED_NO" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="NAME_PHONETIC" ColumnName="NAME_PHONETIC" />
+          <ScalarProperty Name="AGE" ColumnName="AGE" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+          <ScalarProperty Name="DATE_OF_BIRTH" ColumnName="DATE_OF_BIRTH" />
+          <ScalarProperty Name="COMMU_ADDR" ColumnName="COMMU_ADDR" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="POST" ColumnName="POST" />
+          <ScalarProperty Name="FAMILY_PHONE" ColumnName="FAMILY_PHONE" />
+          <ScalarProperty Name="MOBILE_PHONE" ColumnName="MOBILE_PHONE" />
+          <ScalarProperty Name="DUTY_CODE" ColumnName="DUTY_CODE" />
+          <ScalarProperty Name="TITLE_CODE" ColumnName="TITLE_CODE" />
+          <ScalarProperty Name="DUTY_CLASS" ColumnName="DUTY_CLASS" />
+          <ScalarProperty Name="DOCTOR" ColumnName="DOCTOR" />
+          <ScalarProperty Name="USER_LOGID" ColumnName="USER_LOGID" />
+          <ScalarProperty Name="STOP_DATE" ColumnName="STOP_DATE" />
+          <ScalarProperty Name="LAST_MODIFY_DATE" ColumnName="LAST_MODIFY_DATE" />
+          <ScalarProperty Name="INPUT_DATE" ColumnName="INPUT_DATE" />
+          <ScalarProperty Name="GROUP_CODE" ColumnName="GROUP_CODE" />
+          <ScalarProperty Name="INSTRUMENT_CODE" ColumnName="INSTRUMENT_CODE" />
+          <ScalarProperty Name="NOTE" ColumnName="NOTE" />
+          <ScalarProperty Name="SPECIMAN_CODE" ColumnName="SPECIMAN_CODE" />
+          <ScalarProperty Name="PHY_NAME" ColumnName="PHY_NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_CLINIC">
+      <EntityTypeMapping TypeName="Model1.T_CLINIC">
+        <MappingFragment StoreEntitySet="T_CLINIC">
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_ITEM_PREPOSITION">
+      <EntityTypeMapping TypeName="Model1.T_ITEM_PREPOSITION">
+        <MappingFragment StoreEntitySet="T_ITEM_PREPOSITION">
+          <ScalarProperty Name="I_ID" ColumnName="I_ID" />
+          <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
+          <ScalarProperty Name="PRE_ITEM_CODE" ColumnName="PRE_ITEM_CODE" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_LOGS">
+      <EntityTypeMapping TypeName="Model1.T_LOGS">
+        <MappingFragment StoreEntitySet="T_LOGS">
+          <ScalarProperty Name="LOG_ID" ColumnName="LOG_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="ACTION_TYPE" ColumnName="ACTION_TYPE" />
+          <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
+          <ScalarProperty Name="LOG_CONTENT" ColumnName="LOG_CONTENT" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="IS_EXPORT" ColumnName="IS_EXPORT" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_QUEUE_HIST">
+      <EntityTypeMapping TypeName="Model1.T_QUEUE_HIST">
+        <MappingFragment StoreEntitySet="T_QUEUE_HIST">
+          <ScalarProperty Name="SERIAL_NO" ColumnName="SERIAL_NO" />
+          <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
+          <ScalarProperty Name="ID_CARD" ColumnName="ID_CARD" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="DAPART_CODE" ColumnName="DAPART_CODE" />
+          <ScalarProperty Name="QUE_NUM" ColumnName="QUE_NUM" />
+          <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+          <ScalarProperty Name="CALL_TIME" ColumnName="CALL_TIME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="COMPLETE_TIME" ColumnName="COMPLETE_TIME" />
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="DOCTOR_ID" ColumnName="DOCTOR_ID" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_QUEUE_LIST">
+      <EntityTypeMapping TypeName="Model1.T_QUEUE_LIST">
+        <MappingFragment StoreEntitySet="T_QUEUE_LIST">
+          <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
+          <ScalarProperty Name="ID_CARD" ColumnName="ID_CARD" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="DAPART_CODE" ColumnName="DAPART_CODE" />
+          <ScalarProperty Name="QUE_NUM" ColumnName="QUE_NUM" />
+          <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+          <ScalarProperty Name="CALL_TIME" ColumnName="CALL_TIME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="COMPLETE_TIME" ColumnName="COMPLETE_TIME" />
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="DOCTOR_ID" ColumnName="DOCTOR_ID" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_SETS">
+      <EntityTypeMapping TypeName="Model1.T_SETS">
+        <MappingFragment StoreEntitySet="T_SETS">
+          <ScalarProperty Name="SET_ID" ColumnName="SET_ID" />
+          <ScalarProperty Name="SET_TYPE" ColumnName="SET_TYPE" />
+          <ScalarProperty Name="SET_ITEM" ColumnName="SET_ITEM" />
+          <ScalarProperty Name="SET_VALUE" ColumnName="SET_VALUE" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_USER">
+      <EntityTypeMapping TypeName="Model1.T_USER">
+        <MappingFragment StoreEntitySet="T_USER">
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="LOGIN_NAME" ColumnName="LOGIN_NAME" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+          <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_DEPART_MANAGE">
+      <EntityTypeMapping TypeName="Model1.T_DEPART_MANAGE">
+        <MappingFragment StoreEntitySet="T_DEPART_MANAGE">
+          <ScalarProperty Name="D_ID" ColumnName="D_ID" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="BIGSCREEN_NUM" ColumnName="BIGSCREEN_NUM" />
+          <ScalarProperty Name="SMALLSCREEN_NUM" ColumnName="SMALLSCREEN_NUM" />
+          <ScalarProperty Name="PREDICT_TIME" ColumnName="PREDICT_TIME" />
+          <ScalarProperty Name="SYNCHRON_TIME" ColumnName="SYNCHRON_TIME" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+          <ScalarProperty Name="DYNAMIC_TIME" ColumnName="DYNAMIC_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

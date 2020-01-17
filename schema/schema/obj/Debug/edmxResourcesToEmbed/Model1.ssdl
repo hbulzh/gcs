@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DEPT_DICT">
+    <Key>
+      <PropertyRef Name="SERIAL_NO" />
+    </Key>
+    <Property Name="SERIAL_NO" Type="number" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
+    <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
+    <Property Name="INPUT_CODE" Type="varchar2" MaxLength="20" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6013: 表/视图“ZNDJ.ITEM_DICT”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="ITEM_DICT">
+          <Property Name="SERIAL_NO" Type="number" Precision="3" Scale="0" />
+          <Property Name="ITEM_CODE" Type="varchar2" MaxLength="10" />
+          <Property Name="ITEM_NAME" Type="varchar2" MaxLength="40" />
+          <Property Name="INPUT_CODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ITEM_CLASS" Type="varchar2" MaxLength="10" />
+          <Property Name="ITEM_CLASS_SORT" Type="number" Precision="3" Scale="0" />
+          <Property Name="PRINT_MASTER_STATION" Type="varchar2" MaxLength="1" />
+          <Property Name="PAT_CLASS_STATION" Type="varchar2" MaxLength="1" />
+          <Property Name="ITEM_TYPE" Type="varchar2" MaxLength="10" />
+          <Property Name="ITEM_LB" Type="varchar2" MaxLength="10" />
+          <Property Name="ITEM_SEX" Type="char" MaxLength="1" />
+          <Property Name="ENABLED_FLAG" Type="char" MaxLength="1" />
+          <Property Name="ITEM_SCOPE" Type="char" MaxLength="1" />
+          <Property Name="LAST_MODIFIED" Type="varchar2" MaxLength="20" />
+          <Property Name="LAST_MODIFIED_DATE" Type="date" />
+          <Property Name="ITEM_PRICE" Type="number" Precision="8" Scale="2" />
+        </EntityType>-->
+  <EntityType Name="PAT_CLASS_NOTE">
+    <Key>
+      <PropertyRef Name="SERIAL_NO" />
+    </Key>
+    <Property Name="SERIAL_NO" Type="number" Precision="12" Scale="0" Nullable="false" />
+    <Property Name="PATIENT_ID" Type="varchar2" MaxLength="12" />
+    <Property Name="AMOUNT" Type="number" Precision="2" Scale="0" />
+    <Property Name="CREATE_DATE" Type="date" />
+    <Property Name="SEX_CODE" Type="varchar2" MaxLength="3" />
+    <Property Name="CLASS_CODE" Type="varchar2" MaxLength="20" />
+    <Property Name="ITEM_NO" Type="number" Precision="6" Scale="0" />
+    <Property Name="ITEM_CODE" Type="varchar2" MaxLength="20" />
+    <Property Name="ITEM_DETAIL_CODE" Type="varchar2" MaxLength="20" />
+    <Property Name="NOTE_ID" Type="number" Precision="6" Scale="0" />
+    <Property Name="BAR_CODE" Type="varchar2" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PHYSICAL_MASTER_INDEX">
+    <Key>
+      <PropertyRef Name="SERIAL_NO" />
+    </Key>
+    <Property Name="SERIAL_NO" Type="number" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
+    <Property Name="AMOUNT" Type="number" Precision="3" Scale="0" />
+    <Property Name="PAT_VISIT" Type="varchar2" MaxLength="1" />
+    <Property Name="CREATE_DATE" Type="date" />
+    <Property Name="IC_CREATE_DATE" Type="date" />
+    <Property Name="DEPT_CODE" Type="varchar2" MaxLength="500" />
+    <Property Name="BRANCH_CODE" Type="varchar2" MaxLength="100" />
+    <Property Name="ID_CARD" Type="varchar2" MaxLength="18" />
+    <Property Name="BED_NO" Type="number" Precision="5" Scale="0" />
+    <Property Name="NAME" Type="varchar2" MaxLength="20" />
+    <Property Name="NAME_PHONETIC" Type="varchar2" MaxLength="100" />
+    <Property Name="AGE" Type="number" Precision="3" Scale="0" />
+    <Property Name="SEX_CODE" Type="varchar2" MaxLength="4" />
+    <Property Name="DATE_OF_BIRTH" Type="date" />
+    <Property Name="COMMU_ADDR" Type="varchar2" MaxLength="40" />
+    <Property Name="ADDRESS" Type="varchar2" MaxLength="40" />
+    <Property Name="POST" Type="varchar2" MaxLength="10" />
+    <Property Name="FAMILY_PHONE" Type="varchar2" MaxLength="15" />
+    <Property Name="MOBILE_PHONE" Type="varchar2" MaxLength="15" />
+    <Property Name="DUTY_CODE" Type="varchar2" MaxLength="10" />
+    <Property Name="TITLE_CODE" Type="varchar2" MaxLength="10" />
+    <Property Name="DUTY_CLASS" Type="varchar2" MaxLength="10" />
+    <Property Name="DOCTOR" Type="varchar2" MaxLength="10" />
+    <Property Name="USER_LOGID" Type="varchar2" MaxLength="10" />
+    <Property Name="STOP_DATE" Type="date" />
+    <Property Name="LAST_MODIFY_DATE" Type="date" />
+    <Property Name="INPUT_DATE" Type="date" />
+    <Property Name="GROUP_CODE" Type="varchar2" MaxLength="10" />
+    <Property Name="INSTRUMENT_CODE" Type="varchar2" MaxLength="10" />
+    <Property Name="NOTE" Type="varchar2" MaxLength="10" />
+    <Property Name="SPECIMAN_CODE" Type="varchar2" MaxLength="40" />
+    <Property Name="PHY_NAME" Type="varchar2" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="T_CLINIC">
+    <Key>
+      <PropertyRef Name="CLINIC_ID" />
+    </Key>
+    <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CLINIC_NAME" Type="varchar2" MaxLength="200" />
+    <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" Nullable="false" />
+    <Property Name="FLOOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="POSITION" Type="varchar2" MaxLength="500" />
+    <Property Name="IP_ADDR" Type="varchar2" MaxLength="20" Nullable="false" />
+    <Property Name="SEX_CODE" Type="number" Precision="38" Scale="0" />
+    <Property Name="CREATE_TIME" Type="date" />
+    <Property Name="IS_USE" Type="number" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ZNDJ.T_DEPART_MANAGE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="T_DEPART_MANAGE">
+    <Key>
+      <PropertyRef Name="D_ID" />
+      <PropertyRef Name="DEPT_CODE" />
+    </Key>
+    <Property Name="D_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" Nullable="false" />
+    <Property Name="BIGSCREEN_NUM" Type="number" Precision="38" Scale="0" />
+    <Property Name="SMALLSCREEN_NUM" Type="number" Precision="38" Scale="0" />
+    <Property Name="PREDICT_TIME" Type="number" Precision="38" Scale="0" />
+    <Property Name="SYNCHRON_TIME" Type="date" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+    <Property Name="DYNAMIC_TIME" Type="number" Precision="38" Scale="0" />
+  </EntityType>
+  <EntityType Name="T_ITEM_PREPOSITION">
+    <Key>
+      <PropertyRef Name="I_ID" />
+    </Key>
+    <Property Name="I_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="ITEM_CODE" Type="varchar2" MaxLength="10" />
+    <Property Name="PRE_ITEM_CODE" Type="varchar2" MaxLength="10" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_LOGS">
+    <Key>
+      <PropertyRef Name="LOG_ID" />
+    </Key>
+    <Property Name="LOG_ID" Type="number" Precision="20" Scale="0" Nullable="false" />
+    <Property Name="USER_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="ACTION_TYPE" Type="varchar2" MaxLength="100" />
+    <Property Name="IP_ADDR" Type="varchar2" MaxLength="20" />
+    <Property Name="LOG_CONTENT" Type="varchar2" MaxLength="500" />
+    <Property Name="CREATE_TIME" Type="date" />
+    <Property Name="IS_EXPORT" Type="number" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="200" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="200" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="T_QUEUE_HIST">
+    <Key>
+      <PropertyRef Name="SERIAL_NO" />
+    </Key>
+    <Property Name="SERIAL_NO" Type="number" Precision="30" Scale="0" Nullable="false" />
+    <Property Name="QUE_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="ID_CARD" Type="varchar2" MaxLength="50" />
+    <Property Name="PATIENT_ID" Type="varchar2" MaxLength="50" />
+    <Property Name="DAPART_CODE" Type="varchar2" MaxLength="20" />
+    <Property Name="QUE_NUM" Type="number" Precision="38" Scale="0" />
+    <Property Name="CREAT_TIME" Type="date" />
+    <Property Name="CALL_TIME" Type="date" />
+    <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
+    <Property Name="COMPLETE_TIME" Type="date" />
+    <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="DOCTOR_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+    <Property Name="SEX_CODE" Type="varchar2" MaxLength="4" />
+  </EntityType>
+  <EntityType Name="T_QUEUE_LIST">
+    <Key>
+      <PropertyRef Name="QUE_ID" />
+    </Key>
+    <Property Name="QUE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="ID_CARD" Type="varchar2" MaxLength="50" />
+    <Property Name="PATIENT_ID" Type="varchar2" MaxLength="50" />
+    <Property Name="DAPART_CODE" Type="varchar2" MaxLength="20" />
+    <Property Name="QUE_NUM" Type="number" Precision="38" Scale="0" />
+    <Property Name="CREAT_TIME" Type="date" />
+    <Property Name="CALL_TIME" Type="date" />
+    <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
+    <Property Name="COMPLETE_TIME" Type="date" />
+    <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="DOCTOR_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+    <Property Name="SEX_CODE" Type="varchar2" MaxLength="4" />
+  </EntityType>
+  <EntityType Name="T_SETS">
+    <Key>
+      <PropertyRef Name="SET_ID" />
+    </Key>
+    <Property Name="SET_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="SET_TYPE" Type="varchar2" MaxLength="100" />
+    <Property Name="SET_ITEM" Type="varchar2" MaxLength="100" />
+    <Property Name="SET_VALUE" Type="varchar2" MaxLength="100" />
+    <Property Name="CREATE_TIME" Type="date" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="200" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="200" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="T_USER">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="USER_NAME" Type="varchar2" MaxLength="50" />
+    <Property Name="LOGIN_NAME" Type="varchar2" MaxLength="50" />
+    <Property Name="PASSWORD" Type="varchar2" MaxLength="50" />
+    <Property Name="USER_TYPE" Type="number" Precision="38" Scale="0" />
+    <Property Name="IS_USE" Type="number" Precision="38" Scale="0" />
+    <Property Name="CREATE_TIME" Type="date" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_CLINIC" EntityType="Self.T_CLINIC" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_ITEM_PREPOSITION" EntityType="Self.T_ITEM_PREPOSITION" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_LOGS" EntityType="Self.T_LOGS" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_QUEUE_HIST" EntityType="Self.T_QUEUE_HIST" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_QUEUE_LIST" EntityType="Self.T_QUEUE_LIST" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_SETS" EntityType="Self.T_SETS" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_USER" EntityType="Self.T_USER" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" store:Type="Tables" store:Schema="ZNDJ">
+      <DefiningQuery>SELECT 
+"T_DEPART_MANAGE"."D_ID" AS "D_ID", 
+"T_DEPART_MANAGE"."DEPT_CODE" AS "DEPT_CODE", 
+"T_DEPART_MANAGE"."BIGSCREEN_NUM" AS "BIGSCREEN_NUM", 
+"T_DEPART_MANAGE"."SMALLSCREEN_NUM" AS "SMALLSCREEN_NUM", 
+"T_DEPART_MANAGE"."PREDICT_TIME" AS "PREDICT_TIME", 
+"T_DEPART_MANAGE"."SYNCHRON_TIME" AS "SYNCHRON_TIME", 
+"T_DEPART_MANAGE"."RESERVE_ONE" AS "RESERVE_ONE", 
+"T_DEPART_MANAGE"."RESERVE_TWO" AS "RESERVE_TWO", 
+"T_DEPART_MANAGE"."RESERVE_THREE" AS "RESERVE_THREE", 
+"T_DEPART_MANAGE"."DYNAMIC_TIME" AS "DYNAMIC_TIME"
+FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

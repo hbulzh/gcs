@@ -1,0 +1,199 @@
+.mail-box {
+        border-collapse: collapse;
+        border-spacing: 0;
+        display: table;
+        table-layout: fixed;
+        width: 12%;
+    }
+
+    .mail-box aside {
+        display: table-cell;
+        float: none;
+        height: 100%;
+        padding: 0;
+        vertical-align: top;
+    }
+
+    .mail-box .sm-side {
+        background: none repeat scroll 0 0 #fff;
+        border-radius: 4px 0 0 4px;
+        width: 19%;
+    }
+
+    .mail-box .lg-side {
+        background: none repeat scroll 0 0 #fff;
+        border-radius: 0 4px 4px 0;
+        width: 75%;
+    }
+    .btn-compose {
+        background: none repeat scroll 0 0 #00BCD4;
+        color: #fff !important;
+        padding: 12px 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn-compose:hover {
+        background: none repeat scroll 0 0 #00ACB4;
+        color: #fff;
+    }
+    .exports{
+        width: 12%;
+        margin-left: 76%;
+    }
+    .modal-content{
+        margin-top: 24%;
+    }
+    .modal-title{
+        font-size: 1.2rem;
+    }
+    .col-lg-101{
+        margin-left: 40%;
+        width: 100%;
+    }
+    .sex-women{
+        margin-left: 10%;
+    }
+    .ml-3{
+         background: none repeat scroll 0 0 #00BCD4;
+        color: #fff;
+        padding: 12px 0;
+        text-align: center;
+        width: 50%;
+    }
+    .sub-btn{
+        margin-left: 25%;
+    }
+    .table-hover span{
+        padding-left: 8px;
+    }
+    .table-hover span a{
+        color: #666;
+    }
+    .table-hover span a:hover{
+        color: #0fc5e1;
+    }
+    .select-inner{
+        height: 5%;
+    }
+    .select-type,.select-doc{
+        width: 25%;
+        float: left;
+        height: 80%;
+    }
+    .select-time{
+        width: 30%;
+        float: left;
+        height: 80%;
+    }
+    .select-time-tit{
+        width:23%;
+        float: left;
+    }
+    .select-time-tit span{
+        padding-top: 8%;
+    }
+    .select-sub{
+        width: 8%;
+        float: left;
+        height: 56%;
+
+    }
+    .select-sub a{
+        width: 100%;
+        height: 100%;
+        color: #fff !important;
+        padding:10px 0 !important;
+    }
+    .sub-inner{
+        width: 50%;
+    }
+    .well{
+        width: 70%;
+    }
+    .select-type select,.select-doc select {
+        width: 45%;
+        height: 72%;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #495057;
+        background-color: #fff;
+        background-image: none;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+    }
+    .btn-image{
+        width: 24%;
+        color: #fff !important;
+        margin-top: 2%;
+        margin-left: 72%;
+    }
+    .change-inner{
+        width: 50%;
+        margin-left: 24%;
+        margin-top: 2%;
+    }
+    .hospital-name{
+        width: 60%;
+        padding: .5rem .75rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #495057;
+        background-color: #fff;
+        background-image: none;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    #drop_area{
+        margin-left: auto;
+    }
+    #uploadimg{
+        width: 100%;
+        height: 100%;
+    }
+    .input-group span{
+        background-color: #f8f9fa;
+    }
+
+    #reservation{
+        background-color: #f8f9fa;
+    }
+    .btn-success{
+        background-color: #00BCD4;
+        border-color: #00BCD4;
+    }
+    @media (min-width: 768px){
+        .col-md-8 {
+            flex: 0 0 99.666667%;
+            max-width: 99.666667%;
+        }
+    }
+    @media (min-width: 768px)
+    {
+        .col-md-4 {
+            flex: 0 0 90.333333%;
+            max-width: 50.333333%;
+        }    
+    }
+/*分页中的效果*/
+.first{
+    margin-left: 2%;
+}
+#barcon{
+    width: 76%;
+    text-align: right;
+}
+#gopages,#gobtn{
+    width: 16%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+.jump{
+    width: 20%;
+    margin-left: 1%;
+    margin-top: -0.2%;
+}

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model1.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model1.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DEPT_DICT">
           <Key>
             <PropertyRef Name="SERIAL_NO" />
@@ -98,7 +98,7 @@
           <Property Name="FLOOR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="POSITION" Type="varchar2" MaxLength="500" />
           <Property Name="IP_ADDR" Type="varchar2" MaxLength="20" Nullable="false" />
-          <Property Name="SEX_CODE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SEX_CODE" Type="varchar2" MaxLength="4" />
           <Property Name="CREATE_TIME" Type="date" />
           <Property Name="IS_USE" Type="number" Precision="38" Scale="0" />
           <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
@@ -218,6 +218,27 @@
           <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
           <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
         </EntityType>
+        <Function Name="ADDQUEUE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+          <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+          <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
+          <Parameter Name="DEPTNAME" Type="varchar2" Mode="Out" />
+          <Parameter Name="DEPTNUM" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="ADD_CREATETIME_QUENUM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+          <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+          <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
+          <Parameter Name="NUM_DEPT" Type="number" Mode="In" />
+        </Function>
+        <Function Name="COMPUTE_TWAIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+          <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+          <Parameter Name="RES_DEPTCODE" Type="varchar2" Mode="Out" />
+          <Parameter Name="RES_DEPTNUM" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="FIND_MIN_DEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+          <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+          <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
+          <Parameter Name="NUMDEPT" Type="number" Mode="Out" />
+        </Function>
         <EntityContainer Name="Model1StoreContainer">
           <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="ZNDJ" store:Type="Tables" />
           <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" Schema="ZNDJ" store:Type="Tables" />
@@ -244,8 +265,7 @@
 FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -311,23 +331,6 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
           <Property Name="NOTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SPECIMAN_CODE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="PHY_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="T_CLINIC">
-          <Key>
-            <PropertyRef Name="CLINIC_ID" />
-          </Key>
-          <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FLOOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IP_ADDR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SEX_CODE" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CREATE_TIME" Type="DateTime" />
-          <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="T_ITEM_PREPOSITION">
           <Key>
@@ -444,7 +447,6 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
           <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" />
           <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" />
           <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" />
-          <EntitySet Name="T_CLINIC" EntityType="Self.T_CLINIC" />
           <EntitySet Name="T_ITEM_PREPOSITION" EntityType="Self.T_ITEM_PREPOSITION" />
           <EntitySet Name="T_LOGS" EntityType="Self.T_LOGS" />
           <EntitySet Name="T_QUEUE_HIST" EntityType="Self.T_QUEUE_HIST" />
@@ -452,7 +454,46 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
           <EntitySet Name="T_SETS" EntityType="Self.T_SETS" />
           <EntitySet Name="T_USER" EntityType="Self.T_USER" />
           <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" />
+          <FunctionImport Name="ADDQUEUE">
+            <Parameter Name="PATIENTID" Mode="In" Type="String" />
+            <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
+            <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
+            <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ADD_CREATETIME_QUENUM">
+            <Parameter Name="PATIENTID" Mode="In" Type="String" />
+            <Parameter Name="DEPTCODE" Mode="In" Type="String" />
+            <Parameter Name="NUM_DEPT" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="COMPUTE_TWAIT">
+            <Parameter Name="PATIENTID" Mode="In" Type="String" />
+            <Parameter Name="RES_DEPTCODE" Mode="Out" Type="String" />
+            <Parameter Name="RES_DEPTNUM" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="FIND_MIN_DEPT">
+            <Parameter Name="PATIENTID" Mode="In" Type="String" />
+            <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
+            <Parameter Name="NUMDEPT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="T_CLINIC" EntityType="Model1.T_CLINIC" />
         </EntityContainer>
+        <EntityType Name="T_CLINIC">
+          <Key>
+            <PropertyRef Name="CLINIC_ID" />
+          </Key>
+          <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="FLOOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IP_ADDR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" />
+          <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -522,24 +563,6 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
                 <ScalarProperty Name="NOTE" ColumnName="NOTE" />
                 <ScalarProperty Name="SPECIMAN_CODE" ColumnName="SPECIMAN_CODE" />
                 <ScalarProperty Name="PHY_NAME" ColumnName="PHY_NAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_CLINIC">
-            <EntityTypeMapping TypeName="Model1.T_CLINIC">
-              <MappingFragment StoreEntitySet="T_CLINIC">
-                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-                <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
-                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-                <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
-                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
-                <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
-                <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
-                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
-                <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
-                <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
-                <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
-                <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -657,6 +680,28 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
                 <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
                 <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
                 <ScalarProperty Name="DYNAMIC_TIME" ColumnName="DYNAMIC_TIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ADDQUEUE" FunctionName="Model1.Store.ADDQUEUE" />
+          <FunctionImportMapping FunctionImportName="ADD_CREATETIME_QUENUM" FunctionName="Model1.Store.ADD_CREATETIME_QUENUM" />
+          <FunctionImportMapping FunctionImportName="COMPUTE_TWAIT" FunctionName="Model1.Store.COMPUTE_TWAIT" />
+          <FunctionImportMapping FunctionImportName="FIND_MIN_DEPT" FunctionName="Model1.Store.FIND_MIN_DEPT" />
+          <EntitySetMapping Name="T_CLINIC">
+            <EntityTypeMapping TypeName="Model1.T_CLINIC">
+              <MappingFragment StoreEntitySet="T_CLINIC">
+                <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+                <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+                <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+                <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+                <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
+                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

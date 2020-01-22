@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="Model1.DEPT_DICT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.PAT_CLASS_NOTE" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.PHYSICAL_MASTER_INDEX" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_CLINIC" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.T_ITEM_PREPOSITION" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.T_LOGS" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.T_QUEUE_HIST" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
@@ -16,6 +15,7 @@
         <EntityTypeShape EntityType="Model1.T_SETS" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.T_USER" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.T_DEPART_MANAGE" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_CLINIC" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

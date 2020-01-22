@@ -20,7 +20,7 @@ namespace schema
         public decimal FLOOR { get; set; }
         public string POSITION { get; set; }
         public string IP_ADDR { get; set; }
-        public Nullable<decimal> SEX_CODE { get; set; }
+        public string SEX_CODE { get; set; }
         public Nullable<System.DateTime> CREATE_TIME { get; set; }
         public Nullable<decimal> IS_USE { get; set; }
         public string RESERVE_ONE { get; set; }

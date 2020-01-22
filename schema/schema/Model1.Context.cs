@@ -82,5 +82,14 @@ namespace schema
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FIND_MIN_DEPT", pATIENTIDParameter, dEPTCODE, nUMDEPT);
         }
+    
+        public virtual int TEST(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter dEPTNAME, ObjectParameter dEPTNUM)
+        {
+            var pATIENTIDParameter = pATIENTID != null ?
+                new ObjectParameter("PATIENTID", pATIENTID) :
+                new ObjectParameter("PATIENTID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TEST", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
+        }
     }
 }

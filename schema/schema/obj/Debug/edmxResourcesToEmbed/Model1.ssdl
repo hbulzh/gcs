@@ -9,26 +9,6 @@
     <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
     <Property Name="INPUT_CODE" Type="varchar2" MaxLength="20" />
   </EntityType>
-  <!--生成过程中发现错误:
-警告 6013: 表/视图“ZNDJ.ITEM_DICT”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
-        <EntityType Name="ITEM_DICT">
-          <Property Name="SERIAL_NO" Type="number" Precision="3" Scale="0" />
-          <Property Name="ITEM_CODE" Type="varchar2" MaxLength="10" />
-          <Property Name="ITEM_NAME" Type="varchar2" MaxLength="40" />
-          <Property Name="INPUT_CODE" Type="varchar2" MaxLength="20" />
-          <Property Name="ITEM_CLASS" Type="varchar2" MaxLength="10" />
-          <Property Name="ITEM_CLASS_SORT" Type="number" Precision="3" Scale="0" />
-          <Property Name="PRINT_MASTER_STATION" Type="varchar2" MaxLength="1" />
-          <Property Name="PAT_CLASS_STATION" Type="varchar2" MaxLength="1" />
-          <Property Name="ITEM_TYPE" Type="varchar2" MaxLength="10" />
-          <Property Name="ITEM_LB" Type="varchar2" MaxLength="10" />
-          <Property Name="ITEM_SEX" Type="char" MaxLength="1" />
-          <Property Name="ENABLED_FLAG" Type="char" MaxLength="1" />
-          <Property Name="ITEM_SCOPE" Type="char" MaxLength="1" />
-          <Property Name="LAST_MODIFIED" Type="varchar2" MaxLength="20" />
-          <Property Name="LAST_MODIFIED_DATE" Type="date" />
-          <Property Name="ITEM_PRICE" Type="number" Precision="8" Scale="2" />
-        </EntityType>-->
   <EntityType Name="PAT_CLASS_NOTE">
     <Key>
       <PropertyRef Name="SERIAL_NO" />
@@ -83,6 +63,16 @@
     <Property Name="SPECIMAN_CODE" Type="varchar2" MaxLength="40" />
     <Property Name="PHY_NAME" Type="varchar2" MaxLength="150" />
   </EntityType>
+  <!--生成过程中发现错误:
+警告 6013: 表/视图“ZNDJ.T_ALGO_RESULT”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="T_ALGO_RESULT">
+          <Property Name="T_WAIT" Type="number" Precision="38" Scale="0" />
+          <Property Name="PREDICTTIME" Type="number" Precision="38" Scale="0" />
+          <Property Name="FLOOR" Type="number" Precision="38" Scale="0" />
+          <Property Name="NUM_DEPT" Type="number" Precision="38" Scale="0" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="20" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
+        </EntityType>-->
   <EntityType Name="T_CLINIC">
     <Key>
       <PropertyRef Name="CLINIC_ID" />
@@ -93,7 +83,7 @@
     <Property Name="FLOOR" Type="number" Precision="38" Scale="0" Nullable="false" />
     <Property Name="POSITION" Type="varchar2" MaxLength="500" />
     <Property Name="IP_ADDR" Type="varchar2" MaxLength="20" Nullable="false" />
-    <Property Name="SEX_CODE" Type="number" Precision="38" Scale="0" />
+    <Property Name="SEX_CODE" Type="varchar2" MaxLength="4" />
     <Property Name="CREATE_TIME" Type="date" />
     <Property Name="IS_USE" Type="number" Precision="38" Scale="0" />
     <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
@@ -213,6 +203,33 @@
     <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
     <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
   </EntityType>
+  <Function Name="ADDQUEUE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+    <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
+    <Parameter Name="DEPTNAME" Type="varchar2" Mode="Out" />
+    <Parameter Name="DEPTNUM" Type="number" Mode="Out" />
+  </Function>
+  <Function Name="ADD_CREATETIME_QUENUM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+    <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
+    <Parameter Name="NUM_DEPT" Type="number" Mode="In" />
+  </Function>
+  <Function Name="COMPUTE_TWAIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+    <Parameter Name="RES_DEPTCODE" Type="varchar2" Mode="Out" />
+    <Parameter Name="RES_DEPTNUM" Type="number" Mode="Out" />
+  </Function>
+  <Function Name="FIND_MIN_DEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+    <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
+    <Parameter Name="NUMDEPT" Type="number" Mode="Out" />
+  </Function>
+  <Function Name="TEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+    <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
+    <Parameter Name="DEPTNAME" Type="varchar2" Mode="Out" />
+    <Parameter Name="DEPTNUM" Type="number" Mode="Out" />
+  </Function>
   <EntityContainer Name="Model1StoreContainer">
     <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="ZNDJ" store:Type="Tables" />
     <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" Schema="ZNDJ" store:Type="Tables" />

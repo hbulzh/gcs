@@ -67,24 +67,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="T_CLINIC">
-      <EntityTypeMapping TypeName="Model1.T_CLINIC">
-        <MappingFragment StoreEntitySet="T_CLINIC">
-          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
-          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-          <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
-          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
-          <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
-          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
-          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
-          <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
-          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
-          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
-          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="T_ITEM_PREPOSITION">
       <EntityTypeMapping TypeName="Model1.T_ITEM_PREPOSITION">
         <MappingFragment StoreEntitySet="T_ITEM_PREPOSITION">
@@ -202,5 +184,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ADDQUEUE" FunctionName="Model1.Store.ADDQUEUE" />
+    <FunctionImportMapping FunctionImportName="ADD_CREATETIME_QUENUM" FunctionName="Model1.Store.ADD_CREATETIME_QUENUM" />
+    <FunctionImportMapping FunctionImportName="COMPUTE_TWAIT" FunctionName="Model1.Store.COMPUTE_TWAIT" />
+    <FunctionImportMapping FunctionImportName="FIND_MIN_DEPT" FunctionName="Model1.Store.FIND_MIN_DEPT" />
+    <EntitySetMapping Name="T_CLINIC">
+      <EntityTypeMapping TypeName="Model1.T_CLINIC">
+        <MappingFragment StoreEntitySet="T_CLINIC">
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+          <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="TEST" FunctionName="Model1.Store.TEST" />
   </EntityContainerMapping>
 </Mapping>

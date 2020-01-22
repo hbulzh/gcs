@@ -206,10 +206,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlgorithmController.cs" />
     <Compile Include="Controllers\DepartManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
+    <Compile Include="Dao\AlgorithmDao.cs" />
     <Compile Include="Dao\DepartManageDao.cs" />
     <Compile Include="Dao\UserManageDao.cs" />
     <Compile Include="DEPT_DICT.cs">
@@ -246,6 +248,9 @@
     <Compile Include="Service\DepartManageService.cs" />
     <Compile Include="Service\UserManageService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="T_ALGO_RESULT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="T_CLINIC.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -319,6 +324,7 @@
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -352,6 +358,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserManage\userManage.cshtml" />
     <Content Include="Views\DepartManage\departManage.cshtml" />
+    <Content Include="Views\Algorithm\Algo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

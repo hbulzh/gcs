@@ -63,23 +63,6 @@
     <Property Name="SPECIMAN_CODE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="PHY_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="T_CLINIC">
-    <Key>
-      <PropertyRef Name="CLINIC_ID" />
-    </Key>
-    <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="FLOOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-    <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="IP_ADDR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="SEX_CODE" Type="Decimal" Precision="38" Scale="0" />
-    <Property Name="CREATE_TIME" Type="DateTime" />
-    <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
-    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="T_ITEM_PREPOSITION">
     <Key>
       <PropertyRef Name="I_ID" />
@@ -195,7 +178,6 @@
     <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" />
     <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" />
     <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" />
-    <EntitySet Name="T_CLINIC" EntityType="Self.T_CLINIC" />
     <EntitySet Name="T_ITEM_PREPOSITION" EntityType="Self.T_ITEM_PREPOSITION" />
     <EntitySet Name="T_LOGS" EntityType="Self.T_LOGS" />
     <EntitySet Name="T_QUEUE_HIST" EntityType="Self.T_QUEUE_HIST" />
@@ -203,5 +185,50 @@
     <EntitySet Name="T_SETS" EntityType="Self.T_SETS" />
     <EntitySet Name="T_USER" EntityType="Self.T_USER" />
     <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" />
+    <FunctionImport Name="ADDQUEUE">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
+      <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
+      <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="ADD_CREATETIME_QUENUM">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="In" Type="String" />
+      <Parameter Name="NUM_DEPT" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="COMPUTE_TWAIT">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="RES_DEPTCODE" Mode="Out" Type="String" />
+      <Parameter Name="RES_DEPTNUM" Mode="Out" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="FIND_MIN_DEPT">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
+      <Parameter Name="NUMDEPT" Mode="Out" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="T_CLINIC" EntityType="Model1.T_CLINIC" />
+    <FunctionImport Name="TEST">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
+      <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
+      <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
+  <EntityType Name="T_CLINIC">
+    <Key>
+      <PropertyRef Name="CLINIC_ID" />
+    </Key>
+    <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="FLOOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IP_ADDR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" />
+    <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

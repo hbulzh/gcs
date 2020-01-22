@@ -123,40 +123,33 @@
                                             <h4 class="modal-title">请填写信息：</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form role="form" class="form-horizontal">
+                                            <form role="form" class="form-horizontal" action="userManage/AddUser" method="post">
                                                 <div class="row form-group">
                                                     <label class="col-lg-2 control-label">姓名</label>
                                                     <div class="col-lg-10">
-                                                        <input type="text" placeholder="" id="inputEmail1" class="form-control">
+                                                        <input type="text" placeholder="" id="inputEmail1" class="form-control" name="userName"  onblur="checkName()" required><span id="tishi"></span>
                                                     </div>
                                                 </div>
-                                                <div class="row form-group">
-                                                    <div class="col-lg-101">
-                                                        <input type="radio" name="sex" checked="checked">
-                                                        <label>男</label>
-                                                        <input type="radio" name="sex" class="sex-women">
-                                                        <label>女</label>
-                                                    </div>
-                                                </div>
+                                              
                                                 <div class="row form-group">
                                                     <label class="col-lg-2 control-label">用户名</label>
-                                                    <div class="col-lg-10">
-                                                        <input type="text" placeholder="" id="cc" class="form-control">
+                                                    <div class="col-lg-10"> 
+                                                        <input type="text" placeholder="" id="cc" class="form-control" name="nickName" required >
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <label class="col-lg-2 control-label">密码</label>
                                                     <div class="col-lg-10">
-                                                        <input type="text" placeholder="" id="inputPassword1" class="form-control">
+                                                        <input type="text" placeholder="" id="inputPassword1" class="form-control" name="passWord"required >
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <label class="col-lg-2 control-label">类型</label>
                                                     <div class="col-lg-10">
-                                                        <select name="user-type" class="form-control">
-                                                            <option>护士</option>
-                                                            <option>医生</option>
-                                                            <option>院长</option>
+                                                        <select name="userType" class="form-control">
+                                                            <option value="1">护士</option>
+                                                            <option value="2">医生</option>
+                                                            <option value="0">院长</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -185,8 +178,7 @@
                                 全选
                             </th>
                             <th>编号</th>
-                            <th>姓名</th>
-                            <th>性别</th>
+                            <th>姓名</th>                         
                             <th>用户名</th>
                             <th>密码</th>
                             <th>用户类型</th>
@@ -195,17 +187,41 @@
                         </tr>
                     </thead>
                     <tbody id="ittable">
+                        @foreach (var item in (List<T_USER>)ViewBag.userkist)
+                        {
+
                         <tr>
                             <th><input type="checkbox" name="item"></th>
-                            <th scope="row">001</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
+                            <th scope="row">@item.USER_ID</th>
+                            <td>@item.USER_NAME</td>                           
+                            <td>@item.LOGIN_NAME</td>
+                            <td>@item.PASSWORD</td>
+                            @if (item.USER_TYPE == 0)
+                            {
+                                <td>管理员</td>
+                            }
+                            else if (item.USER_TYPE == 1)
+                            {
+                                <td>护士</td>
+                            }
+                            else
+                            {
+                                <td>医生</td>
+                            }
                             <td>否</td>
                             <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <div>
+                                    <form role="form" class="form-horizontal" action="/Users/DeleUser" method="post">
+                                        <input type="hidden" value="@item.USER_ID" name="id" />
+                                        <button data-toggle="modal" type="submit" id="delBtn" title="删除" class="del-btn" >删除</button>
+                                       
+                                        <!-- <a href="#" onclick="return deletedin();">删除</a>-->
+                                    </form>
+                                </div>
+                              <!--<span> <a href="#" onclick="return deletedin();">删除</a></span>-->  
+
+
+
                                 <span>
                                     <aside class="sm-side">
                                         <div class="inbox-body">
@@ -216,237 +232,78 @@
                                 <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
                             </td>
                         </tr>
-                        <tr class="table-warning">
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">002</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">003</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr class="table-success">
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">004</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">005</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr class="table-danger">
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">006</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">007</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr class="table-info">
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">008</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">009</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr class="table-warning">
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">010</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">011</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
-                        <tr class="table-success">
-                            <th><input type="checkbox" name="item"></th>
-                            <th scope="row">012</th>
-                            <td>Mark</td>
-                            <td>男</td>
-                            <td>mdo</td>
-                            <td>134****1234</td>
-                            <td>护士</td>
-                            <td>否</td>
-                            <td>
-                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
-                                <span>
-                                    <aside class="sm-side">
-                                        <div class="inbox-body" id="inbox-tbody">
-                                            <a href="#myModalchange" data-toggle="modal" title="修改" class="change"> 修改 </a>
-                                        </div>
-                                    </aside>
-                                </span>
-                                <span> <a href="#" onclick="return passwordReset()">密码重置</a> </span>
-                            </td>
-                        </tr>
+
+
+                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalchange" class="modal fade" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                        <h4 class="modal-title">请修改信息：</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" class="form-horizontal" action="/userManage/ChangeUser" method="post">
+                                            <input type="hidden" value="@item.USER_ID" id="userId" name="userId" />
+                                            <div class="row form-group">
+                                                <label class="col-lg-2 control-label">姓名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" placeholder="" id="inputName" name="userName" value="@item.USER_NAME" class="form-control" required>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="row form-group">
+                                                <label class="col-lg-2 control-label">用户名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" placeholder="" id="cc" name="nickname"  value="@item.LOGIN_NAME" class="form-control"required>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <label class="col-lg-2 control-label">密码</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" placeholder="" id="inputPassword1" name="passWord" value="@item.PASSWORD" class="form-control"  required>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <label class="col-lg-2 control-label">类型</label>
+                                                <div class="col-lg-10">
+                                                    @if (item.USER_TYPE == 0)
+                                                    {
+                                                        <select name="userType" class="form-control">
+                                                            <option value="1">护士</option>
+                                                            <option value="2">医生</option>
+                                                            <option value="0" selected>管理员</option>
+                                                        </select>
+                                                    }
+                                                    else if (item.USER_TYPE == 1)
+                                                    {
+                                                        <select name="userType" class="form-control">
+                                                            <option value="1" selected >护士</option>
+                                                            <option value="2">医生</option>
+                                                            <option value="0">管理员</option>
+                                                        </select>
+                                                    }
+                                                    else
+                                                    {
+                                                        <select name="userType" class="form-control">
+                                                            <option value="1" >护士</option>
+                                                            <option value="2" selected>医生</option>
+                                                            <option value="0">管理员</option>
+                                                        </select>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row form-group sub-btn">
+                                                <button class="btn btn-send ml-3" type="submit">提交</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        }
                     </tbody>
                 </table>
                 <div id="barcon" name="barcon">
@@ -461,61 +318,7 @@
             </div>
         </div>
         <!-- Modal -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalchange" class="modal fade" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">请修改信息：</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" class="form-horizontal">
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">姓名</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="" id="inputName" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-lg-101">
-                                    <input type="radio" name="sex" checked="checked">
-                                    <label>男</label>
-                                    <input type="radio" name="sex" class="sex-women">
-                                    <label>女</label>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">用户名</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="" id="cc" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">密码</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="" id="inputPassword1" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">类型</label>
-                                <div class="col-lg-10">
-                                    <select name="user-type" class="form-control">
-                                        <option>护士</option>
-                                        <option>医生</option>
-                                        <option>院长</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row form-group sub-btn">
-                                <button class="btn btn-send ml-3" type="submit">提交</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
+        
         <!-- /.modal -->
     </div>
 
@@ -536,4 +339,35 @@
     <script type="text/javascript" src="js/pages.js"></script>
 </body>
 
+<script>
+        function checkName() {
+
+            var username = (document.getElementById("nick").value);
+
+                   //获取账号后的提示信息文本
+            var tishi = document.getElementById("tishi");
+            var stamp = document.getElementById("jiao");
+                $.ajax({
+                    url: "/Users/Repetitong", //后台查询验证的方法
+                       data : {
+                           "name": username
+                               }, //携带的参数
+            type : "post",
+            success : function(msg) {
+
+                  //根据后台返回前台的msg给提示信息加HTML
+              if ("True" == msg) {
+                           // 账号已经存在
+                        tishi.innerHTML = "<font color='red'>抱歉，" + username + "已被注册，请更换！</font>"
+                        stamp.disabled = true;
+                    }
+                    if(msg=="False") {
+                        tishi.innerHTML = ""
+                        stamp.disabled = false;
+                      }
+                }
+                   });
+
+        }
+    </script>
 </html>

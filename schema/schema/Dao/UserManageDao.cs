@@ -19,7 +19,7 @@ namespace schema.DAO
         public List<T_USER> GetAllUsers()
         {
             List<T_USER> List = new List<T_USER>();
-             List = db.T_USER.Where(x => x.IS_USE == 0).OrderByDescending(x => x.CREATE_TIME).ToList();
+             List = db.T_USER.Where(x => x.IS_USE ==1).OrderByDescending(x => x.CREATE_TIME).ToList();
             return List;
         }
         /// <summary>

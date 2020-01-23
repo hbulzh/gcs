@@ -17,8 +17,12 @@ namespace schema.Controllers
         {
             AlgorithmDao algo = new AlgorithmDao();
             string deptcode = algo.GetDeptCode(patientid);
-            ViewBag.Message = "213";
+            ViewBag.Message = deptcode;
             return View();
+        }
+        public JsonResult algo_json(HttpContext context)
+        {
+            return Json("name:123");
         }
     }
 }

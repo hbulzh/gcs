@@ -201,6 +201,6 @@ D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\bin\zh-Hans\Microsoft.Owin
 D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\bin\zh-Hans\Microsoft.Owin.Security.Google.resources.dll
 D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\bin\zh-Hans\Microsoft.Owin.Security.Twitter.resources.dll
 D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\obj\Debug\schema.csprojResolveAssemblyReference.cache
 D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\obj\Debug\schema.dll
 D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\obj\Debug\schema.pdb
+D:\Users\lizhenhao\Source\Repos\NewRepo\schema\schema\obj\Debug\schema.csprojResolveAssemblyReference.cache

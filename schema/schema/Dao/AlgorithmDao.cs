@@ -12,6 +12,7 @@ namespace schema.Dao
         private Entities db = new Entities();
         public string GetDeptCode(string patient_id)
         {
+            patient_id = "123";
             string deptcode, deptname;
             double deptnum;
             using (Entities db = new Entities())
@@ -24,9 +25,6 @@ namespace schema.Dao
                 deptcode = par2.Value.ToString();
                 deptname = par3.Value.ToString();
                 deptnum = Double.Parse(par4.Value.ToString());
-                Console.WriteLine(deptcode);
-                Console.WriteLine(deptname);
-                Console.WriteLine(deptnum);
             }
             return deptcode;
         }

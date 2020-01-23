@@ -3,5 +3,26 @@
     ViewBag.Title = "Algo";
 }
 
-<h2>ViewBag.Message</h2>
+<h2>@ViewBag.Message</h2>
+<input type="button" value="algo" onclick="Algo()">
+<script type="text/javascript">
+    function Algo()
+    {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Algorithm/Algo',
+            data: {'patient_id':123},
+            async: true,
+            success:function(data)
+            {
+                alert(data);
+            },
+            error: function () {
+                alert('error!');
+            }
 
+        });
+    }
+
+</script>

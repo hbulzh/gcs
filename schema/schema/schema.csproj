@@ -208,7 +208,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DepartManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\SetsController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Dao\DepartManageDao.cs" />
     <Compile Include="Dao\ItemsDao.cs" />
@@ -360,6 +364,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserManage\userManage.cshtml" />
     <Content Include="Views\DepartManage\departManage.cshtml" />
+    <Content Include="Views\Room\Room.cshtml" />
+    <Content Include="Views\Item\item.cshtml" />
+    <Content Include="Views\Sets\Sets.cshtml" />
+    <Content Include="Views\Log\log.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

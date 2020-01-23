@@ -15,15 +15,15 @@ namespace schema.Service
         private DepartManageDao departDao = new DepartManageDao();
 
         /// <summary>
-        /// 查找所有的用户
+        /// 查找所有的科室
         /// </summary>
-        /// <returns>所有用户列表</returns>
+        /// <returns>所有科室列表</returns>
         public List<T_DEPART_MANAGE> GetAllDepart()
         {
             return departDao.GetAllDepart();
         }
         /// <summary>
-        /// 修改用户信息
+        /// 修改科室信息
         /// </summary>
         /// <param name="newuser">新用户对象</param>
         public void ChangeDepart(T_DEPART_MANAGE newdepart)

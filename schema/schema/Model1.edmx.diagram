@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="002e76b952254444b0731a3c567403bc" Name="Diagram1">
+      <Diagram DiagramId="002e76b952254444b0731a3c567403bc" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="Model1.DEPT_DICT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.PAT_CLASS_NOTE" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.PHYSICAL_MASTER_INDEX" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

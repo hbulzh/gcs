@@ -242,13 +242,84 @@
                             <td>@item.PREDICT_TIME</td>
                             <td>@item.SYNCHRON_TIME</td>                           
                             <td>
-                               
+                             
                                 <span>
                                     <aside class="sm-side">
                                         <div class="inbox-body">
                                             <a href="#myModalchange" data-toggle="modal" title="Compose"> 修改 </a>
                                         </div>
                                     </aside>
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalchange" class="modal fade" style="display: none;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                                    <h4 class="modal-title">请修改信息：</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form role="form" class="form-horizontal" action="DepartManage/Changedepart" method="post">
+                                                        <input type="hidden" value="@item.D_ID" id="departId" name="departId" />
+                                                        <div class="row form-group">
+                                                            <label class="col-lg-2 control-label">科室名</label>
+                                                            <div class="col-lg-10">
+                                                                <input type="text" placeholder="" id="inputEmail1" class="form-control" name="departCode"  required>
+                                                            </div>
+                                                        </div>
+                                                      
+                                                        <div class="row form-group">
+                                                            <label class="col-lg-2 control-label">大屏人数</label>
+                                                            <div class="col-lg-10">
+                                                                <select name="bigNum" class="form-control">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                    <option>6</option>
+                                                                    <option selected="selected">7</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <label class="col-lg-2 control-label">小屏人数</label>
+                                                            <div class="col-lg-10">
+                                                                <select name="smartNum" class="form-control">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option selected="selected">5</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <label class="col-lg-2 control-label">体检预估时间(分钟)</label>
+                                                            <div class="col-lg-10">
+                                                                <input type="text" placeholder="" id="inputEmaill1" class="form-control" name="predictTime">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <label class="col-lg-2 control-label">动态平均时长(分钟)</label>
+                                                            <div class="col-lg-10">
+                                                                <input type="text" placeholder="" id="inputEmaill1" class="form-control" name="dynamicTime">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <label class="col-lg-2 control-label">同步时间(分钟)</label>
+                                                            <div class="col-lg-10">
+                                                                <input type="text" placeholder="" id="inputEmaill1" class="form-control" name="synchronTime">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group sub-btn">
+                                                            <button class="btn btn-send ml-3" type="submit">提交</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
                                 </span>
                             </td>
                         </tr>
@@ -269,69 +340,7 @@
 
         </div>
         <!-- Modal -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalchange" class="modal fade" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">请修改信息：</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" class="form-horizontal">
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">科室名</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="" id="inputEmail1" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">科室类型</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="" id="inputEmail11" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">大屏人数</label>
-                                <div class="col-lg-10">
-                                    <select name="user-type" class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option selected="selected">7</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">小屏人数</label>
-                                <div class="col-lg-10">
-                                    <select name="user-type" class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option selected="selected">5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-lg-2 control-label">体检预估时间(分钟)</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder="" id="inputEmaill1" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group sub-btn">
-                                <button class="btn btn-send ml-3" type="submit">提交</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
+       
         <!-- /.modal -->
     </div>
 

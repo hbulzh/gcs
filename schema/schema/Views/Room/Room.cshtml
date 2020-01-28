@@ -1,0 +1,536 @@
+﻿@model schema.T_CLINIC
+
+@{
+    ViewBag.Title = "Room";
+}
+
+<!-- 诊室管理页面 -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <title>体检中心后台管理 </title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- global stylesheets -->
+    <link href="css/fontsGoogleapis.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-icon-style.css">
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- 新引入 -->
+    <link rel="stylesheet" href="css/button.css">
+</head>
+
+<body>
+
+    <!--====================================================
+                             MAIN NAVBAR
+    ======================================================-->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg ">
+            <div class="search-box">
+                <button class="dismiss"><i class="icon-close"></i></button>
+                <form id="searchForm" action="#" role="search">
+                    <input type="search" placeholder="Search Now" class="form-control">
+                </form>
+            </div>
+            <div class="container-fluid ">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <div class="navbar-header">
+                        <a href="index.html" class="navbar-brand">
+                            <div class="brand-text brand-big hidden-lg-down"><img src="img/logo-white.png" alt="Logo" class="img-fluid"></div>
+                            <div class="brand-text brand-small"><img src="img/logo-icon.png" alt="Logo" class="img-fluid"></div>
+                        </a>
+                        <a id="toggle-btn" href="#" class="menu-btn active">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+                <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                    <!-- Expand-->
+                    <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img src="img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!--====================================================
+                            PAGE CONTENT
+    ======================================================-->
+    <div class="page-content d-flex align-items-stretch">
+
+        <!--***** SIDE NAVBAR *****-->
+        <nav class="side-navbar">
+            <hr>
+            <!-- Sidebar Navidation Menus-->
+            <ul class="list-unstyled">
+                <li> <a href="index.html"><i class="fa fa-home"></i>首页</a></li>
+                <li> <a href="userManagement.html"> <i class="fa fa-user"></i>用户管理 </a></li>
+                <li> <a href="department.html"> <i class="fa fa-hospital-o"></i>科室管理 </a></li>
+                <li> <a href="consultingRoom.html"> <i class="fa fa-medkit"></i>诊室管理 </a></li>
+                <li> <a href="inspectingItem.html"> <i class="fa fa-stethoscope"></i>体检项目前置管理 </a></li>
+                <li hidden> <a href="tables.html"> <i class="fa fa-user-md"></i>医生管理</a></li>
+                <li hidden>
+                    <a href="#apps" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-line-chart"></i>统计查询 </a>
+                    <ul id="apps" class="collapse list-unstyled">
+                        <li><a href="statistics.html">统计</a></li>
+                        <li><a href="query.html">查询</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#forms" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cog"></i>系统设置</a>
+                    <ul id="forms" class="collapse list-unstyled">
+                        <li><a href="reset-register.html">挂号过号设置</a></li>
+                        <li><a href="settime.html">楼层路程时间设置</a></li>
+                        <li><a href="voice.html">语音设置</a></li>
+                        <li hidden><a href="setup.html">医院基本信息</a></li>
+                        <li hidden><a href="play.html">播放类型设置</a></li>
+                        <li hidden><a href="playing.html">播放视频设置</a></li>
+                        <li hidden><a href="model.html">模板设置</a></li>
+                    </ul>
+                </li>
+                <li hidden> <a href="ui-timeline.html"> <i class="fa fa-pencil-square-o"></i>日志管理</a></li>
+            </ul>
+            <!-- <span class="heading">Extras</span>
+            <ul class="list-unstyled">
+                <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+            </ul> -->
+        </nav>
+
+        <div class="content-inner chart-cont">
+
+            <!--***** CONTENT *****-->
+            <div class="row">
+                <div class="mail-box">
+                    <aside class="sm-side">
+                        <div class="inbox-body">
+                            <a href="#myModal" data-toggle="modal" title="修改" class="btn btn-compose"> 添加诊室 </a>
+                            <!-- Modal -->
+                            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                            <h4 class="modal-title">请填写信息：</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form role="form" class="form-horizontal">
+                                                <div class="row form-group">
+                                                    <label class="col-lg-2 control-label">诊室名</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="text" placeholder="" id="inputEmail1" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="col-lg-2 control-label">所属科室</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="text" placeholder="" id="cc" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="col-lg-2 control-label">所在楼层</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="text" placeholder="" id="inputPassword1" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="col-lg-2 control-label">地理位置</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="text" placeholder="" id="inputPassword11" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="col-lg-2 control-label">IP地址</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="text" placeholder="" id="ip" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="col-lg-2 control-label">检查人性别</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="radio" name="sex" checked="checked">
+                                                        <label>男</label>
+                                                        <input type="radio" name="sex" class="sex-women">
+                                                        <label>女</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group sub-btn">
+                                                    <button class="btn btn-send ml-3" type="submit">提交</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                        </div>
+                    </aside>
+                </div>
+                <div class="exports">
+                    <a data-toggle="modal" title="修改" class="btn btn-compose">导出</a>
+                </div>
+                <table class="table table-hover" id="table-list">
+                    <thead>
+                        <tr class="bg-info text-white">
+                            <th>
+                                <input type="checkbox" name="" id="checkall">
+                                全选
+                            </th>
+                            <th>编号</th>
+                            <th>诊室名称</th>
+                            <th>所属科室</th>
+                            <th>所在楼层</th>
+                            <th>地理位置</th>
+                            <th>IP地址</th>
+                            <th>检查人性别</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ittable">
+                        <tr>
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">001</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="table-warning">
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">002</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">003</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="table-success">
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">004</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">005</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="table-danger">
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">006</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">007</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="table-info">
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">008</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">009</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="table-warning">
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">010</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">011</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="table-success">
+                            <th><input type="checkbox" name="item"></th>
+                            <th scope="row">012</th>
+                            <td>诊室一</td>
+                            <td>眼科一室</td>
+                            <td>一楼</td>
+                            <td>一楼</td>
+                            <td>10.188.66.254</td>
+                            <td>男</td>
+                            <td>
+                                <span> <a href="#" onclick="return deletedin();">删除</a></span>
+                                <span>
+                                    <aside class="sm-side">
+                                        <div class="inbox-body">
+                                            <a href="#myModalchange" data-toggle="modal" title="修改"> 修改 </a>
+                                        </div>
+                                    </aside>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="barcon" name="barcon">
+
+                </div>
+                <div class="jump">
+                    <span class="first">跳至</span>
+                    <input type="text" name="" id="gopages" value="">
+                    <span>页</span>
+                    <input type="button" name="" id="gobtn" value="GO" onclick="jumpPage()">
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalchange" class="modal fade" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">请修改信息：</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" class="form-horizontal">
+                            <div class="row form-group">
+                                <label class="col-lg-2 control-label">诊室名</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="" id="inputEmail1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-lg-2 control-label">所属科室</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="" id="cc" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-lg-2 control-label">所在楼层</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="" id="inputPassword1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-lg-2 control-label">地理位置</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="" id="inputPassword11" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-lg-2 control-label">IP地址</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="" id="ip" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="col-lg-2 control-label">检查人性别</label>
+                                <div class="col-lg-10">
+                                    <input type="radio" name="sex" checked="checked">
+                                    <label>男</label>
+                                    <input type="radio" name="sex" class="sex-women">
+                                    <label>女</label>
+                                </div>
+                            </div>
+                            <div class="row form-group sub-btn">
+                                <button class="btn btn-send ml-3" type="submit">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <!--Global Javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper/popper.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/front.js"></script>
+
+    <!--Core Javascript -->
+
+    <script src="js/prettymaps.js"></script>
+    <script type="text/javascript" src="js/checkbox.js"></script>
+    <script type="text/javascript" src="http://ditu.google.cn/maps/api/js"></script>
+    <script type="text/javascript" src="js/pages.js"></script>
+</body>
+
+</html>

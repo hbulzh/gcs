@@ -27,15 +27,17 @@ namespace schema.Controllers
         /// <param name="predictTime"></param>
         /// <param name="synchronTime"></param>
         /// <returns></returns>
-        public ActionResult Changedepart(string userId, string departCode, decimal bigNum, decimal smartNum,decimal predictTime,DateTime synchronTime )
+        
+        [HttpPost]
+        public ActionResult Changedepart(string departId, string departCode, decimal bigNum, decimal smartNum,decimal predictTime,decimal dynamicTime, DateTime synchronTime )
         {
-            T_DEPART_MANAGE depart = depepartManageService.GetDepartByKey(Convert.ToInt32(userId));
+            T_DEPART_MANAGE depart = depepartManageService.GetDepartByKey(Convert.ToInt32(departId));
 
             depart.DEPT_CODE = departCode;
             depart.BIGSCREEN_NUM = bigNum;
             depart.SMALLSCREEN_NUM = smartNum;
             depart.PREDICT_TIME = predictTime;
-            depart.DYNAMIC_TIME = predictTime;
+            depart.DYNAMIC_TIME = dynamicTime;
 
             depart.SYNCHRON_TIME = synchronTime;
             depepartManageService.ChangeDepart(depart);

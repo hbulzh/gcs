@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Web.Script.Serialization;
 
 namespace schema.Dao
 {
     public class AlgorithmDao
     {
         private Entities db = new Entities();
-        public string GetDeptCode(string patient_id)
+        public string GetDeptInfo(string patient_id)
         {
-            patient_id = "123";
-            string deptcode, deptname;
-            double deptnum;
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            JavaScriptSerializer jss = new JavaScriptSerializer();
             using (Entities db = new Entities())
             {
                 //patientid deptname deptnum
@@ -22,11 +22,11 @@ namespace schema.Dao
                 var par3 = new ObjectParameter("deptname", typeof(string));
                 var par4 = new ObjectParameter("deptnum", typeof(double));
                 db.TEST(patient_id,par2,par3,par4);
-                deptcode = par2.Value.ToString();
-                deptname = par3.Value.ToString();
-                deptnum = Double.Parse(par4.Value.ToString());
+                dic.Add("deptcode", par2.Value.ToString());
+                dic.Add("deptname", par3.Value.ToString());
+                dic.Add("deptnum",  par4.Value.ToString());
             }
-            return deptcode;
+            return jss.Serialize(dic);
         }
     }
 }

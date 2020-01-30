@@ -11,12 +11,15 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Algorithm/Algo',
-            data: {'patient_id':123},
+            url: '/Algorithm/algo_json',
+            data: {'patientid':'123'},
             async: true,
             success:function(data)
             {
-                alert(data);
+                data = $.parseJSON(data);
+                console.log(data.deptcode);
+                console.log(data.deptname);
+                console.log(data.deptnum);
             },
             error: function () {
                 alert('error!');

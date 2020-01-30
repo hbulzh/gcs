@@ -15,14 +15,17 @@ namespace schema.Controllers
         }
         public ActionResult Algo(string patientid)
         {
-            AlgorithmDao algo = new AlgorithmDao();
-            string deptcode = algo.GetDeptCode(patientid);
-            ViewBag.Message = deptcode;
+            
+            ViewBag.Message = "获取科室信息";
             return View();
         }
-        public JsonResult algo_json(HttpContext context)
+        public JsonResult algo_json(string patientid)
         {
-            return Json("name:123");
+            return Json(new AlgorithmDao().GetDeptInfo(patientid));
+        }
+        public ActionResult CallNumber()
+        {
+            return View();
         }
     }
 }

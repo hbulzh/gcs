@@ -213,6 +213,14 @@
       <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
       <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
     </FunctionImport>
+    <FunctionImport Name="NEXT_PATIENT">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="OVER_NUMBER">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="T_CLINIC">
     <Key>

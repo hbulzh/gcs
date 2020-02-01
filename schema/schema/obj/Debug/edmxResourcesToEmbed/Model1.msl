@@ -207,5 +207,6 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="TEST" FunctionName="Model1.Store.TEST" />
+    <FunctionImportMapping FunctionImportName="OVER_NUMBER" FunctionName="Model1.Store.OVER_NUMBER" />
   </EntityContainerMapping>
 </Mapping>

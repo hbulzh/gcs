@@ -68,16 +68,6 @@
           <Property Name="SPECIMAN_CODE" Type="varchar2" MaxLength="40" />
           <Property Name="PHY_NAME" Type="varchar2" MaxLength="150" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6013: 表/视图“ZNDJ.T_ALGO_RESULT”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
-        <EntityType Name="T_ALGO_RESULT">
-          <Property Name="T_WAIT" Type="number" Precision="38" Scale="0" />
-          <Property Name="PREDICTTIME" Type="number" Precision="38" Scale="0" />
-          <Property Name="FLOOR" Type="number" Precision="38" Scale="0" />
-          <Property Name="NUM_DEPT" Type="number" Precision="38" Scale="0" />
-          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="20" />
-          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
-        </EntityType>-->
         <EntityType Name="T_CLINIC">
           <Key>
             <PropertyRef Name="CLINIC_ID" />
@@ -228,6 +218,10 @@
           <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
           <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
           <Parameter Name="NUMDEPT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="OVER_NUMBER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+          <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+          <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
         </Function>
         <Function Name="TEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
           <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
@@ -478,6 +472,14 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
             <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
             <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="NEXT_PATIENT">
+            <Parameter Name="PATIENTID" Mode="In" Type="String" />
+            <Parameter Name="DEPTCODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="OVER_NUMBER">
+            <Parameter Name="PATIENTID" Mode="In" Type="String" />
+            <Parameter Name="DEPTCODE" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="T_CLINIC">
           <Key>
@@ -708,6 +710,7 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="TEST" FunctionName="Model1.Store.TEST" />
+          <FunctionImportMapping FunctionImportName="OVER_NUMBER" FunctionName="Model1.Store.OVER_NUMBER" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -91,5 +91,31 @@ namespace schema
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TEST", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
         }
+    
+        public virtual int NEXT_PATIENT(string pATIENTID, string dEPTCODE)
+        {
+            var pATIENTIDParameter = pATIENTID != null ?
+                new ObjectParameter("PATIENTID", pATIENTID) :
+                new ObjectParameter("PATIENTID", typeof(string));
+    
+            var dEPTCODEParameter = dEPTCODE != null ?
+                new ObjectParameter("DEPTCODE", dEPTCODE) :
+                new ObjectParameter("DEPTCODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NEXT_PATIENT", pATIENTIDParameter, dEPTCODEParameter);
+        }
+    
+        public virtual int OVER_NUMBER(string pATIENTID, string dEPTCODE)
+        {
+            var pATIENTIDParameter = pATIENTID != null ?
+                new ObjectParameter("PATIENTID", pATIENTID) :
+                new ObjectParameter("PATIENTID", typeof(string));
+    
+            var dEPTCODEParameter = dEPTCODE != null ?
+                new ObjectParameter("DEPTCODE", dEPTCODE) :
+                new ObjectParameter("DEPTCODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OVER_NUMBER", pATIENTIDParameter, dEPTCODEParameter);
+        }
     }
 }

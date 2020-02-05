@@ -1,0 +1,124 @@
+﻿@model IEnumerable<schema.T_USER>
+@{
+    Layout = null;
+}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <title>体检中心后台管理 </title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- global stylesheets -->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/font-icon-style.css">
+    <link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">
+    <!-- 新引入 -->
+    <link rel="stylesheet" href="~/Content/css/button.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+</head>
+<style>
+    /*web background*/
+    .container {
+        display: table;
+        height: 100%;
+    }
+
+    .row {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    /* centered columns styles */
+    .row-centered {
+        text-align: center;
+    }
+
+    .col-centered {
+        display: inline-block;
+        float: none;
+        text-align: left;
+        margin-right: -4px;
+    }
+    h2{
+        text-align:center;
+        margin:20px;
+    }
+    .input-group{
+        margin-top:20px;
+    }
+    .login-btn{
+        background-color:rgba(22, 155, 213, 1);
+        border-color:rgba(22, 155, 213, 1);
+    }
+    .login-btn:hover{
+        background-color:cadetblue;
+
+    }
+    #tips{
+        color:red;
+        text-align:center;
+        line-height:1px;    
+    }
+</style>
+<script>
+    function login() {
+        console.log(123)
+        var userName = $("#userid").val();
+        var psw = $("#password").val();
+        $.ajax({
+            url: '/UserManage/userLogin',
+            data: {
+                userName,
+                psw
+            },
+            type: 'post',
+            success:function (result, status, xhr) {
+                console.log(result)
+                if (result.success == 1) {
+                    location.href = '/UserManage/userManage';
+                }
+                else {
+                    $("#tips").html(result.msg);
+                }
+            },
+            
+        })
+    }
+
+    $(document).ready(function () {
+        $("#lg_btn").bind('click', login);
+
+    })
+</script>
+
+
+<body>
+
+    <div class="container">
+        <div class="row row-centered">
+            <div class="well col-md-6 col-centered">
+                <h2>管理员登陆页面</h2>
+                <div >
+                    <p id="tips"></p>
+                    <div class="input-group input-group-md">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" id="userid" name="userid" placeholder="请输入用户名" />
+                    </div>
+                    <div class="input-group input-group-md">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-key fa-fw"></i></span>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" />
+                    </div>
+                    <br />
+                    <button id="lg_btn" class="btn btn-success btn-block login-btn">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>

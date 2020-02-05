@@ -97,9 +97,18 @@ namespace schema.DAO
         /// <returns></returns>
         public T_USER Login(string name, string key)
         {
+
             List<T_USER> List = new List<T_USER>();
-            List = db.T_USER.Where(x => x.USER_NAME == name && x.PASSWORD == key).ToList();
-            return List[0];
+            List = db.T_USER.Where(x => x.LOGIN_NAME == name && x.PASSWORD == key).ToList();
+            if (List != null & List.Count() > 0)
+            {
+                return List[0];
+
+            }
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 查找用户类型通过名字

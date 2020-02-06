@@ -82,5 +82,10 @@ namespace schema.Service
         {
             return usersDao.GetUserByKey(key);
         }
+
+        public T_USER login(string userName,string psw)
+        {
+            return usersDao.Login(userName, psw);
+        }
     }
 }

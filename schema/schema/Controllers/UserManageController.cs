@@ -10,13 +10,53 @@ namespace schema.Controllers
     public class UserManageController : Controller
     {
         private  UserManageService userManageService = new UserManageService();
+
+        public ActionResult login()
+        {
+
+            return View();
+        }
+
         // GET: UserManage
         public ActionResult userManage()
         {
+            if (Session["loginName"] == null)
+            {
+                return RedirectToAction("login");
+            }
             //用户的相关信息
             ViewBag.userkist = userManageService.GetAllUsers();
             return View();
         }
+
+        [HttpPost]
+        public JsonResult userLogin(string userName,string psw)
+        {
+
+            T_USER user = userManageService.login(userName, psw);
+            Dictionary<string, object> res = new Dictionary<string, object>();
+            
+            if (user == null)
+            {
+                res.Add("success", 0);
+                res.Add("msg", "账号或密码错误！");
+            }
+            else if (user.IS_USE==0)
+            {
+                res.Add("success",0);
+                res.Add("msg", "账号未启用！");
+            }
+            else
+            {
+                Session["loginName"] = user.LOGIN_NAME;
+                res.Add("success", 1);
+                res.Add("msg", "登陆成功！");
+
+            }
+            return Json(res);
+
+        }
+
         [HttpPost]
         public ActionResult AddUser(string userName, string nickName, string passWord,  string userType )
         {

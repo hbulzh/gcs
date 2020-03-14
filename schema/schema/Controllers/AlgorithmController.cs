@@ -19,13 +19,28 @@ namespace schema.Controllers
         public ActionResult Algo(string patientid)
         {
             
-            ViewBag.Message = "科室信息";
+            ViewBag.clinic = "科室信息";
             return View();
         }
-        public JsonResult algo_json(string patientid)
+
+        public void algo_json(string patientid)
         {
-            ViewBag.num = ViewBag.num - 1;
-            return Json(adao.GetDeptInfo(patientid));
+            
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string DeptInfo = adao.GetDeptInfo(patientid);
+            Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(DeptInfo);
+            ViewBag.nxtDeptName = dic["deptname"];
+            ViewBag.nxtDeptnum = dic["deptnum"];
+            ViewBag.clinicNum = ViewBag.clinicNum - 1;
+        }
+        public void getUserInfo(string deptcode,int deptnum)
+        {
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string UserInfo = adao.GetUserInfo(adao.getDeptCodeByName(deptcode), deptnum);
+            Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
+            ViewBag.name = dic["name"];
+            ViewBag.age = dic["age"];
+            ViewBag.sex = dic["sex"];
         }
         public ActionResult CallNumber()
         {
@@ -35,19 +50,17 @@ namespace schema.Controllers
             ViewBag.nxtDeptNum = 456;
             return View();
         }
-        public JsonResult NxtPatient(string deptcode,int deptnum)
+        public void getDeptNumber(string deptname)
         {
-            return Json("123:456");
-            if (ViewBag.num==0) return Json(adao.GetUserInfo(deptcode, deptnum));
-            else return Json("error");
+            ViewBag.clinicNum = adao.GetDeptNum(adao.getDeptCodeByName(deptname));
         }
         /// <summary>
         /// 显示下一个病人信息到页面上
         /// </summary>
-        public JsonResult OverNumber(string patientid,string deptcode,int deptnum)
+        public void OverNumber(string patientid,string deptcode,int deptnum)
         {
             adao.overNumber(patientid,deptcode);
-            return NxtPatient(deptcode, deptnum);
+            getUserInfo(deptcode, deptnum);
         }
     }
 }

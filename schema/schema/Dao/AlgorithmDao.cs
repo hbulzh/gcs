@@ -24,6 +24,10 @@ namespace schema.Dao
             dic.Add("deptnum", par4.Value.ToString());
             return jss.Serialize(dic);
         }
+        public string getDeptCodeByName(string deptcode)
+        {
+            return db.DEPT_DICT.Where(x => (x.DEPT_CODE == deptcode)).ToList()[0].DEPT_NAME;
+        }
         public int GetDeptNum(string deptcode)
         {
             return db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode && x.COMPLETE_TIME == null)).ToArray().Length;

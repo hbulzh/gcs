@@ -1,28 +1,52 @@
 ﻿
-@{
-    ViewBag.Title = "Algo";
-}
+<!DOCTYPE html>
+<html style="background-color: #000;">
 
-<h2>@ViewBag.Message</h2>
-<input type="button" value="algo" onclick="Algo()">
+<head>
+    <title>医师界面</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../Content/index.css">
+</head>
+
+<body style="background-color: #000;">
+    <div class="doc_main">
+        <div class="doc_mainHeader">
+            <p id="clinicName">某诊室</p>
+        </div>
+        <div class="doc_maincontent">
+            <div class="doc_main_info">
+                <p>当前候检人数<i>@ViewBag.clinicNum</i></p>
+            </div>
+            <div class="doc_main_content clearfix">
+                <p class="doc_main_name">候检人姓名<i>@ViewBag.name</i></p>
+                <p class="doc_main_sex">性别<i>女@ViewBag.sex<i></p>
+                <p class="doc_main_age">年龄<i>@ViewBag.age</i></p>
+            </div>
+            <div class="doc_main_content clearfix">
+                <span>体检号</span>
+                <input type="text" placeholder="扫码枪输入体检号">
+                <button>查询</button>
+            </div>
+            <div class="doc_main_content clearfix">
+                <p class="doc_main_name">到检人姓名<i>张三</i></p>
+                <p class="doc_main_sex">性别<i>女</i></p>
+                <p class="doc_main_age">年龄<i>30</i></p>
+            </div>
+            <div class="doc_main_btn clearfix">
+                <button onclick="nxtPatient()">下一位</button>
+                <button>重新呼叫</button>
+                <button onclick="OverNumber()">过号</button>
+            </div>
+            <div class="doc_main_next">
+                <span>@ViewBag.name</span>
+                <p>下一站<i>@ViewBag.nxtDeptName (@ViewBag.nxtDeptnum)</i></p>
+            </div>
+        </div>
+    </div>
+</body>
 <script type="text/javascript">
-    function Algo()
-    {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Algorithm/algo_json',
-            data: {'patientid':'123'},
-            async: true,
-            success:function(data)
-            {
-                console.log(data);
-            },
-            error: function () {
-                alert('error!');
-            }
-
-        });
-    }
+    
 
 </script>
+</html>

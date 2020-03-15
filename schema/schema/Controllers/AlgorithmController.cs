@@ -42,26 +42,19 @@ namespace schema.Controllers
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string DeptInfo = adao.GetNxtDeptInfo(patientid);
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(DeptInfo);
-            ViewBag.nxtDeptName = dic["deptname"];
-            ViewBag.nxtDeptnum = dic["deptnum"];
+            ViewBag.nxtDept = dic["deptname"] + '(' + dic["deptnum"] + ')';
         }
         public void getFirstUserInfo(string deptName)
         {
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string UserInfo = adao.GetFirstUserInfo(adao.getDeptCode(deptName));
+            if (UserInfo == null) return;
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
             ViewBag.name = dic["name"];
             ViewBag.age = dic["age"];
             ViewBag.sex = dic["sex"] == "1" ? "男":"女" ;
         }
-        public ActionResult CallNumber()
-        {
-            ViewBag.nxtDept = "123";
-            ViewBag.num = 100;
-            ViewBag.nxtDept = "1231";
-            ViewBag.nxtDeptNum = 456;
-            return View();
-        }
+       
         public void getDeptNumber(string deptname)
         {
             ViewBag.deptNum = adao.GetDeptNum(adao.getDeptCode(deptname));

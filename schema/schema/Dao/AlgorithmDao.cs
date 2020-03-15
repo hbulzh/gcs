@@ -12,7 +12,7 @@ namespace schema.Dao
     {
         private Entities db = new Entities();
         JavaScriptSerializer jss = new JavaScriptSerializer();
-        public string GetDeptInfo(string patient_id)
+        public string GetNxtDeptInfo(string patient_id)
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             var par2 = new ObjectParameter("deptcode", typeof(string));
@@ -24,9 +24,9 @@ namespace schema.Dao
             dic.Add("deptnum", par4.Value.ToString());
             return jss.Serialize(dic);
         }
-        public string getDeptCodeByName(string deptcode)
+        public string getDeptCode(string deptname)
         {
-            return db.DEPT_DICT.Where(x => (x.DEPT_CODE == deptcode)).ToList()[0].DEPT_NAME;
+            return db.DEPT_DICT.Where(x => (x.DEPT_NAME == deptname)).ToList()[0].DEPT_CODE;
         }
         public int GetDeptNum(string deptcode)
         {
@@ -45,6 +45,21 @@ namespace schema.Dao
             dic.Add("sex", user1[0].SEX_CODE);
             dic.Add("age", user1[0].AGE.ToString());
             return jss.Serialize(dic);
+        }
+        public string GetFirstUserInfo(string deptcode)
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            string ID_CARD = db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode)).OrderBy(x => x.QUE_NUM).ToArray()[0].ID_CARD;
+            PHYSICAL_MASTER_INDEX user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.ID_CARD == ID_CARD)).ToList()[0];
+            dic.Add("name", user1.NAME);
+            dic.Add("sex", user1.SEX_CODE);
+            dic.Add("age", user1.AGE.ToString());
+            return jss.Serialize(dic);
+        }
+        public string getPatientId(string username)
+        {
+            PHYSICAL_MASTER_INDEX[] user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.NAME == username)).ToArray();
+            return user1[0].PATIENT_ID;
         }
     }
 }

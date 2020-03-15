@@ -19,28 +19,40 @@ namespace schema.Controllers
         public ActionResult Algo(string patientid)
         {
             
-            ViewBag.clinic = "科室信息";
+            ViewBag.deptName = "彩超";
+            getFirstUserInfo(ViewBag.deptName);
+            getDeptNumber(ViewBag.deptname);
             return View();
         }
-
-        public void algo_json(string patientid)
+        public JsonResult nxtPatient(string username)
         {
-            
+            string patientid = adao.getPatientId(username);
+            getNxtPatient(patientid);
+            getNxtDeptInfo(patientid);
+            return Json(adao.GetNxtDeptInfo(patientid));
+        }
+        public void getNxtPatient(string patientid)
+        {
+            getFirstUserInfo(ViewBag.deptName);
+            getNxtDeptInfo(patientid);
+            getDeptNumber(ViewBag.deptName);
+        }
+        public void getNxtDeptInfo(string patientid)
+        {
             JavaScriptSerializer jss = new JavaScriptSerializer();
-            string DeptInfo = adao.GetDeptInfo(patientid);
+            string DeptInfo = adao.GetNxtDeptInfo(patientid);
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(DeptInfo);
             ViewBag.nxtDeptName = dic["deptname"];
             ViewBag.nxtDeptnum = dic["deptnum"];
-            ViewBag.clinicNum = ViewBag.clinicNum - 1;
         }
-        public void getUserInfo(string deptcode,int deptnum)
+        public void getFirstUserInfo(string deptName)
         {
             JavaScriptSerializer jss = new JavaScriptSerializer();
-            string UserInfo = adao.GetUserInfo(adao.getDeptCodeByName(deptcode), deptnum);
+            string UserInfo = adao.GetFirstUserInfo(adao.getDeptCode(deptName));
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
             ViewBag.name = dic["name"];
             ViewBag.age = dic["age"];
-            ViewBag.sex = dic["sex"];
+            ViewBag.sex = dic["sex"] == "1" ? "男":"女" ;
         }
         public ActionResult CallNumber()
         {
@@ -52,15 +64,17 @@ namespace schema.Controllers
         }
         public void getDeptNumber(string deptname)
         {
-            ViewBag.clinicNum = adao.GetDeptNum(adao.getDeptCodeByName(deptname));
+            ViewBag.deptNum = adao.GetDeptNum(adao.getDeptCode(deptname));
         }
         /// <summary>
         /// 显示下一个病人信息到页面上
         /// </summary>
-        public void OverNumber(string patientid,string deptcode,int deptnum)
+        public void OverNumber(string username,string deptname)
         {
+            string deptcode = adao.getDeptCode(deptname);
+            string patientid = adao.getPatientId(username);
             adao.overNumber(patientid,deptcode);
-            getUserInfo(deptcode, deptnum);
+            getFirstUserInfo(deptcode);
         }
     }
 }

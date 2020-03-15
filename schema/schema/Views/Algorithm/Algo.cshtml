@@ -19,7 +19,7 @@
                 <p>当前候检人数<i>@ViewBag.deptNum</i></p>
             </div>
             <div class="doc_main_content clearfix">
-                <p class="doc_main_name">候检人姓名<i>@ViewBag.name</i></p>
+                <p class="doc_main_name" id="CurName">候检人姓名<i>@ViewBag.name</i></p>
                 <p class="doc_main_sex">性别<i>@ViewBag.sex<i></p>
                 <p class="doc_main_age">年龄<i>@ViewBag.age</i></p>
             </div>
@@ -50,7 +50,7 @@
     {
         $.post('/Algorithm/nxtPatient',
             {
-                username:'zhongjin'
+                username:document.getElementById('CurName').innerHTML
             },
             function(data,status)
             {
@@ -61,8 +61,8 @@
     {
         $.post('/Algorithm/OverNumber',
             {
-                username:'zhongjin',
-                deptname: document.getElementById('deptname')
+                username: document.getElementById('CurName').innerHTML,
+                deptname: document.getElementById('deptname').innerHTML
             }
             ,function()
             {

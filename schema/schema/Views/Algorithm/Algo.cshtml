@@ -39,8 +39,8 @@
                 <button onclick="OverNumber()">过号</button>
             </div>
             <div class="doc_main_next">
-                <span>@ViewBag.name</span>
-                <p>下一站<i>@ViewBag.nxtDept</i></p>
+                <span id="CurName1">@ViewBag.name</span>
+                <p>下一站<i id="nxtDept">@ViewBag.nxtDept</i></p>
             </div>
         </div>
     </div>
@@ -55,7 +55,6 @@
     function Patient()
     {
         CurPatient();
-        NxtPatient();
     }
     function NxtPatient()
     {
@@ -68,19 +67,16 @@
               }
               else {
                   //更新诊室数量
-                  $.post('/Algorithm/getDeptNumber',
-                  function (deptNum, status) {
-                      document.getElementById('deptNum').innerHTML = deptNum
-                      
-                  })
+                  document.getElementById('deptNum').innerHTML = deptNum
+
                   //更新当前诊室的下一个病人
                   $.post('/Algorithm/getFirstUserInfo',
                   function (data, status) {
                       user = JSON.parse(data);
+                      console.log(data)
                       document.getElementById('CurName').innerHTML = user.name
                       document.getElementById('sex').innerHTML = user.sex
                       document.getElementById('age').innerHTML = user.age
-                      
                   })
               }
 
@@ -92,6 +88,10 @@
         $.post('/Algorithm/getNxtDeptInfo',
             function (data, status) {
                 console.log(data);
+                dept = JSON.parse(data)
+                document.getElementById('CurName1').innerHTML = user.name
+                document.getElementById('nxtDept').innerText = dept.deptname + '(' + dept.deptnum + ')'
+                NxtPatient();
             })
     }
     function OverNumber()

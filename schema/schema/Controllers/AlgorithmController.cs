@@ -16,17 +16,13 @@ namespace schema.Controllers
 
         public static string patientid = "";
         // GET: Algorithm
-        public ActionResult Index()
-        {
-            return View();
-        }
-        public ActionResult Algo()
+        public ActionResult Algo(string inputname)
         {
             
             JavaScriptSerializer jss = new JavaScriptSerializer();
             try
             {
-                ViewBag.deptName = deptName = "彩超";
+                ViewBag.deptName = deptName = inputname;
                 deptCode = adao.getDeptCode(deptName);
                 //debug
                 adao.setCompleteTimeNULL(deptCode);
@@ -41,6 +37,7 @@ namespace schema.Controllers
             }
             return View();
         }
+
         public JsonResult getNxtDeptInfo()
         {
             // 对当前病人的检查完成时间赋值
@@ -51,12 +48,19 @@ namespace schema.Controllers
         }
         public JsonResult getFirstUserInfo()
         {
-            string UserInfo = adao.GetFirstUserInfo(deptCode);
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            if (UserInfo == null) return null;
-            Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
-            patientid = adao.getPatientId(dic["name"]);
-            return Json(UserInfo);
+            try
+            {
+                string UserInfo = adao.GetFirstUserInfo(deptCode);
+                JavaScriptSerializer jss = new JavaScriptSerializer();
+                Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
+                patientid = adao.getPatientId(dic["name"]);
+                return Json(UserInfo);
+            }
+            catch
+            {
+                return Json("获取信息失败");
+            }
+            
         }
 
         public int getDeptNumber()
@@ -66,11 +70,11 @@ namespace schema.Controllers
         /// <summary>
         /// 显示下一个病人信息到页面上
         /// </summary>
-        public void OverNumber(string username)
+        public JsonResult OverNumber(string username)
         {
             string patientid = adao.getPatientId(username);
             adao.overNumber(patientid, deptCode);
-            getFirstUserInfo();
+            return getFirstUserInfo();
         }
     }
 }

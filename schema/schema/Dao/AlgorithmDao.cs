@@ -14,23 +14,28 @@ namespace schema.Dao
         JavaScriptSerializer jss = new JavaScriptSerializer();
         public string GetNxtDeptInfo(string patient_id)
         {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
             try
             {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
+                
                 var par2 = new ObjectParameter("deptcode", typeof(string));
                 var par3 = new ObjectParameter("deptname", typeof(string));
-                var par4 = new ObjectParameter("deptnum", typeof(double));
+                var par4 = new ObjectParameter("deptnum", typeof(int));
                 db.ADDQUEUE(patient_id, par2, par3, par4);
                 dic.Add("deptcode", par2.Value.ToString());
                 dic.Add("deptname", par3.Value.ToString());
                 dic.Add("deptnum", par4.Value.ToString());
-                return jss.Serialize(dic);
+                
             }
             catch
             {
-                throw new Exception("当前病人已全部就诊");
+                dic.Add("deptcode", "");
+                dic.Add("deptname", "");
+                dic.Add("deptnum", "");
+                return jss.Serialize(dic);
             }
-            
+            return jss.Serialize(dic);
+
         }
         public string getDeptCode(String deptName)
         {

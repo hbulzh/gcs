@@ -220,6 +220,7 @@
     <Compile Include="Dao\ItemsDao.cs" />
     <Compile Include="Dao\LogsDao.cs" />
     <Compile Include="Dao\RoomManageDao.cs" />
+    <Compile Include="Dao\ScreenDao.cs" />
     <Compile Include="Dao\SetDao.cs" />
     <Compile Include="Dao\UserManageDao.cs" />
     <Compile Include="DEPT_DICT.cs">

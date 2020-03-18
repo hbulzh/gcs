@@ -34,7 +34,7 @@
                 <p class="doc_main_age">年龄<i></i></p>
             </div>
             <div class="doc_main_btn clearfix">
-                <button onclick="nxtPatient()">下一位</button>
+                <button onclick="Patient()">下一位</button>
                 <button>重新呼叫</button>
                 <button onclick="OverNumber()">过号</button>
             </div>
@@ -50,43 +50,49 @@
 
 <script type="text/javascript">
     window.onload = function(){
-        nxtPatient()
+        NxtPatient()
     }
-    function nxtPatient()
+    function Patient()
     {
-        var deptNum;
+        CurPatient();
+        NxtPatient();
+    }
+    function NxtPatient()
+    {
+        //
         $.post('/Algorithm/getDeptNumber',
-           function (data, state) {
-               deptNum = data;
-           })
-        if (deptNum <= 0)
-        {
-            alert("当前已无候检人，请勿重复操作")
-        }
-        else
-        {
-            $.post('/Algorithm/getNxtDeptInfo',
+          function (deptNum, state) {
+              if (deptNum <= 0)
+              {
+                  alert("当前已无候检人，请勿重复操作")
+              }
+              else {
+                  //更新诊室数量
+                  $.post('/Algorithm/getDeptNumber',
+                  function (deptNum, status) {
+                      document.getElementById('deptNum').innerHTML = deptNum
+                      
+                  })
+                  //更新当前诊室的下一个病人
+                  $.post('/Algorithm/getFirstUserInfo',
+                  function (data, status) {
+                      user = JSON.parse(data);
+                      document.getElementById('CurName').innerHTML = user.name
+                      document.getElementById('sex').innerHTML = user.sex
+                      document.getElementById('age').innerHTML = user.age
+                      
+                  })
+              }
+
+          })
+    }
+    function CurPatient()
+    {
+        //下一站
+        $.post('/Algorithm/getNxtDeptInfo',
             function (data, status) {
                 console.log(data);
-                console.log(status);
-                ///更新下一站
             })
-            $.post('/Algorithm/getDeptNumber',
-            function (deptNum, status) {
-                document.getElementById('deptNum').innerHTML = deptNum
-                //更新诊室数量
-            })
-            $.post('/Algorithm/getFirstUserInfo',
-            function (data, status) {
-                if (data == null) alert("当前已无候检人，请勿重复操作")
-                user = JSON.parse(data);
-                document.getElementById('CurName').innerHTML = user.name
-                document.getElementById('sex').innerHTML = user.sex
-                document.getElementById('age').innerHTML = user.age
-                //更新当前诊室的下一个病人
-            })
-        }
-
     }
     function OverNumber()
     {
@@ -97,7 +103,6 @@
             ,function(data, status)
             {
                 console.log(status)
-                //更新当前诊室的下一个病人
             })
     }
 

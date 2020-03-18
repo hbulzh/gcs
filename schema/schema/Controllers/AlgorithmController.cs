@@ -28,25 +28,17 @@ namespace schema.Controllers
             {
                 ViewBag.deptName = deptName = "彩超";
                 deptCode = adao.getDeptCode(deptName);
-
                 //debug
                 adao.setCompleteTimeNULL(deptCode);
                 //初始化第一个人
                 string UserInfo = adao.GetFirstUserInfo(deptCode);
-
                 Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
                 patientid = adao.getPatientId(dic["name"]);
-                ViewBag.name = dic["name"];
-                ViewBag.sex = dic["sex"] == "1" ? "男" : "女";
-                ViewBag.age = dic["age"];
-                ViewBag.deptNum = getDeptNumber();
             }
             catch
             {
                 ViewBag.deptNum = 0;
             }
-            
-           
             return View();
         }
         public JsonResult getNxtDeptInfo()

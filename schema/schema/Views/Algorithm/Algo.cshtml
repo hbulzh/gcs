@@ -16,12 +16,12 @@
         </div>
         <div class="doc_maincontent">
             <div class="doc_main_info">
-                <p>当前候检人数<i>@ViewBag.deptNum</i></p>
+                <p>当前候检人数<i id="deptNum"></i></p>
             </div>
             <div class="doc_main_content clearfix">
-                <p class="doc_main_name" id="CurName">候检人姓名<i>@ViewBag.name</i></p>
-                <p class="doc_main_sex">性别<i>@ViewBag.sex<i></p>
-                <p class="doc_main_age">年龄<i>@ViewBag.age</i></p>
+                <p class="doc_main_name">候检人姓名<i id="CurName"></i></p>
+                <p class="doc_main_sex">性别<i id="sex"></i></p>
+                <p class="doc_main_age">年龄<i id="age"></i></p>
             </div>
             <div class="doc_main_content clearfix">
                 <span>体检号</span>
@@ -29,9 +29,9 @@
                 <button>查询</button>
             </div>
             <div class="doc_main_content clearfix">
-                <p class="doc_main_name">到检人姓名<i>张三</i></p>
-                <p class="doc_main_sex">性别<i>女</i></p>
-                <p class="doc_main_age">年龄<i>30</i></p>
+                <p class="doc_main_name">到检人姓名<i></i></p>
+                <p class="doc_main_sex">性别<i></i></p>
+                <p class="doc_main_age">年龄<i></i></p>
             </div>
             <div class="doc_main_btn clearfix">
                 <button onclick="nxtPatient()">下一位</button>
@@ -45,30 +45,60 @@
         </div>
     </div>
 </body>
+
+</html>
+
 <script type="text/javascript">
+    window.onload = function(){
+        nxtPatient()
+    }
     function nxtPatient()
     {
-        $.post('/Algorithm/nxtPatient',
-            {
-                username:document.getElementById('CurName').innerHTML
-            },
-            function(data,status)
-            {
+        var deptNum;
+        $.post('/Algorithm/getDeptNumber',
+           function (data, state) {
+               deptNum = data;
+           })
+        if (deptNum <= 0)
+        {
+            alert("当前已无候检人，请勿重复操作")
+        }
+        else
+        {
+            $.post('/Algorithm/getNxtDeptInfo',
+            function (data, status) {
                 console.log(data);
+                console.log(status);
+                ///更新下一站
             })
+            $.post('/Algorithm/getDeptNumber',
+            function (deptNum, status) {
+                document.getElementById('deptNum').innerHTML = deptNum
+                //更新诊室数量
+            })
+            $.post('/Algorithm/getFirstUserInfo',
+            function (data, status) {
+                if (data == null) alert("当前已无候检人，请勿重复操作")
+                user = JSON.parse(data);
+                document.getElementById('CurName').innerHTML = user.name
+                document.getElementById('sex').innerHTML = user.sex
+                document.getElementById('age').innerHTML = user.age
+                //更新当前诊室的下一个病人
+            })
+        }
+
     }
     function OverNumber()
     {
         $.post('/Algorithm/OverNumber',
             {
-                username: document.getElementById('CurName').innerHTML,
-                deptname: document.getElementById('deptname').innerHTML
+                username: document.getElementById('CurName').innerHTML
             }
-            ,function()
+            ,function(data, status)
             {
-            
+                console.log(status)
+                //更新当前诊室的下一个病人
             })
     }
 
 </script>
-</html>

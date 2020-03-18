@@ -11,63 +11,74 @@ namespace schema.Controllers
     public class AlgorithmController : Controller
     {
         AlgorithmDao adao = new AlgorithmDao();
+        public static string deptName = "";
+        public static string deptCode = "";
+
+        public static string patientid = "";
         // GET: Algorithm
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Algo(string patientid)
+        public ActionResult Algo()
         {
             
-            ViewBag.deptName = "彩超";
-            getFirstUserInfo(ViewBag.deptName);
-            getDeptNumber(ViewBag.deptname);
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            try
+            {
+                ViewBag.deptName = deptName = "彩超";
+                deptCode = adao.getDeptCode(deptName);
+
+                //debug
+                adao.setCompleteTimeNULL(deptCode);
+                //初始化第一个人
+                string UserInfo = adao.GetFirstUserInfo(deptCode);
+
+                Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
+                patientid = adao.getPatientId(dic["name"]);
+                ViewBag.name = dic["name"];
+                ViewBag.sex = dic["sex"] == "1" ? "男" : "女";
+                ViewBag.age = dic["age"];
+                ViewBag.deptNum = getDeptNumber();
+            }
+            catch
+            {
+                ViewBag.deptNum = 0;
+            }
+            
+           
             return View();
         }
-        public JsonResult nxtPatient(string username)
+        public JsonResult getNxtDeptInfo()
         {
-            string patientid = adao.getPatientId(username);
-            getNxtPatient(patientid);
-            getNxtDeptInfo(patientid);
-            return Json(adao.GetNxtDeptInfo(patientid));
+            // 对当前病人的检查完成时间赋值
+            adao.setCompleteTime(patientid, deptCode);
+            //返回当前病人下一站要去的地方
+            string NxtDeptInfo = adao.GetNxtDeptInfo(patientid);
+            return Json(NxtDeptInfo);
         }
-        public void getNxtPatient(string patientid)
+        public JsonResult getFirstUserInfo()
         {
-            getFirstUserInfo(ViewBag.deptName);
-            getNxtDeptInfo(patientid);
-            getDeptNumber(ViewBag.deptName);
-        }
-        public void getNxtDeptInfo(string patientid)
-        {
+            string UserInfo = adao.GetFirstUserInfo(deptCode);
             JavaScriptSerializer jss = new JavaScriptSerializer();
-            string DeptInfo = adao.GetNxtDeptInfo(patientid);
-            Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(DeptInfo);
-            ViewBag.nxtDept = dic["deptname"] + '(' + dic["deptnum"] + ')';
-        }
-        public void getFirstUserInfo(string deptName)
-        {
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            string UserInfo = adao.GetFirstUserInfo(adao.getDeptCode(deptName));
-            if (UserInfo == null) return;
+            if (UserInfo == null) return null;
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
-            ViewBag.name = dic["name"];
-            ViewBag.age = dic["age"];
-            ViewBag.sex = dic["sex"] == "1" ? "男":"女" ;
+            patientid = adao.getPatientId(dic["name"]);
+            return Json(UserInfo);
         }
-       
-        public void getDeptNumber(string deptname)
+
+        public int getDeptNumber()
         {
-            ViewBag.deptNum = adao.GetDeptNum(adao.getDeptCode(deptname));
+            return adao.GetDeptNum(deptCode);
         }
         /// <summary>
         /// 显示下一个病人信息到页面上
         /// </summary>
-        public void OverNumber(string username,string deptname)
+        public void OverNumber(string username)
         {
-            string deptcode = adao.getDeptCode(deptname);
             string patientid = adao.getPatientId(username);
-            adao.overNumber(patientid,deptcode);
-            getFirstUserInfo(deptcode);
+            adao.overNumber(patientid, deptCode);
+            getFirstUserInfo();
         }
     }
 }

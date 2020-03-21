@@ -52,7 +52,7 @@ namespace schema.Dao
         }
         public int GetDeptNum(string deptcode)
         {
-            return db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode && x.COMPLETE_TIME == null)).ToArray().Length;
+            return db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode && x.COMPLETE_TIME == null && x.CREAT_TIME != null)).ToArray().Length;
         }
         public void overNumber(string patientid, string deptcode)
         {

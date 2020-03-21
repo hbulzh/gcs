@@ -460,6 +460,8 @@
     <Content Include="Content\img\work\7.jpg" />
     <Content Include="Content\img\work\8.jpg" />
     <Content Include="Content\index.css" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -660,6 +662,7 @@
     <Content Include="Views\Log\log.cshtml" />
     <Content Include="Views\Algorithm\Algo.cshtml" />
     <Content Include="Views\UserManage\login.cshtml" />
+    <Content Include="Views\Algorithm\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,6 +15,10 @@ namespace schema.Controllers
         public static string deptCode = "";
 
         public static string patientid = "";
+        public ActionResult Login()
+        {
+            return View();
+        }
         // GET: Algorithm
         public ActionResult Algo(string inputname)
         {
@@ -25,7 +29,7 @@ namespace schema.Controllers
                 ViewBag.deptName = deptName = inputname;
                 deptCode = adao.getDeptCode(deptName);
                 //debug
-                adao.setCompleteTimeNULL(deptCode);
+                //adao.setCompleteTimeNULL(deptCode);
                 //初始化第一个人
                 string UserInfo = adao.GetFirstUserInfo(deptCode);
                 Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
@@ -75,6 +79,10 @@ namespace schema.Controllers
             string patientid = adao.getPatientId(username);
             adao.overNumber(patientid, deptCode);
             return getFirstUserInfo();
+        }
+        public JsonResult getFirstDeptInfo(string patientid)
+        {
+            return Json(adao.GetNxtDeptInfo(patientid));
         }
     }
 }

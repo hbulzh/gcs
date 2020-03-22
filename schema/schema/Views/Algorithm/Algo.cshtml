@@ -20,22 +20,22 @@
             </div>
             <div class="doc_main_content clearfix">
                 <p class="doc_main_name">候检人姓名<i id="CurName"></i></p>
-                <p class="doc_main_sex">性别<i id="sex"></i></p>
-                <p class="doc_main_age">年龄<i id="age"></i></p>
+                <p class="doc_main_sex">性别<i id="CurSex"></i></p>
+                <p class="doc_main_age">年龄<i id="CurAge"></i></p>
             </div>
             <div class="doc_main_content clearfix">
                 <span>体检号</span>
-                <input type="text" placeholder="扫码枪输入体检号">
-                <button>查询</button>
+                <input type="text" placeholder="扫码枪输入体检号" id="inputPatientid">
+                <button onclick="getUserInfo()">查询</button>
             </div>
             <div class="doc_main_content clearfix">
-                <p class="doc_main_name">到检人姓名<i></i></p>
-                <p class="doc_main_sex">性别<i></i></p>
-                <p class="doc_main_age">年龄<i></i></p>
+                <p class="doc_main_name" >到检人姓名<i id="ComeName"></i></p>
+                <p class="doc_main_sex" >性别<i id="ComeSex"></i></p>
+                <p class="doc_main_age" >年龄<i id="ComeAge"></i></p>
             </div>
             <div class="doc_main_btn clearfix">
                 <button onclick="Patient()">下一位</button>
-                <button>重新呼叫</button>
+                <button onclick="recall()">重新呼叫</button>
                 <button onclick="OverNumber()">过号</button>
             </div>
             <div class="doc_main_next">
@@ -52,13 +52,37 @@
     window.onload = function(){
         NxtPatient()
     }
+    function recall()
+    {
+        $.post('/Algorithm/getFirstUserInfo',
+            function (data, status) {
+                console.log(data)
+                user = JSON.parse(data);
+                document.getElementById('CurName').innerHTML = user.name
+                document.getElementById('CurSex').innerHTML = user.sex
+                document.getElementById('CurAge').innerHTML = user.age
+            })
+    }
+    function getUserInfo()
+    {
+        
+        $.post('/Algorithm/GetUserInfo',
+            {
+                patientid: document.getElementById('inputPatientid').value
+            },
+            function (data, status) {
+                user = JSON.parse(data);
+                document.getElementById('ComeName').innerHTML = user.name
+                document.getElementById('ComeSex').innerHTML = user.sex
+                document.getElementById('ComeAge').innerHTML = user.age
+            })
+    }
     function Patient()
     {
         CurPatient();
     }
     function NxtPatient()
     {
-        //
         $.post('/Algorithm/getDeptNumber',
           function (deptNum, state) {
               if (deptNum <= 0)
@@ -75,8 +99,8 @@
                       user = JSON.parse(data);
                       console.log(data)
                       document.getElementById('CurName').innerHTML = user.name
-                      document.getElementById('sex').innerHTML = user.sex
-                      document.getElementById('age').innerHTML = user.age
+                      document.getElementById('CurSex').innerHTML = user.sex
+                      document.getElementById('CurAge').innerHTML = user.age
                   })
               }
 
@@ -90,20 +114,30 @@
                 console.log(data);
                 dept = JSON.parse(data)
                 document.getElementById('CurName1').innerHTML = user.name
-                document.getElementById('nxtDept').innerText = dept.deptname + '(' + dept.deptnum + ')'
+                document.getElementById('nxtDept').innerText = dept.deptname + '科室(您的排序序号' + dept.deptnum+1 + ')'
                 NxtPatient();
             })
     }
     function OverNumber()
     {
-        $.post('/Algorithm/OverNumber',
-            {
-                username: document.getElementById('CurName').innerHTML
-            }
-            ,function(data, status)
-            {
-                console.log(status)
-            })
+        $.post('/Algorithm/getDeptNumber',
+          function (deptNum, state) {
+              if (deptNum <= 0)
+              {
+                  alert("当前已无候检人，请勿重复操作")
+              }
+              else {
+                  $.post('/Algorithm/OverNumber',
+                      function (data, status)
+                      {
+                          user = JSON.parse(data);
+                          document.getElementById('CurName').innerHTML = user.name
+                          document.getElementById('CurSex').innerHTML = user.sex
+                          document.getElementById('CurAge').innerHTML = user.age
+                          console.log(status)
+                      })
+              }
+          })
     }
 
 </script>

@@ -1,6 +1,7 @@
 ﻿@{ 
     Layout = null;
 }
+@Scripts.Render("~/bundles/jquery")
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,38 +18,28 @@
     <div id="particles-js">
         <div class="login">
             <div class="login-top">
-                登录
+                注册信息
             </div>
             <div class="login-center clearfix">
-                <div class="login-center-img"><img src="img/name.png" /></div>
                 <div class="login-center-input">
-                    <input type="text" name="" value="" placeholder="请输入您的patient_id" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的patient_id'" id="patientid"/>
-                    <div class="login-center-input-text">用户名</div>
+                    <input type="text" placeholder="请输入您的patient_id" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的patient_id'" id="patientid"/>
+                    <div class="login-center-input-text">patientid</div>
                 </div>
             </div>
             <div class="login-center clearfix">
-                <div class="login-center-img"><img src="img/password.png" /></div>
                 <div class="login-center-input">
-                    <input type="password" name="" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
-                    <div class="login-center-input-text">密码</div>
+                    <input type="text"  id="deptName"/>
+                    <div class="login-center-input-text">科室名称</div>
                 </div>
             </div>
             <div class="login-center clearfix">
-                <div class="login-center-img"><img src="img/password.png" /></div>
                 <div class="login-center-input">
-                    <input type="password" name="" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
-                    <div class="login-center-input-text">密码</div>
-                </div>
-            </div>
-            <div class="login-center clearfix">
-                <div class="login-center-img"><img src="img/password.png" /></div>
-                <div class="login-center-input">
-                    <input type="password" name="" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
-                    <div class="login-center-input-text">密码</div>
+                    <input type="text" id="deptNum" />
+                    <div class="login-center-input-text">排队人数</div>
                 </div>
             </div>
             <div class="login-button" onclick="getFirstDeptInfo()">
-                登录
+                注册
             </div>
         </div>
         <div class="sk-rotating-plane"></div>
@@ -65,9 +56,10 @@
                 patientid: document.getElementById('patientid').value       
             },
             function (data, status) {
-                console.log(data)
+                dept = JSON.parse(data)
+                document.getElementById('deptName').value = dept.deptName;
+                document.getElementById('deptNum').value = dept.deptNum + 1;
                 console.log(status)
             })
     }
 </script>
-@Scripts.Render("~/bundles/jquery")

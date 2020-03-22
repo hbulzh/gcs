@@ -21,7 +21,7 @@ namespace schema.Dao
                 var par2 = new ObjectParameter("deptcode", typeof(string));
                 var par3 = new ObjectParameter("deptname", typeof(string));
                 var par4 = new ObjectParameter("deptnum", typeof(int));
-                db.ADDQUEUE(patient_id, par2, par3, par4);
+                db.COMPUTE_TWAIT(patient_id, par2, par3, par4);
                 dic.Add("deptcode", par2.Value.ToString());
                 dic.Add("deptname", par3.Value.ToString());
                 dic.Add("deptnum", par4.Value.ToString());
@@ -66,15 +66,23 @@ namespace schema.Dao
             }
             
         }
-        public string GetUserInfo(string deptcode, int deptnum)
+        public string GetUserInfo(string deptcode, string patientid)
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            T_QUEUE_LIST[] user = db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode && x.QUE_NUM == deptnum && x.COMPLETE_TIME == null)).ToArray();
-            PHYSICAL_MASTER_INDEX[] user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.ID_CARD == user[0].ID_CARD)).ToArray();
-            dic.Add("name", user1[0].NAME);
-            dic.Add("sex", user1[0].SEX_CODE);
-            dic.Add("age", user1[0].AGE.ToString());
-            return jss.Serialize(dic);
+            try
+            {
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                T_QUEUE_LIST[] user = db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode && x.PATIENT_ID == patientid)).ToArray();
+                PHYSICAL_MASTER_INDEX[] user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.ID_CARD == user[0].ID_CARD)).ToArray();
+                dic.Add("name", user1[0].NAME);
+                dic.Add("sex", user1[0].SEX_CODE);
+                dic.Add("age", user1[0].AGE.ToString());
+                return jss.Serialize(dic);
+            }
+            catch
+            {
+                return null;
+            }
+            
         }
         public string GetFirstUserInfo(string deptcode)
         {
@@ -124,6 +132,46 @@ namespace schema.Dao
             foreach (T_QUEUE_LIST user in users)
                 user.COMPLETE_TIME = null;
             db.SaveChanges();
+        }
+        public string GetUserInfo(string patientid)
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            PHYSICAL_MASTER_INDEX[] user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.PATIENT_ID == patientid)).ToArray();
+            dic.Add("name", user1[0].NAME);
+            dic.Add("sex", user1[0].SEX_CODE);
+            dic.Add("age", user1[0].AGE.ToString());
+            return jss.Serialize(dic);
+        }
+        public decimal getClinicId(string IP)
+        {
+            T_CLINIC[] clinics = db.T_CLINIC.Where(x => x.IP_ADDR == IP).ToArray();
+            return clinics[0].CLINIC_ID;
+        }
+        public string getDeptCode(decimal clinicid)
+        {
+            T_CLINIC[] clinics = db.T_CLINIC.Where(x => x.CLINIC_ID == clinicid).ToArray();
+            return clinics[0].DEPT_CODE;
+        }
+        public string getDeptName(string deptCode)
+        {
+            DEPT_DICT[] dicts = db.DEPT_DICT.Where(x => x.DEPT_CODE == deptCode).ToArray();
+            return dicts[0].DEPT_NAME;
+        }
+        public void updateStatus(string patientid,string deptCode,int status)
+        {
+            T_QUEUE_LIST[] users = db.T_QUEUE_LIST.Where(x => x.PATIENT_ID == patientid && x.DAPART_CODE == deptCode).ToArray();
+            users[0].STATUS = status;
+            db.SaveChanges();
+            return;
+        }
+        public void updatePatientCCDStatus(string patientid,string deptCode, decimal clinicId,decimal doctorId)
+        {
+            T_QUEUE_LIST[] users = db.T_QUEUE_LIST.Where(x => x.PATIENT_ID == patientid && x.DAPART_CODE == deptCode).ToArray();
+            users[0].CALL_TIME = System.DateTime.Now;
+            users[0].CLINIC_ID = clinicId;
+            users[0].DOCTOR_ID = doctorId;
+            db.SaveChanges();
+            return;
         }
     }
 }

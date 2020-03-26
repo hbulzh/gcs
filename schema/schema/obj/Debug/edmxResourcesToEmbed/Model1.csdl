@@ -187,9 +187,6 @@
     <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" />
     <FunctionImport Name="ADDQUEUE">
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
-      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-      <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
-      <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="ADD_CREATETIME_QUENUM">
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
@@ -199,6 +196,7 @@
     <FunctionImport Name="COMPUTE_TWAIT">
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
       <Parameter Name="RES_DEPTCODE" Mode="Out" Type="String" />
+      <Parameter Name="RES_DEPTNAME" Mode="Out" Type="String" />
       <Parameter Name="RES_DEPTNUM" Mode="Out" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="FIND_MIN_DEPT">
@@ -221,6 +219,13 @@
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
       <Parameter Name="DEPTCODE" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="T_VOICE" EntityType="Model1.T_VOICE" />
+    <FunctionImport Name="GETNXTDEPT">
+      <Parameter Name="PATIENTID" Mode="In" Type="String" />
+      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
+      <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
+      <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="T_CLINIC">
     <Key>
@@ -235,6 +240,19 @@
     <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="CREATE_TIME" Type="DateTime" />
     <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_VOICE">
+    <Key>
+      <PropertyRef Name="Voice_id" />
+    </Key>
+    <Property Name="Voice_id" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="QUE_ID" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="CLINIC_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Voices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />

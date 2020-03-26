@@ -51,15 +51,23 @@
 <script type="text/javascript">
     function getFirstDeptInfo()
     {
-        $.post('/Algorithm/getFirstDeptInfo',
+        $.post('/Algorithm/addQueue',
             {
-                patientid: document.getElementById('patientid').value       
+                patientid: document.getElementById('patientid').value
             },
-            function (data, status) {
-                dept = JSON.parse(data)
-                document.getElementById('deptName').value = dept.deptName;
-                document.getElementById('deptNum').value = dept.deptNum + 1;
+            function (status) {
                 console.log(status)
+
+                $.post('/Algorithm/getFirstDeptInfo',
+                    {
+                        patientid: document.getElementById('patientid').value
+                    },
+                    function (data, status) {
+                        dept = JSON.parse(data)
+                        document.getElementById('deptName').value = dept.deptname;
+                        document.getElementById('deptNum').value = Number(dept.deptnum) + 1;
+                        console.log(data)
+                    })
             })
     }
 </script>

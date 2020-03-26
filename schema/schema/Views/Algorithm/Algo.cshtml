@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../Content/index.css">
 </head>
 
-<body style="background-color: #000;">
+<body style="background-color: #000;" onbeforeunload="rollback()">
     <div class="doc_main">
         <div class="doc_mainHeader">
             <p id="deptName">@ViewBag.deptName</p>
@@ -19,9 +19,9 @@
                 <p>当前候检人数<i id="deptNum"></i></p>
             </div>
             <div class="doc_main_content clearfix">
-                <p class="doc_main_name">候检人姓名<i id="CurName"></i></p>
-                <p class="doc_main_sex">性别<i id="CurSex"></i></p>
-                <p class="doc_main_age">年龄<i id="CurAge"></i></p>
+                <p class="doc_main_name">候检人姓名<i id="CurName">@ViewBag.CurName</i></p>
+                <p class="doc_main_sex">性别<i id="CurSex"></i>@ViewBag.CurSex</p>
+                <p class="doc_main_age">年龄<i id="CurAge"></i>@ViewBag.CurAge</p>
             </div>
             <div class="doc_main_content clearfix">
                 <span>体检号</span>
@@ -49,12 +49,25 @@
 </html>
 
 <script type="text/javascript">
-    window.onload = function(){
-        NxtPatient()
+    function rollback() {
+        $.post('/Algorithm/rollback',
+            {
+                patientName: document.getElementById('CurName').innerHTML,
+                deptName: document.getElementById('deptName').innerHTML
+            },
+            function () {
+                console.log(data);
+                NxtPatient();
+            })
     }
     function recall()
     {
         $.post('/Algorithm/getFirstUserInfo',
+            {
+                deptName: document.getElementById('deptName').innerText,
+                clinicId: '@ViewBag.clinicId',
+                doctorId: '@ViewBag.doctorId'
+            },
             function (data, status) {
                 console.log(data)
                 user = JSON.parse(data);
@@ -65,7 +78,7 @@
     }
     function getUserInfo()
     {
-        
+
         $.post('/Algorithm/GetUserInfo',
             {
                 patientid: document.getElementById('inputPatientid').value
@@ -84,43 +97,63 @@
     function NxtPatient()
     {
         $.post('/Algorithm/getDeptNumber',
-          function (deptNum, state) {
-              if (deptNum <= 0)
-              {
-                  alert("当前已无候检人，请勿重复操作")
-              }
-              else {
-                  //更新诊室数量
-                  document.getElementById('deptNum').innerHTML = deptNum
+        {
+            deptName:document.getElementById('deptName').innerText
+        },
+        function (deptNum, state) {
+            if (deptNum <= 0)
+            {
+                alert("当前已无候检人，请勿重复操作")
+            }
+            else {
+                //更新诊室数量
+                document.getElementById('deptNum').innerHTML = deptNum
 
-                  //更新当前诊室的下一个病人
-                  $.post('/Algorithm/getFirstUserInfo',
-                  function (data, status) {
-                      user = JSON.parse(data);
-                      console.log(data)
-                      document.getElementById('CurName').innerHTML = user.name
-                      document.getElementById('CurSex').innerHTML = user.sex
-                      document.getElementById('CurAge').innerHTML = user.age
-                  })
-              }
+                //更新当前诊室的下一个病人
+                $.post('/Algorithm/getFirstUserInfo',
+                {
+                    deptName: document.getElementById('deptName').innerText,
+                    clinicId: '@ViewBag.clinicId',
+                    doctorId: '@ViewBag.doctorId'
+                },
+                function (data, status) {
+                    user = JSON.parse(data);
+                    console.log(data)
+                    document.getElementById('CurName').innerHTML = user.name
+                    document.getElementById('CurSex').innerHTML = user.sex
+                    document.getElementById('CurAge').innerHTML = user.age
+                })
+            }
 
-          })
+        })
     }
     function CurPatient()
     {
         //下一站
         $.post('/Algorithm/getNxtDeptInfo',
+            {
+                patientName:document.getElementById('CurName').innerHTML,
+                deptName:document.getElementById('deptName').innerHTML
+            },
             function (data, status) {
-                console.log(data);
-                dept = JSON.parse(data)
-                document.getElementById('CurName1').innerHTML = user.name
-                document.getElementById('nxtDept').innerText = dept.deptname + '科室(您的排序序号' + dept.deptnum+1 + ')'
+                if (data != '') {
+                    dept = JSON.parse(data)
+                    document.getElementById('CurName1').innerHTML = user.name
+                    document.getElementById('nxtDept').innerText = dept.deptname + '科室(您的排序序号' + Number(dept.deptnum) + 1 + ')'
+                }
+                else {
+                    document.getElementById('CurName1').innerHTML = ''
+                    document.getElementById('nxtDept').innerText = ' '
+                }
                 NxtPatient();
             })
     }
     function OverNumber()
     {
         $.post('/Algorithm/getDeptNumber',
+          {
+              deptName:document.getElementById('deptName').innerText
+          },
           function (deptNum, state) {
               if (deptNum <= 0)
               {
@@ -128,14 +161,18 @@
               }
               else {
                   $.post('/Algorithm/OverNumber',
-                      function (data, status)
-                      {
-                          user = JSON.parse(data);
-                          document.getElementById('CurName').innerHTML = user.name
-                          document.getElementById('CurSex').innerHTML = user.sex
-                          document.getElementById('CurAge').innerHTML = user.age
-                          console.log(status)
-                      })
+                    {
+                        patientName:document.getElementById('CurName').innerHTML,
+                        deptName:document.getElementById('deptName').innerHTML
+                    },
+                    function (data, status)
+                    {
+                        user = JSON.parse(data);
+                        document.getElementById('CurName').innerHTML = user.name
+                        document.getElementById('CurSex').innerHTML = user.sex
+                        document.getElementById('CurAge').innerHTML = user.age
+                        console.log(status)
+                    })
               }
           })
     }

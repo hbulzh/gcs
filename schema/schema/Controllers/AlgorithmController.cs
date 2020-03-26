@@ -4,99 +4,74 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using schema.Dao;
+using schema.Service;
 using System.Web.Script.Serialization;
-
+using schema.Models;
 namespace schema.Controllers
 {
     public class AlgorithmController : Controller
     {
         AlgorithmDao adao = new AlgorithmDao();
-        public static string deptName = "";
-        public static string deptCode = "";
-        public static decimal clinicId;
-        public static decimal doctorId;
-        public static string patientId = "";
+        AlgorithmService aService = new AlgorithmService();
+
         public ActionResult Login()
         {
             return View();
         }
         // GET: Algorithm
-        public ActionResult Algo(string inputname)
+        public ActionResult Algo(string IP)
         {
-            
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            try
-            {
-                
-                //通过IP初始化诊室信息
-                clinicId = adao.getClinicId("192.168.1.1");
-                doctorId = 123;
-                //通过诊室id 初始化 科室id，科室姓名
-                deptCode = adao.getDeptCode(clinicId);
-                ViewBag.deptName = deptName = adao.getDeptName(deptCode);
-            }
-            catch
-            {
-                ViewBag.deptNum = 0;
-            }
+
+            ViewBag.deptName = aService.getDeptName(IP);
+            ViewBag.clinicId = adao.getClinicId(IP);
+            ViewBag.doctorId = 123;
             return View();
         }
 
-        public JsonResult getNxtDeptInfo()
+        public JsonResult getNxtDeptInfo(string patientName,string deptName)
         {
-            // 对当前病人的检查完成时间赋值
-            adao.setCompleteTime(patientId, deptCode);
-            //更新病人队列信息 1(就诊) -> 2(完成)
-            adao.updateStatus(patientId, deptCode, 2);
-            //返回当前病人下一站要去的地方
-            string NxtDeptInfo = adao.GetNxtDeptInfo(patientId);
-            return Json(NxtDeptInfo);
+            if (patientName == "") return Json("");
+            return Json(aService.getNxtDeptInfo(patientName, deptName));
         }
 
-        public JsonResult getFirstUserInfo()
+        public JsonResult getFirstUserInfo(string deptName,decimal clinicId,decimal doctorId)
         {
-            try
-            {
-                //获取科室下第一个人的信息
-                string UserInfo = adao.GetFirstUserInfo(deptCode);
+            return Json(aService.getFirstUserInfo(deptName, clinicId, doctorId));   
+        }
 
-                JavaScriptSerializer jss = new JavaScriptSerializer();
-                Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
-                patientId = adao.getPatientId(dic["name"]);
-
-                //更新病人Call_time Clinic_id,Doctor_id
-                adao.updatePatientCCDStatus(patientId, deptCode, clinicId, doctorId);
-                return Json(UserInfo);
-            }
-            catch
-            {
-                return Json("获取信息失败");
-            }
+        public int getDeptNumber(string deptName)
+        {
+            //status = 0;
+            return aService.getDeptNumber(deptName);
             
-        }
-
-        public int getDeptNumber()
-        {
-            return adao.GetDeptNum(deptCode);
         }
         /// <summary>
         /// 显示下一个病人信息到页面上
         /// </summary>
-        public JsonResult OverNumber(string username)
+        public JsonResult OverNumber(string patientName,string deptName)
         {
-            adao.overNumber(patientId, deptCode);
-            return getFirstUserInfo();
+            //回滚病人状态Call_time Clinic_id,Doctor_id status (1（就诊) -> 0（等待）)
+            rollback(patientName,deptName);
+            //当前人过号 并返回下一位病人
+            return Json(aService.OverNumber(patientName, deptName));
+            
         }
         public JsonResult getFirstDeptInfo(string patientid)
         {
             return Json(adao.GetNxtDeptInfo(patientid));
         }
+        public void addQueue(string patientid)
+        {
+            adao.addQueue(patientid);
+        }
         public JsonResult GetUserInfo(string patientid)
         {
-            string UserInfo = adao.GetUserInfo(patientid);
-            //更新病人的队列status 0（等待） - > 1 （就诊）
-            adao.updateStatus(patientId, deptCode, 1);
-            return Json(UserInfo);
+            return Json(adao.GetUserInfo(patientid));
+        }
+        public void rollback(string patientName,string deptName)
+        {
+            if (patientName == "") return;
+            aService.updatePatientStatus(patientName,deptName);
         }
     }
 }

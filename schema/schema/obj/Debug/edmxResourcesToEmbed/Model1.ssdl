@@ -172,7 +172,7 @@
     <Property Name="SET_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
     <Property Name="SET_TYPE" Type="varchar2" MaxLength="100" />
     <Property Name="SET_ITEM" Type="varchar2" MaxLength="100" />
-    <Property Name="SET_VALUE" Type="varchar2" MaxLength="100" />
+    <Property Name="SET_VALUE" Type="varchar2" MaxLength="20" />
     <Property Name="CREATE_TIME" Type="date" />
     <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="200" />
     <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="200" />
@@ -193,36 +193,37 @@
     <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
     <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
   </EntityType>
+  <EntityType Name="T_VOICE">
+    <Key>
+      <PropertyRef Name="Voice_id" />
+    </Key>
+    <Property Name="Voice_id" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="QUE_ID" Type="number" Precision="38" Scale="0" />
+    <Property Name="CLINIC_ID" Type="varchar2" MaxLength="50" />
+    <Property Name="DEPT_CODE" Type="varchar2" MaxLength="50" />
+    <Property Name="Voices" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
+    <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
+  </EntityType>
   <Function Name="ADDQUEUE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
     <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
-    <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
-    <Parameter Name="DEPTNAME" Type="varchar2" Mode="Out" />
-    <Parameter Name="DEPTNUM" Type="number" Mode="Out" />
-  </Function>
-  <Function Name="ADD_CREATETIME_QUENUM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
-    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
-    <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
-    <Parameter Name="NUM_DEPT" Type="number" Mode="In" />
   </Function>
   <Function Name="COMPUTE_TWAIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
     <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
     <Parameter Name="RES_DEPTCODE" Type="varchar2" Mode="Out" />
+    <Parameter Name="RES_DEPTNAME" Type="varchar2" Mode="Out" />
     <Parameter Name="RES_DEPTNUM" Type="number" Mode="Out" />
   </Function>
-  <Function Name="FIND_MIN_DEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
-    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
-    <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
-    <Parameter Name="NUMDEPT" Type="number" Mode="Out" />
-  </Function>
-  <Function Name="OVER_NUMBER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
-    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
-    <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
-  </Function>
-  <Function Name="TEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+  <Function Name="GETNXTDEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
     <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
     <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
     <Parameter Name="DEPTNAME" Type="varchar2" Mode="Out" />
     <Parameter Name="DEPTNUM" Type="number" Mode="Out" />
+  </Function>
+  <Function Name="OVER_NUMBER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
+    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
+    <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
   </Function>
   <EntityContainer Name="Model1StoreContainer">
     <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="ZNDJ" store:Type="Tables" />
@@ -235,6 +236,7 @@
     <EntitySet Name="T_QUEUE_LIST" EntityType="Self.T_QUEUE_LIST" Schema="ZNDJ" store:Type="Tables" />
     <EntitySet Name="T_SETS" EntityType="Self.T_SETS" Schema="ZNDJ" store:Type="Tables" />
     <EntitySet Name="T_USER" EntityType="Self.T_USER" Schema="ZNDJ" store:Type="Tables" />
+    <EntitySet Name="T_VOICE" EntityType="Self.T_VOICE" Schema="ZNDJ" store:Type="Tables" />
     <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" store:Type="Tables" store:Schema="ZNDJ">
       <DefiningQuery>SELECT 
 "T_DEPART_MANAGE"."D_ID" AS "D_ID", 

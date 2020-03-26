@@ -38,14 +38,15 @@ namespace schema
         public virtual DbSet<T_USER> T_USER { get; set; }
         public virtual DbSet<T_DEPART_MANAGE> T_DEPART_MANAGE { get; set; }
         public virtual DbSet<T_CLINIC> T_CLINIC { get; set; }
+        public virtual DbSet<T_VOICE> T_VOICE { get; set; }
     
-        public virtual int ADDQUEUE(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter dEPTNAME, ObjectParameter dEPTNUM)
+        public virtual int ADDQUEUE(string pATIENTID)
         {
             var pATIENTIDParameter = pATIENTID != null ?
                 new ObjectParameter("PATIENTID", pATIENTID) :
                 new ObjectParameter("PATIENTID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADDQUEUE", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADDQUEUE", pATIENTIDParameter);
         }
     
         public virtual int ADD_CREATETIME_QUENUM(string pATIENTID, string dEPTCODE, Nullable<decimal> nUM_DEPT)
@@ -65,13 +66,13 @@ namespace schema
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADD_CREATETIME_QUENUM", pATIENTIDParameter, dEPTCODEParameter, nUM_DEPTParameter);
         }
     
-        public virtual int COMPUTE_TWAIT(string pATIENTID, ObjectParameter rES_DEPTCODE, ObjectParameter rES_DEPTNUM)
+        public virtual int COMPUTE_TWAIT(string pATIENTID, ObjectParameter rES_DEPTCODE, ObjectParameter rES_DEPTNAME, ObjectParameter rES_DEPTNUM)
         {
             var pATIENTIDParameter = pATIENTID != null ?
                 new ObjectParameter("PATIENTID", pATIENTID) :
                 new ObjectParameter("PATIENTID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("COMPUTE_TWAIT", pATIENTIDParameter, rES_DEPTCODE, rES_DEPTNUM);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("COMPUTE_TWAIT", pATIENTIDParameter, rES_DEPTCODE, rES_DEPTNAME, rES_DEPTNUM);
         }
     
         public virtual int FIND_MIN_DEPT(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter nUMDEPT)
@@ -116,6 +117,15 @@ namespace schema
                 new ObjectParameter("DEPTCODE", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OVER_NUMBER", pATIENTIDParameter, dEPTCODEParameter);
+        }
+    
+        public virtual int GETNXTDEPT(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter dEPTNAME, ObjectParameter dEPTNUM)
+        {
+            var pATIENTIDParameter = pATIENTID != null ?
+                new ObjectParameter("PATIENTID", pATIENTID) :
+                new ObjectParameter("PATIENTID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GETNXTDEPT", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
         }
     }
 }

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<schema.View_Screen>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导诊小屏</title>
+    <link rel="stylesheet" href="~/Scripts/js/Screen/css/index.css">
+</head>
+<body style="height: 100%;">
+    <div class="littlescreen">
+        <div class="border_line">
+            <div class="littlescreen_header">
+                <p><img src="./images/logo.png" alt="">@ViewBag.name</p>
+
+            </div>
+            <div class="littlescreen_main">
+                <ul class="littlescreen_mainList">
+                    <li class="littlescreen_mainCurrent">
+                        <p>当前检查：<i>李四四四四</i></p>
+                    </li>
+                    <li class="littlescreen_mainWait">
+                        <p>等待检查:</p>
+                        <!-- <p class="imgconten">
+                <img src="images/down.png">
+            </p> -->
+                    
+                          <div class="littlescreen_mainWait_content">
+                            
+
+                            <ul class="clearfix">
+                             
+                                @foreach (var item in (List<View_Screen>)ViewBag.userkist)
+                                {
+                                    <li>
+                                        <span>@item.NAME</span>
+                                    </li>
+                                }
+                            
+
+                            </ul>
+                          
+                       </div>
+                     
+                    </li>
+                    <li class="littlescreen_mainStation">
+                        <p><span>某某某</span>下一站<i>心电图诊室</i></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <audio id="audio"></audio>
+    </div>
+</body>
+</html>

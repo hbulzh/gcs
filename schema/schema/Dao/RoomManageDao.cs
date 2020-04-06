@@ -60,13 +60,13 @@ namespace schema.Dao
 
         }
         /// <summary>
-        /// 通过主键查找科室
+        /// 通过科室id查诊室
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public T_CLINIC GetRoomByKey(int? key)
+        public T_CLINIC GetRoomByKey(string  key)
         {
-            return db.T_CLINIC.Find(key);
+            return db.T_CLINIC.Where(x=>x.DEPT_CODE== key).Single();
         }
     }
 }

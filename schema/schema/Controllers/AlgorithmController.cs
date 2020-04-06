@@ -36,6 +36,8 @@ namespace schema.Controllers
 
         public JsonResult getFirstUserInfo(string deptName,decimal clinicId,decimal doctorId)
         {
+
+
             return Json(aService.getFirstUserInfo(deptName, clinicId, doctorId));   
         }
 

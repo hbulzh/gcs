@@ -219,6 +219,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="GETNXTDEPT" FunctionName="Model1.Store.GETNXTDEPT" />
+    <FunctionImportMapping FunctionImportName="PROC_SALARY" FunctionName="Model1.Store.PROC_SALARY" />
+    <FunctionImportMapping FunctionImportName="ScreenQueue" FunctionName="Model1.Store.ScreenQueue" />
+    <EntitySetMapping Name="View_Screen">
+      <EntityTypeMapping TypeName="Model1.View_Screen">
+        <MappingFragment StoreEntitySet="View_Screen">
+          <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

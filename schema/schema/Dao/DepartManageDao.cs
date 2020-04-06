@@ -43,5 +43,24 @@ namespace schema.Dao
         {
             return db.T_DEPART_MANAGE.Find(key);
         }
+        /// <summary>
+        /// 通过科室id查找对应的科室
+        /// </summary>
+        /// <param name="departId"></param>
+        /// <returns></returns>
+        public T_DEPART_MANAGE getDepartByid(string departId)
+        {
+            T_DEPART_MANAGE depart = db.T_DEPART_MANAGE.Where(x=>x.DEPT_CODE== departId).Single();
+            return depart;
+        }
+        /// <summary>
+        /// 通过科室id查找科室名
+        /// </summary>
+        /// <param name="departid"></param>
+        /// <returns></returns>
+        public string  GetDepartByDepartId(string  departid)
+        {
+            return db.DEPT_DICT.Where(x => x.DEPT_CODE == departid).ToList().ElementAt(0).DEPT_NAME;
+        }
     }
 }

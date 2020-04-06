@@ -206,6 +206,21 @@
     <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
     <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
   </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ZNDJ.View_Screen”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="View_Screen">
+    <Key>
+      <PropertyRef Name="CLINIC_ID" />
+    </Key>
+    <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
+    <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
+    <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
+    <Property Name="NAME" Type="varchar2" MaxLength="20" />
+    <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
+    <Property Name="CREAT_TIME" Type="date" />
+    <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CLINIC_NAME" Type="varchar2" MaxLength="200" />
+  </EntityType>
   <Function Name="ADDQUEUE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
     <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
   </Function>
@@ -215,16 +230,12 @@
     <Parameter Name="RES_DEPTNAME" Type="varchar2" Mode="Out" />
     <Parameter Name="RES_DEPTNUM" Type="number" Mode="Out" />
   </Function>
-  <Function Name="GETNXTDEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
-    <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
-    <Parameter Name="DEPTCODE" Type="varchar2" Mode="Out" />
-    <Parameter Name="DEPTNAME" Type="varchar2" Mode="Out" />
-    <Parameter Name="DEPTNUM" Type="number" Mode="Out" />
-  </Function>
   <Function Name="OVER_NUMBER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
     <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
     <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
   </Function>
+  <Function Name="PROC_SALARY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ" />
+  <Function Name="ScreenQueue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ" />
   <EntityContainer Name="Model1StoreContainer">
     <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="ZNDJ" store:Type="Tables" />
     <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" Schema="ZNDJ" store:Type="Tables" />
@@ -250,6 +261,18 @@
 "T_DEPART_MANAGE"."RESERVE_THREE" AS "RESERVE_THREE", 
 "T_DEPART_MANAGE"."DYNAMIC_TIME" AS "DYNAMIC_TIME"
 FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Screen" EntityType="Self.View_Screen" store:Type="Views" store:Schema="ZNDJ">
+      <DefiningQuery>SELECT 
+"View_Screen"."DEPT_NAME" AS "DEPT_NAME", 
+"View_Screen"."DEPT_CODE" AS "DEPT_CODE", 
+"View_Screen"."PATIENT_ID" AS "PATIENT_ID", 
+"View_Screen"."NAME" AS "NAME", 
+"View_Screen"."STATUS" AS "STATUS", 
+"View_Screen"."CREAT_TIME" AS "CREAT_TIME", 
+"View_Screen"."CLINIC_ID" AS "CLINIC_ID", 
+"View_Screen"."CLINIC_NAME" AS "CLINIC_NAME"
+FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
     </EntitySet>
   </EntityContainer>
 </Schema>

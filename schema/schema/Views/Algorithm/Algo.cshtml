@@ -34,7 +34,7 @@
                 <p class="doc_main_age" >年龄<i id="ComeAge"></i></p>
             </div>
             <div class="doc_main_btn clearfix">
-                <button onclick="Patient()">下一位</button>
+                <button onclick="Patient()" id="start">开始</button>
                 <button onclick="recall()">重新呼叫</button>
                 <button onclick="OverNumber()">过号</button>
             </div>
@@ -96,6 +96,7 @@
     }
     function NxtPatient()
     {
+        document.getElementById('start').innerHTML = '下一位';
         $.post('/Algorithm/getDeptNumber',
         {
             deptName:document.getElementById('deptName').innerText

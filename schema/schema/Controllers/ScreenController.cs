@@ -17,10 +17,31 @@ namespace schema.Controllers
         // GET: Screen
         public ActionResult Screen(string id)
         {
-
-
+            //当前就诊病人的名字
+            string PatienName = screenScrice.GetfistPatient(id);
+            ViewBag.patientName = PatienName;
+            //当前科室的名字
             ViewBag.name = screenScrice.GetdepartNamebyid(id);
+            //当前科室的待诊队列
             ViewBag.userkist = screenScrice.ScreenDisplay(id);
+
+            //就诊病人结束后下一站的地方
+            if(PatienName!=" ")
+            {
+                if (screenScrice.getStutes(id, PatienName) != 2)
+                {
+                    ViewBag.depart = " ";
+                }
+                else
+                {
+                    ViewBag.depart = screenScrice.GetNexdepart(PatienName);
+                }
+            }
+            else
+            {
+                ViewBag.depart = "";
+            }
+           
             return View();
         }
         /// <summary>

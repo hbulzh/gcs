@@ -16,6 +16,8 @@ namespace schema.Service
         ScreenDao screendao = new ScreenDao();
         DepartManageDao departdao = new DepartManageDao();
         RoomManageDao roomDao = new RoomManageDao();
+        AlgorithmDao algorithmDao = new AlgorithmDao();
+
         /// <summary>
         /// 大屏显示
         /// </summary>
@@ -30,7 +32,7 @@ namespace schema.Service
             return  JsonConvert.SerializeObject(map);
         }
         */
-        public  List<View_Screen> ScreenDisplay(string id)
+        public  List<View_Screen_depart> ScreenDisplay(string id)
         {
             return screendao.GetScreenQueue(id);
         }
@@ -43,20 +45,60 @@ namespace schema.Service
         {
             return departdao.GetDepartByDepartId(id);
         }
-        public string GetVoiceURL(string  queid,  string departcode, string serverpath)
+        /// <summary>
+        /// 获取当前科室的第一个人
+        /// </summary>
+        /// <param name="deptcode"></param>
+        /// <returns></returns>
+
+        public string GetfistPatient(string deptcode)
+        {
+
+                  
+
+           // Dictionary<string, string > dic = JsonConvert.DeserializeObject<Dictionary<string, string >>(algorithmDao.GetFirstUserInfo(deptcode));
+
+           // string name = dic["name"];
+            return screendao.GetScreenPatientQueue(deptcode);
+        }
+        /// <summary>
+        /// 得到当前人检查的状态
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="departid"></param>
+        /// <returns></returns>
+         public   int  getStutes(string name ,string departid)
+        {
+            return screendao.GetStatus(name, departid);
+        }
+        /// <summary>
+        /// 得到当前病人的下一个地方
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+         public   string GetNexdepart(string name)
+        {
+            string patientId = algorithmDao.getPatientId(name);
+            //对json反序列化成字典
+            Dictionary<string, string> dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(algorithmDao.GetNxtDeptInfo(patientId));
+            string departNamr = dic["deptname"];
+            return departNamr;
+        }
+
+        public string GetVoiceURL(string queid, string departcode, string serverpath)
         {
             View_Screen data = screendao.GetView_BigScreemDisplayById(queid, departcode);
             //将眼科一诊室的语言改成眼科衣诊室{解决眼科一（yi 四声）诊室}的问题
-            
+
             //文字部分模板替换
             string text = "";
-            text = "请[num]号，[name]到[pos], [dep]";        
-                text = text.Replace(Constant.SPEECH_PATIENTNUM, data.PATIENT_ID);
-                text = text.Replace(Constant.SPEECH_PATIENTNAME, data.NAME);
-                text = text.Replace(Constant.SPEECH_ROOMPOSITION, Convert.ToString(roomDao.GetRoomByKey(Convert.ToString(data.DEPT_CODE)).FLOOR));
-                text = text.Replace(Constant.SPEECH_ROOM, data.CLINIC_NAME);
-                text = text.Replace("_", "");
-          
+            text = "请[num]号，[name]到[pos], [dep]";
+            text = text.Replace(Constant.SPEECH_PATIENTNUM, data.PATIENT_ID);
+            text = text.Replace(Constant.SPEECH_PATIENTNAME, data.NAME);
+            text = text.Replace(Constant.SPEECH_ROOMPOSITION, Convert.ToString(roomDao.GetRoomByKey(Convert.ToString(data.DEPT_CODE)).FLOOR));
+            text = text.Replace(Constant.SPEECH_ROOM, data.CLINIC_NAME);
+            text = text.Replace("_", "");
+
             string[] args = new string[] { text, serverpath, "" };  //文本 服务器路径 返回值
 
             //开启线程执行语音合成
@@ -78,8 +120,8 @@ namespace schema.Service
             //语音合成对象
             SpeechSynthesizer speech = new SpeechSynthesizer();
             //加载语音设置
-           // int volum = Convert.ToInt32(setsDao.GetSetByTypeAndItem("Speech", "volum"));    //音量
-           // int rate = Convert.ToInt32(setsDao.GetSetByTypeAndItem("Speech", "speed"));     //语速
+            // int volum = Convert.ToInt32(setsDao.GetSetByTypeAndItem("Speech", "volum"));    //音量
+            // int rate = Convert.ToInt32(setsDao.GetSetByTypeAndItem("Speech", "speed"));     //语速
             speech.Volume = 100;
             speech.Rate = 0;
             //项目物理路径

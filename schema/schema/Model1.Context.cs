@@ -40,6 +40,7 @@ namespace schema
         public virtual DbSet<T_CLINIC> T_CLINIC { get; set; }
         public virtual DbSet<T_VOICE> T_VOICE { get; set; }
         public virtual DbSet<View_Screen> View_Screen { get; set; }
+        public virtual DbSet<View_Screen_depart> View_Screen_depart { get; set; }
     
         public virtual int ADDQUEUE(string pATIENTID)
         {

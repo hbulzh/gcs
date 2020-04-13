@@ -37,7 +37,8 @@ namespace schema.Service
             //获取科室下第一个等待人的信息 status = 0
             string deptCode = adao.getDeptCode(deptName);
             string UserInfo = adao.GetFirstUserInfo(deptCode);
-            SynthesisUtil.AddSinglePatientToCalling(UserInfo, UserInfo);
+            //将这个人加入叫号队列
+            SynthesisUtil.GetVoiceURL(UserInfo, deptCode, clinicId);
 
             //获取PatientId
             JavaScriptSerializer jss = new JavaScriptSerializer();

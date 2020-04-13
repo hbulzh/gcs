@@ -208,13 +208,13 @@
     <EntitySetMapping Name="T_VOICE">
       <EntityTypeMapping TypeName="Model1.T_VOICE">
         <MappingFragment StoreEntitySet="T_VOICE">
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
           <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
           <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
           <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
           <ScalarProperty Name="Voices" ColumnName="Voices" />
           <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
           <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-          <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
           <ScalarProperty Name="Voice_id" ColumnName="Voice_id" />
         </MappingFragment>
       </EntityTypeMapping>

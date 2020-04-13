@@ -12,15 +12,14 @@ namespace schema
     using System;
     using System.Collections.Generic;
     
-    public partial class T_VOICE
+    public partial class View_Screen_depart
     {
-        public decimal Voice_id { get; set; }
-        public Nullable<decimal> CLINIC_ID { get; set; }
+        public decimal QUE_ID { get; set; }
+        public string DEPT_NAME { get; set; }
         public string DEPT_CODE { get; set; }
-        public string Voices { get; set; }
-        public string RESERVE_ONE { get; set; }
-        public string RESERVE_TWO { get; set; }
-        public string RESERVE_THREE { get; set; }
         public string PATIENT_ID { get; set; }
+        public string NAME { get; set; }
+        public Nullable<decimal> STATUS { get; set; }
+        public Nullable<System.DateTime> CREAT_TIME { get; set; }
     }
 }

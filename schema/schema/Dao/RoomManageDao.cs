@@ -68,5 +68,16 @@ namespace schema.Dao
         {
             return db.T_CLINIC.Where(x=>x.DEPT_CODE== key).Single();
         }
+
+
+        /// <summary>
+        /// 通过主键查找诊室
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public T_CLINIC  GetRoombyKey(int? key)
+        {
+           return   db.T_CLINIC.Where(x => x.CLINIC_ID == key).Single();
+        }
     }
 }

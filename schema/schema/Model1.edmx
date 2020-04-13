@@ -203,8 +203,8 @@
             <PropertyRef Name="Voice_id" />
           </Key>
           <Property Name="Voice_id" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="QUE_ID" Type="number" Precision="38" Scale="0" />
-          <Property Name="CLINIC_ID" Type="varchar2" MaxLength="50" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="50" />
+          <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" />
           <Property Name="DEPT_CODE" Type="varchar2" MaxLength="50" />
           <Property Name="Voices" Type="varchar2" MaxLength="50" />
           <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
@@ -225,6 +225,20 @@
           <Property Name="CREAT_TIME" Type="date" />
           <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="CLINIC_NAME" Type="varchar2" MaxLength="200" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ZNDJ.View_Screen_depart”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_Screen_depart">
+          <Key>
+            <PropertyRef Name="QUE_ID" />
+          </Key>
+          <Property Name="QUE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
+          <Property Name="NAME" Type="varchar2" MaxLength="20" />
+          <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
+          <Property Name="CREAT_TIME" Type="date" />
         </EntityType>
         <Function Name="ADDQUEUE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ">
           <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
@@ -278,6 +292,17 @@ FROM "ZNDJ"."T_DEPART_MANAGE" "T_DEPART_MANAGE"</DefiningQuery>
 "View_Screen"."CLINIC_ID" AS "CLINIC_ID", 
 "View_Screen"."CLINIC_NAME" AS "CLINIC_NAME"
 FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Screen_depart" EntityType="Self.View_Screen_depart" store:Type="Views" store:Schema="ZNDJ">
+            <DefiningQuery>SELECT 
+"View_Screen_depart"."QUE_ID" AS "QUE_ID", 
+"View_Screen_depart"."DEPT_NAME" AS "DEPT_NAME", 
+"View_Screen_depart"."DEPT_CODE" AS "DEPT_CODE", 
+"View_Screen_depart"."PATIENT_ID" AS "PATIENT_ID", 
+"View_Screen_depart"."NAME" AS "NAME", 
+"View_Screen_depart"."STATUS" AS "STATUS", 
+"View_Screen_depart"."CREAT_TIME" AS "CREAT_TIME"
+FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -514,6 +539,7 @@ FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
           <FunctionImport Name="ScrrrnQueue" />
           <FunctionImport Name="ScreenQueue" />
           <EntitySet Name="View_Screen" EntityType="Model1.View_Screen" />
+          <EntitySet Name="View_Screen_depart" EntityType="Model1.View_Screen_depart" />
         </EntityContainer>
         <EntityType Name="T_CLINIC">
           <Key>
@@ -537,13 +563,13 @@ FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
             <PropertyRef Name="Voice_id" />
           </Key>
           <Property Name="Voice_id" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="QUE_ID" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CLINIC_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLINIC_ID" Type="Decimal" />
           <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Voices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="View_Screen">
           <Key>
@@ -556,6 +582,18 @@ FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
           <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CREAT_TIME" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="View_Screen_depart">
+          <Key>
+            <PropertyRef Name="QUE_ID" />
+          </Key>
+          <Property Name="QUE_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="CREAT_TIME" Type="DateTime" />
         </EntityType>
       </Schema>
@@ -771,13 +809,13 @@ FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
           <EntitySetMapping Name="T_VOICE">
             <EntityTypeMapping TypeName="Model1.T_VOICE">
               <MappingFragment StoreEntitySet="T_VOICE">
+                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
                 <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
                 <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
                 <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
                 <ScalarProperty Name="Voices" ColumnName="Voices" />
                 <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
                 <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-                <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
                 <ScalarProperty Name="Voice_id" ColumnName="Voice_id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -795,6 +833,19 @@ FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
                 <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
                 <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
                 <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Screen_depart">
+            <EntityTypeMapping TypeName="Model1.View_Screen_depart">
+              <MappingFragment StoreEntitySet="View_Screen_depart">
+                <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+                <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

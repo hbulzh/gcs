@@ -226,6 +226,10 @@
       <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
       <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
     </FunctionImport>
+    <FunctionImport Name="PROC_SALARY" />
+    <FunctionImport Name="ScrrrnQueue" />
+    <FunctionImport Name="ScreenQueue" />
+    <EntitySet Name="View_Screen" EntityType="Model1.View_Screen" />
   </EntityContainer>
   <EntityType Name="T_CLINIC">
     <Key>
@@ -249,12 +253,25 @@
       <PropertyRef Name="Voice_id" />
     </Key>
     <Property Name="Voice_id" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-    <Property Name="QUE_ID" Type="Decimal" Precision="38" Scale="0" />
-    <Property Name="CLINIC_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLINIC_ID" Type="Decimal" />
     <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Voices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Screen">
+    <Key>
+      <PropertyRef Name="CLINIC_ID" />
+    </Key>
+    <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CREAT_TIME" Type="DateTime" />
   </EntityType>
 </Schema>

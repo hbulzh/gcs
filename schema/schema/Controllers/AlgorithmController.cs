@@ -40,6 +40,8 @@ namespace schema.Controllers
         /// <returns></returns>
         public JsonResult getNxtDeptInfo(string patientName,string deptName)
         {
+
+
             if (patientName == "") return Json("");
             return Json(aService.getNxtDeptInfo(patientName, deptName));
         }
@@ -53,6 +55,8 @@ namespace schema.Controllers
         /// <returns></returns>
         public JsonResult getFirstUserInfo(string deptName,decimal clinicId,decimal doctorId)
         {
+
+
             return Json(aService.getFirstUserInfo(deptName, clinicId, doctorId));   
         }
 

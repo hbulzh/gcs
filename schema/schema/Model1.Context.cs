@@ -39,6 +39,8 @@ namespace schema
         public virtual DbSet<T_DEPART_MANAGE> T_DEPART_MANAGE { get; set; }
         public virtual DbSet<T_CLINIC> T_CLINIC { get; set; }
         public virtual DbSet<T_VOICE> T_VOICE { get; set; }
+        public virtual DbSet<View_Screen> View_Screen { get; set; }
+        public virtual DbSet<View_Screen_depart> View_Screen_depart { get; set; }
     
         public virtual int ADDQUEUE(string pATIENTID)
         {
@@ -126,6 +128,21 @@ namespace schema
                 new ObjectParameter("PATIENTID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GETNXTDEPT", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
+        }
+    
+        public virtual int PROC_SALARY()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PROC_SALARY");
+        }
+    
+        public virtual int ScrrrnQueue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ScrrrnQueue");
+        }
+    
+        public virtual int ScreenQueue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ScreenQueue");
         }
     }
 }

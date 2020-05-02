@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using schema.Dao;
 using System.Web.Script.Serialization;
+using schema.Utills;
 
 namespace schema.Service
 {
@@ -32,10 +33,13 @@ namespace schema.Service
         }
         public string getFirstUserInfo(string deptName,decimal clinicId,decimal doctorId)
         {
+
             //获取科室下第一个等待人的信息 status = 0
             string deptCode = adao.getDeptCode(deptName);
             string UserInfo = adao.GetFirstUserInfo(deptCode);
-            
+            //将这个人加入叫号队列
+            SynthesisUtil.GetVoiceURL(UserInfo, deptCode, clinicId);
+
             //获取PatientId
             JavaScriptSerializer jss = new JavaScriptSerializer();
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);

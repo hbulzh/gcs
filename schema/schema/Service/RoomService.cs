@@ -52,7 +52,7 @@ namespace schema.Service
         /// <returns></returns>
         public T_CLINIC GetRoomByKey(int? key)
         {
-            return roomManageDao.GetRoomByKey(key);
+            return roomManageDao.GetRoombyKey(key);
         }
     }
 }

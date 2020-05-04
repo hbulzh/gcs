@@ -14,13 +14,13 @@ namespace schema
     
     public partial class T_VOICE
     {
-        public decimal Voice_id { get; set; }
+        public decimal VOICE_ID { get; set; }
+        public string PATIENT_ID { get; set; }
         public Nullable<decimal> CLINIC_ID { get; set; }
         public string DEPT_CODE { get; set; }
-        public string Voices { get; set; }
+        public string VOICES { get; set; }
         public string RESERVE_ONE { get; set; }
         public string RESERVE_TWO { get; set; }
         public string RESERVE_THREE { get; set; }
-        public string PATIENT_ID { get; set; }
     }
 }

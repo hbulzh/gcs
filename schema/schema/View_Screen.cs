@@ -19,8 +19,8 @@ namespace schema
         public string PATIENT_ID { get; set; }
         public string NAME { get; set; }
         public Nullable<decimal> STATUS { get; set; }
+        public Nullable<System.DateTime> CREAT_TIME { get; set; }
         public decimal CLINIC_ID { get; set; }
         public string CLINIC_NAME { get; set; }
-        public Nullable<System.DateTime> CREAT_TIME { get; set; }
     }
 }

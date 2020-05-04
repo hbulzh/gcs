@@ -29,11 +29,11 @@ namespace schema.Dao
                 //还需通过查找大屏显示的初诊人数
                 int count = Convert.ToInt32(departdao.getDepartByid(departid).BIGSCREEN_NUM);
             //return db.View_BigScreemDisplay.Where(x => x.departmentName == department && x.ifCall == false && (x.status ==0 || x.status == 1)).OrderBy(x=>x.createTime).Take(count).ToList<View_BigScreemDisplay>();
+
+            List<View_Screen_depart> firstlist = db.View_Screen_depart.Where(x => x.DEPT_CODE == departid  && (x.STATUS == 0 )).OrderBy(x=>x.CREAT_TIME).Take(count).ToList();
+
            
-                List<View_Screen_depart> firstlist = db.View_Screen_depart.Where(x => x.DEPT_CODE == departid  && (x.STATUS == 0 )).OrderBy(x=>x.CREAT_TIME).Take(count).ToList();
-
-
-                return firstlist;
+            return firstlist;
            
 
         }
@@ -52,7 +52,7 @@ namespace schema.Dao
             //如果有正在检查的就返回这个人的名字
             else
             {
-                return db.View_Screen.Where(x => x.DEPT_CODE == departid && x.STATUS == 1).Single().DEPT_NAME;
+                return db.View_Screen.Where(x => x.DEPT_CODE == departid && x.STATUS == 1).Single().NAME;
             }
            
            
@@ -65,7 +65,7 @@ namespace schema.Dao
         /// <returns></returns>
         public int  GetStatus(string name, string departid)
         {
-            return    Convert.ToInt32(db.View_Screen_depart.Where(x => x.DEPT_CODE == departid && x.NAME == name).Single().STATUS);
+            return    Convert.ToInt32(db.View_Screen_depart.Where(x => x.DEPT_CODE == departid && x.NAME == name).ToList()[0].STATUS);
         }
 
 
@@ -128,9 +128,9 @@ namespace schema.Dao
         /// <param name="queid"></param>
         /// <param name="departcode"></param>
         /// <returns></returns>
-        public View_Screen GetView_BigScreemDisplayById(string  queid ,string departcode  )
+        public View_Screen GetView_BigScreemDisplayById(string  patientid ,string departcode  )
         {
-            List<View_Screen> list = db.View_Screen.Where(x => x.PATIENT_ID == queid&&x.DEPT_CODE== departcode).ToList();
+            List<View_Screen> list = db.View_Screen.Where(x => x.PATIENT_ID == patientid && x.DEPT_CODE== departcode).ToList();
             if (list.Count == 0)
             {
                 return null;

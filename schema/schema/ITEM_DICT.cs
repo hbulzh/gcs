@@ -12,18 +12,16 @@ namespace schema
     using System;
     using System.Collections.Generic;
     
-    public partial class PAT_CLASS_NOTE
+    public partial class ITEM_DICT
     {
-        public long SERIAL_NO { get; set; }
-        public string PATIENT_ID { get; set; }
-        public byte AMOUNT { get; set; }
-        public Nullable<System.DateTime> CREATE_DATE { get; set; }
-        public string NAME { get; set; }
-        public string SEX_CODE { get; set; }
-        public string CLASS_CODE { get; set; }
-        public Nullable<int> ITEM_NO { get; set; }
+        public byte SERIAL_NO { get; set; }
         public string ITEM_CODE { get; set; }
-        public string ITEM_DETAIL_CODE { get; set; }
-        public Nullable<int> NOTE_ID { get; set; }
+        public string ITEM_NAME { get; set; }
+        public string INPUT_CODE { get; set; }
+        public string ITEM_CLASS { get; set; }
+        public Nullable<byte> ITEM_CLASS_SORT { get; set; }
+        public string PRINT_MASTER_STATION { get; set; }
+        public string PAT_CLASS_STATION { get; set; }
+        public string ITEM_TYPE { get; set; }
     }
 }

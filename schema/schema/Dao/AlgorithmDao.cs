@@ -30,16 +30,8 @@ namespace schema.Dao
         }
         public string getDeptCode(String deptName)
         {
-            try
-            {
-                DEPT_DICT[] user = db.DEPT_DICT.Where(x => (x.DEPT_NAME == deptName)).ToArray();
-                return user[0].DEPT_CODE;
-            }
-            catch
-            {
-                throw new Exception("deptName -> deptCode 失败");
-            }
-            
+            DEPT_DICT[] user = db.DEPT_DICT.Where(x => (x.DEPT_NAME == deptName)).ToArray();
+            return user[0].DEPT_CODE;
         }
         public string getDeptCode(decimal clinicid)
         {
@@ -58,9 +50,9 @@ namespace schema.Dao
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             T_QUEUE_LIST[] user = db.T_QUEUE_LIST.Where(x => (x.DAPART_CODE == deptcode && x.PATIENT_ID == patientid)).ToArray();
-            PHYSICAL_MASTER_INDEX[] user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.ID_CARD == user[0].ID_CARD)).ToArray();
+            PHYSICAL_MASTER_INDEX[] user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.PATIENT_ID == user[0].PATIENT_ID)).ToArray();
             dic.Add("name", user1[0].NAME);
-            dic.Add("sex", user1[0].SEX_CODE);
+            dic.Add("sex", user1[0].SEX_CODE == "1" ? "男" : "女");
             dic.Add("age", user1[0].AGE.ToString());
             return jss.Serialize(dic);
         }
@@ -70,10 +62,10 @@ namespace schema.Dao
             {
                 Dictionary<string, string> dic = new Dictionary<string, string>();
                 T_QUEUE_LIST[] user = db.T_QUEUE_LIST.Where(x => x.DAPART_CODE == deptcode && x.STATUS == 0).OrderBy(x => x.QUE_NUM).ToArray();
-                string ID_CARD = user[0].ID_CARD;
-                PHYSICAL_MASTER_INDEX user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.ID_CARD == ID_CARD)).ToList()[0];
+                string patient_id = user[0].PATIENT_ID;
+                PHYSICAL_MASTER_INDEX user1 = db.PHYSICAL_MASTER_INDEX.Where(x => (x.PATIENT_ID == patient_id)).ToList()[0];
                 dic.Add("name", user1.NAME);
-                dic.Add("sex", user1.SEX_CODE);
+                dic.Add("sex", user1.SEX_CODE == "1" ? "男":"女");
                 dic.Add("age", user1.AGE.ToString());
                 return jss.Serialize(dic);
             }

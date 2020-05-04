@@ -37,16 +37,21 @@ namespace schema.Service
             //获取科室下第一个等待人的信息 status = 0
             string deptCode = adao.getDeptCode(deptName);
             string UserInfo = adao.GetFirstUserInfo(deptCode);
-            //将这个人加入叫号队列
-            SynthesisUtil.GetVoiceURL(UserInfo, deptCode, clinicId);
+            
 
             //获取PatientId
             JavaScriptSerializer jss = new JavaScriptSerializer();
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
             string patientId = adao.getPatientId(dic["name"]);
 
+            
+
             //更新病人Call_time Clinic_id,Doctor_id status (0（等待） -> 1（就诊）)
             adao.updatePatientStatus(patientId, deptCode, System.DateTime.Now, 1, clinicId, doctorId);
+
+            //将这个人加入叫号队列
+            SynthesisUtil.GetVoiceURL(patientId, deptCode, clinicId);
+
             return UserInfo;
         }
         public string OverNumber(string patientName,string deptName)

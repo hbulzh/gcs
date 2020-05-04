@@ -60,7 +60,7 @@ namespace schema.Utills
                 voice.DEPT_CODE = departcode;
                 voice.PATIENT_ID = patientid;
                 voice.CLINIC_ID = clincid;
-                voice.Voices = args[1];
+                voice.VOICES = text;
                 //将这个声音实体插入数据库
                 voiceDao.addVoice(voice);
 

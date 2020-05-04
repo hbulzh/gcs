@@ -28,17 +28,18 @@ namespace schema
         }
     
         public virtual DbSet<DEPT_DICT> DEPT_DICT { get; set; }
+        public virtual DbSet<ITEM_DICT> ITEM_DICT { get; set; }
         public virtual DbSet<PAT_CLASS_NOTE> PAT_CLASS_NOTE { get; set; }
         public virtual DbSet<PHYSICAL_MASTER_INDEX> PHYSICAL_MASTER_INDEX { get; set; }
+        public virtual DbSet<T_CLINIC> T_CLINIC { get; set; }
         public virtual DbSet<T_ITEM_PREPOSITION> T_ITEM_PREPOSITION { get; set; }
         public virtual DbSet<T_LOGS> T_LOGS { get; set; }
         public virtual DbSet<T_QUEUE_HIST> T_QUEUE_HIST { get; set; }
         public virtual DbSet<T_QUEUE_LIST> T_QUEUE_LIST { get; set; }
         public virtual DbSet<T_SETS> T_SETS { get; set; }
         public virtual DbSet<T_USER> T_USER { get; set; }
-        public virtual DbSet<T_DEPART_MANAGE> T_DEPART_MANAGE { get; set; }
-        public virtual DbSet<T_CLINIC> T_CLINIC { get; set; }
         public virtual DbSet<T_VOICE> T_VOICE { get; set; }
+        public virtual DbSet<T_DEPART_MANAGE> T_DEPART_MANAGE { get; set; }
         public virtual DbSet<View_Screen> View_Screen { get; set; }
         public virtual DbSet<View_Screen_depart> View_Screen_depart { get; set; }
     
@@ -51,23 +52,6 @@ namespace schema
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADDQUEUE", pATIENTIDParameter);
         }
     
-        public virtual int ADD_CREATETIME_QUENUM(string pATIENTID, string dEPTCODE, Nullable<decimal> nUM_DEPT)
-        {
-            var pATIENTIDParameter = pATIENTID != null ?
-                new ObjectParameter("PATIENTID", pATIENTID) :
-                new ObjectParameter("PATIENTID", typeof(string));
-    
-            var dEPTCODEParameter = dEPTCODE != null ?
-                new ObjectParameter("DEPTCODE", dEPTCODE) :
-                new ObjectParameter("DEPTCODE", typeof(string));
-    
-            var nUM_DEPTParameter = nUM_DEPT.HasValue ?
-                new ObjectParameter("NUM_DEPT", nUM_DEPT) :
-                new ObjectParameter("NUM_DEPT", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADD_CREATETIME_QUENUM", pATIENTIDParameter, dEPTCODEParameter, nUM_DEPTParameter);
-        }
-    
         public virtual int COMPUTE_TWAIT(string pATIENTID, ObjectParameter rES_DEPTCODE, ObjectParameter rES_DEPTNAME, ObjectParameter rES_DEPTNUM)
         {
             var pATIENTIDParameter = pATIENTID != null ?
@@ -75,37 +59,6 @@ namespace schema
                 new ObjectParameter("PATIENTID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("COMPUTE_TWAIT", pATIENTIDParameter, rES_DEPTCODE, rES_DEPTNAME, rES_DEPTNUM);
-        }
-    
-        public virtual int FIND_MIN_DEPT(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter nUMDEPT)
-        {
-            var pATIENTIDParameter = pATIENTID != null ?
-                new ObjectParameter("PATIENTID", pATIENTID) :
-                new ObjectParameter("PATIENTID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FIND_MIN_DEPT", pATIENTIDParameter, dEPTCODE, nUMDEPT);
-        }
-    
-        public virtual int TEST(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter dEPTNAME, ObjectParameter dEPTNUM)
-        {
-            var pATIENTIDParameter = pATIENTID != null ?
-                new ObjectParameter("PATIENTID", pATIENTID) :
-                new ObjectParameter("PATIENTID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TEST", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
-        }
-    
-        public virtual int NEXT_PATIENT(string pATIENTID, string dEPTCODE)
-        {
-            var pATIENTIDParameter = pATIENTID != null ?
-                new ObjectParameter("PATIENTID", pATIENTID) :
-                new ObjectParameter("PATIENTID", typeof(string));
-    
-            var dEPTCODEParameter = dEPTCODE != null ?
-                new ObjectParameter("DEPTCODE", dEPTCODE) :
-                new ObjectParameter("DEPTCODE", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NEXT_PATIENT", pATIENTIDParameter, dEPTCODEParameter);
         }
     
         public virtual int OVER_NUMBER(string pATIENTID, string dEPTCODE)
@@ -119,30 +72,6 @@ namespace schema
                 new ObjectParameter("DEPTCODE", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OVER_NUMBER", pATIENTIDParameter, dEPTCODEParameter);
-        }
-    
-        public virtual int GETNXTDEPT(string pATIENTID, ObjectParameter dEPTCODE, ObjectParameter dEPTNAME, ObjectParameter dEPTNUM)
-        {
-            var pATIENTIDParameter = pATIENTID != null ?
-                new ObjectParameter("PATIENTID", pATIENTID) :
-                new ObjectParameter("PATIENTID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GETNXTDEPT", pATIENTIDParameter, dEPTCODE, dEPTNAME, dEPTNUM);
-        }
-    
-        public virtual int PROC_SALARY()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PROC_SALARY");
-        }
-    
-        public virtual int ScrrrnQueue()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ScrrrnQueue");
-        }
-    
-        public virtual int ScreenQueue()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ScreenQueue");
         }
     }
 }

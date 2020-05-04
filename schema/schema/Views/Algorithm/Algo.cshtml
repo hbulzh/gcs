@@ -34,7 +34,7 @@
                 <p class="doc_main_age" >年龄<i id="ComeAge"></i></p>
             </div>
             <div class="doc_main_btn clearfix">
-                <button onclick="Patient()" id="start">开始</button>
+                <button onclick="CurPatient()" id="start">开始</button>
                 <button onclick="recall()">重新呼叫</button>
                 <button onclick="OverNumber()">过号</button>
             </div>
@@ -90,10 +90,7 @@
                 document.getElementById('ComeAge').innerHTML = user.age
             })
     }
-    function Patient()
-    {
-        CurPatient();
-    }
+
     function NxtPatient()
     {
         document.getElementById('start').innerHTML = '下一位';
@@ -144,7 +141,7 @@
                 }
                 else {
                     document.getElementById('CurName1').innerHTML = ''
-                    document.getElementById('nxtDept').innerText = ' '
+                    document.getElementById('nxtDept').innerText = ''
                 }
                 NxtPatient();
             })

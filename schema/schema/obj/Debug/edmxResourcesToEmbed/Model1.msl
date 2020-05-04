@@ -11,6 +11,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ITEM_DICT">
+      <EntityTypeMapping TypeName="Model1.ITEM_DICT">
+        <MappingFragment StoreEntitySet="ITEM_DICT">
+          <ScalarProperty Name="SERIAL_NO" ColumnName="SERIAL_NO" />
+          <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
+          <ScalarProperty Name="ITEM_NAME" ColumnName="ITEM_NAME" />
+          <ScalarProperty Name="INPUT_CODE" ColumnName="INPUT_CODE" />
+          <ScalarProperty Name="ITEM_CLASS" ColumnName="ITEM_CLASS" />
+          <ScalarProperty Name="ITEM_CLASS_SORT" ColumnName="ITEM_CLASS_SORT" />
+          <ScalarProperty Name="PRINT_MASTER_STATION" ColumnName="PRINT_MASTER_STATION" />
+          <ScalarProperty Name="PAT_CLASS_STATION" ColumnName="PAT_CLASS_STATION" />
+          <ScalarProperty Name="ITEM_TYPE" ColumnName="ITEM_TYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="PAT_CLASS_NOTE">
       <EntityTypeMapping TypeName="Model1.PAT_CLASS_NOTE">
         <MappingFragment StoreEntitySet="PAT_CLASS_NOTE">
@@ -18,13 +33,13 @@
           <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
           <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
           <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
           <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
           <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
           <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
           <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
           <ScalarProperty Name="ITEM_DETAIL_CODE" ColumnName="ITEM_DETAIL_CODE" />
           <ScalarProperty Name="NOTE_ID" ColumnName="NOTE_ID" />
-          <ScalarProperty Name="BAR_CODE" ColumnName="BAR_CODE" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -64,6 +79,34 @@
           <ScalarProperty Name="NOTE" ColumnName="NOTE" />
           <ScalarProperty Name="SPECIMAN_CODE" ColumnName="SPECIMAN_CODE" />
           <ScalarProperty Name="PHY_NAME" ColumnName="PHY_NAME" />
+          <ScalarProperty Name="TOTAL_CHARGE" ColumnName="TOTAL_CHARGE" />
+          <ScalarProperty Name="PATIENT_DISCOUNT" ColumnName="PATIENT_DISCOUNT" />
+          <ScalarProperty Name="PATIENT_GRADE" ColumnName="PATIENT_GRADE" />
+          <ScalarProperty Name="IS_SUBSTITUTED" ColumnName="IS_SUBSTITUTED" />
+          <ScalarProperty Name="SUBSTITUTE_INFO" ColumnName="SUBSTITUTE_INFO" />
+          <ScalarProperty Name="IS_SPECIFICAL" ColumnName="IS_SPECIFICAL" />
+          <ScalarProperty Name="SPECIFICAL_INFO" ColumnName="SPECIFICAL_INFO" />
+          <ScalarProperty Name="IS_ADMINED" ColumnName="IS_ADMINED" />
+          <ScalarProperty Name="CORP_NO" ColumnName="CORP_NO" />
+          <ScalarProperty Name="INDIVIDUAL_NO" ColumnName="INDIVIDUAL_NO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_CLINIC">
+      <EntityTypeMapping TypeName="Model1.T_CLINIC">
+        <MappingFragment StoreEntitySet="T_CLINIC">
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
+          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -168,6 +211,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="T_VOICE">
+      <EntityTypeMapping TypeName="Model1.T_VOICE">
+        <MappingFragment StoreEntitySet="T_VOICE">
+          <ScalarProperty Name="VOICE_ID" ColumnName="VOICE_ID" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="VOICES" ColumnName="VOICES" />
+          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="T_DEPART_MANAGE">
       <EntityTypeMapping TypeName="Model1.T_DEPART_MANAGE">
         <MappingFragment StoreEntitySet="T_DEPART_MANAGE">
@@ -184,56 +241,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="ADDQUEUE" FunctionName="Model1.Store.ADDQUEUE" />
-    <FunctionImportMapping FunctionImportName="COMPUTE_TWAIT" FunctionName="Model1.Store.COMPUTE_TWAIT" />
-    <EntitySetMapping Name="T_CLINIC">
-      <EntityTypeMapping TypeName="Model1.T_CLINIC">
-        <MappingFragment StoreEntitySet="T_CLINIC">
-          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
-          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
-          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
-          <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
-          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
-          <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
-          <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
-          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
-          <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
-          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
-          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="OVER_NUMBER" FunctionName="Model1.Store.OVER_NUMBER" />
-    <EntitySetMapping Name="T_VOICE">
-      <EntityTypeMapping TypeName="Model1.T_VOICE">
-        <MappingFragment StoreEntitySet="T_VOICE">
-          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
-          <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
-          <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
-          <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
-          <ScalarProperty Name="Voices" ColumnName="Voices" />
-          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-          <ScalarProperty Name="Voice_id" ColumnName="Voice_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="PROC_SALARY" FunctionName="Model1.Store.PROC_SALARY" />
-    <FunctionImportMapping FunctionImportName="ScreenQueue" FunctionName="Model1.Store.ScreenQueue" />
     <EntitySetMapping Name="View_Screen">
       <EntityTypeMapping TypeName="Model1.View_Screen">
         <MappingFragment StoreEntitySet="View_Screen">
-          <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
-          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
-          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-          <ScalarProperty Name="NAME" ColumnName="NAME" />
-          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
-          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
           <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+          <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+          <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="View_Screen_depart">
+      <EntityTypeMapping TypeName="Model1.View_Screen_depart">
+        <MappingFragment StoreEntitySet="View_Screen_depart">
+          <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
+          <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ADDQUEUE" FunctionName="Model1.Store.ADDQUEUE" />
+    <FunctionImportMapping FunctionImportName="COMPUTE_TWAIT" FunctionName="Model1.Store.COMPUTE_TWAIT" />
+    <FunctionImportMapping FunctionImportName="OVER_NUMBER" FunctionName="Model1.Store.OVER_NUMBER" />
   </EntityContainerMapping>
 </Mapping>

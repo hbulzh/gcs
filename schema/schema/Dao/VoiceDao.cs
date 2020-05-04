@@ -28,11 +28,11 @@ namespace schema.Dao
         /// <param name="departid"></param>
         /// <param name="clincid"></param>
         /// <returns></returns>
-        public int   FindVoice (string  patientid,string departid,decimal clincid)
+        public int FindVoice (string  patientid,string departid,decimal clincid)
         {
 
-            T_VOICE voice = db.T_VOICE.Where(x => x.DEPT_CODE == departid && x.PATIENT_ID == patientid&&x.CLINIC_ID== clincid).ToList()[0];
-            if (voice==null)
+            List<T_VOICE> voice = db.T_VOICE.Where(x => x.DEPT_CODE == departid && x.PATIENT_ID == patientid&&x.CLINIC_ID== clincid).ToList();
+            if (voice.Count == 0)
             {
                 return 0;
             }
@@ -53,7 +53,7 @@ namespace schema.Dao
         /// <returns></returns>
         public   string  GetVoice (string patientid,string departid)
         {
-           string  voice = db.T_VOICE.Where(x => x.DEPT_CODE == departid && x.PATIENT_ID == patientid).ToList()[0].Voices;
+           string  voice = db.T_VOICE.Where(x => x.DEPT_CODE == departid && x.PATIENT_ID == patientid).ToList()[0].VOICES;
 
             return voice;
 

@@ -17,6 +17,7 @@ namespace schema.Controllers
         // GET: Screen
         public ActionResult Screen(string id)
         {
+
             //当前就诊病人的名字
             string PatienName = screenScrice.GetfistPatient(id);
             ViewBag.patientName = PatienName;
@@ -28,7 +29,7 @@ namespace schema.Controllers
             //就诊病人结束后下一站的地方
             if(PatienName!=" ")
             {
-                if (screenScrice.getStutes(id, PatienName) != 2)
+                if (screenScrice.getStutes(PatienName, id) != 2)
                 {
                     ViewBag.depart = " ";
                 }

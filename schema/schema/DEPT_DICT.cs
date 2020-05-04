@@ -14,7 +14,7 @@ namespace schema
     
     public partial class DEPT_DICT
     {
-        public byte SERIAL_NO { get; set; }
+        public Nullable<byte> SERIAL_NO { get; set; }
         public string DEPT_NAME { get; set; }
         public string DEPT_CODE { get; set; }
         public string INPUT_CODE { get; set; }

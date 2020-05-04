@@ -7,6 +7,7 @@
 <html style="height: 100%;">
 <head>
     <title>智能导检大屏</title>
+    <meta http-equiv="refresh" content="5">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Scripts/js/Screen/css/index.css">
@@ -18,21 +19,17 @@
         </div>
         <div class="bigscreen_main">
             <table border="1px" cellspacing="0" cellpadding="0">
-                <th>诊室1</th>
-                <th>诊室3</th>
-                <th>诊室4</th>    
-                <th>诊室7</th>           
+                @foreach (var cname in ViewBag.clinicNames)
+                {
+                    <th>@cname</th>
+                }
                 <tbody>
-                    <tr class="current_check">
-                        <td>当前检查：<span id="partname1">1</span></td>
-                        <td>当前检查：<span id="partname2">@ViewBag.patien2</span></td>
-                        <td>当前检查：<span id="partname3">@ViewBag.patien3</span></td> 
-                        <td>当前检查：<span id="partname4">@ViewBag.patien3</span></td>                   
+                    <tr class="current_check">                 
                     </tr>
                     <tr class="wait_check">
                         <td class="clearfix" colspan="4">
                             <span>候诊人：</span>
-                            @foreach (var item in (List<View_Screen>)ViewBag.userkist)
+                            @foreach (var item in (List<View_Screen_depart>)ViewBag.userkist)
                             {
                                 <p>@item.NAME</p>
                             }
@@ -42,29 +39,16 @@
 
                     </tr>
                     <tr class="next_station">
-                        <td>
-                            <p>
-                                <span>@ViewBag.patien1</span>下一站：<span>@ViewBag.depart1</span>
-                            </p>
-
-                        </td>
-                        <td>
-                            <p>
-                                <span>@ViewBag.patien2</span>下一站：<span>@ViewBag.depart2</span>
-                            </p>
-
-                        </td>
-                        <td>
-                            <p>
-                                <span>@ViewBag.patien3</span>下一站：<span>@ViewBag.depart3</span>
-                            </p>
-
-                        </td>
-                        <td>
-                            <p>
-                                <span>@ViewBag.patien4</span>下一站：<span>@ViewBag.depart4</span>
-                            </p>
-                        </td>
+                       
+                           @foreach (var item in ViewBag.patientAndDept)
+                           {
+                                <td>
+                                    <p>
+                                        <span>@item[0]</span>下一站：<span>@item[1]</span>
+                                    </p>
+                                
+                                </td>
+                           }
                     </tr>
                 </tbody>
             </table>
@@ -78,5 +62,5 @@
 </body>
 </html>
 <script type="text/javascript">
-	console.log(typeof typeof(null));
+	console.log(123);
 </script>

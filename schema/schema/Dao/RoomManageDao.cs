@@ -1,4 +1,5 @@
-﻿using System;
+﻿using schema;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -66,7 +67,7 @@ namespace schema.Dao
         /// <returns></returns>
         public T_CLINIC GetRoomByKey(string  key)
         {
-            return db.T_CLINIC.Where(x=>x.DEPT_CODE== key).Single();
+            return db.T_CLINIC.Where(x=>x.DEPT_CODE== key).ToList()[0];
         }
 
 

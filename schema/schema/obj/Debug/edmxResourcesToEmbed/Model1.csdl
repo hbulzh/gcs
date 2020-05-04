@@ -2,42 +2,61 @@
 <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="DEPT_DICT">
     <Key>
-      <PropertyRef Name="SERIAL_NO" />
+      <PropertyRef Name="DEPT_CODE" />
+    </Key>
+    <Property Name="SERIAL_NO" Type="Byte" />
+    <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="INPUT_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ITEM_DICT">
+    <Key>
+      <PropertyRef Name="ITEM_CODE" />
     </Key>
     <Property Name="SERIAL_NO" Type="Byte" Nullable="false" />
-    <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ITEM_NAME" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="INPUT_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_CLASS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_CLASS_SORT" Type="Byte" />
+    <Property Name="PRINT_MASTER_STATION" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="PAT_CLASS_STATION" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="PAT_CLASS_NOTE">
     <Key>
       <PropertyRef Name="SERIAL_NO" />
+      <PropertyRef Name="PATIENT_ID" />
+      <PropertyRef Name="AMOUNT" />
+      <PropertyRef Name="CLASS_CODE" />
+      <PropertyRef Name="ITEM_CODE" />
+      <PropertyRef Name="ITEM_DETAIL_CODE" />
     </Key>
     <Property Name="SERIAL_NO" Type="Int64" Nullable="false" />
-    <Property Name="PATIENT_ID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-    <Property Name="AMOUNT" Type="Byte" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AMOUNT" Type="Byte" Nullable="false" />
     <Property Name="CREATE_DATE" Type="DateTime" />
+    <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="SEX_CODE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="CLASS_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CLASS_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ITEM_NO" Type="Int32" />
-    <Property Name="ITEM_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ITEM_DETAIL_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ITEM_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ITEM_DETAIL_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="NOTE_ID" Type="Int32" />
-    <Property Name="BAR_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="PHYSICAL_MASTER_INDEX">
     <Key>
-      <PropertyRef Name="SERIAL_NO" />
+      <PropertyRef Name="PATIENT_ID" />
     </Key>
     <Property Name="SERIAL_NO" Type="Int32" Nullable="false" />
-    <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="AMOUNT" Type="Byte" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AMOUNT" Type="Byte" Nullable="false" />
     <Property Name="PAT_VISIT" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="CREATE_DATE" Type="DateTime" />
     <Property Name="IC_CREATE_DATE" Type="DateTime" />
     <Property Name="DEPT_CODE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="BRANCH_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="ID_CARD" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Name="ID_CARD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="BED_NO" Type="Int16" />
     <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="NAME_PHONETIC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -62,6 +81,33 @@
     <Property Name="NOTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="SPECIMAN_CODE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="PHY_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="TOTAL_CHARGE" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="PATIENT_DISCOUNT" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="PATIENT_GRADE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="IS_SUBSTITUTED" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SUBSTITUTE_INFO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="IS_SPECIFICAL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SPECIFICAL_INFO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="IS_ADMINED" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CORP_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="INDIVIDUAL_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_CLINIC">
+    <Key>
+      <PropertyRef Name="CLINIC_ID" />
+    </Key>
+    <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FLOOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IP_ADDR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" />
+    <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="T_ITEM_PREPOSITION">
     <Key>
@@ -137,7 +183,7 @@
     <Property Name="SET_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
     <Property Name="SET_TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="SET_ITEM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="SET_VALUE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SET_VALUE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="CREATE_TIME" Type="DateTime" />
     <Property Name="RESERVE_ONE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_TWO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -158,6 +204,19 @@
     <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="T_VOICE">
+    <Key>
+      <PropertyRef Name="VOICE_ID" />
+    </Key>
+    <Property Name="VOICE_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="VOICES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="T_DEPART_MANAGE">
     <Key>
       <PropertyRef Name="D_ID" />
@@ -174,24 +233,53 @@
     <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="DYNAMIC_TIME" Type="Decimal" Precision="38" Scale="0" />
   </EntityType>
+  <EntityType Name="View_Screen">
+    <Key>
+      <PropertyRef Name="DEPT_CODE" />
+      <PropertyRef Name="PATIENT_ID" />
+      <PropertyRef Name="CLINIC_ID" />
+    </Key>
+    <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="CREAT_TIME" Type="DateTime" />
+    <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Screen_depart">
+    <Key>
+      <PropertyRef Name="QUE_ID" />
+      <PropertyRef Name="DEPT_CODE" />
+      <PropertyRef Name="PATIENT_ID" />
+    </Key>
+    <Property Name="QUE_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PATIENT_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="CREAT_TIME" Type="DateTime" />
+  </EntityType>
   <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" />
+    <EntitySet Name="ITEM_DICT" EntityType="Self.ITEM_DICT" />
     <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" />
     <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" />
+    <EntitySet Name="T_CLINIC" EntityType="Self.T_CLINIC" />
     <EntitySet Name="T_ITEM_PREPOSITION" EntityType="Self.T_ITEM_PREPOSITION" />
     <EntitySet Name="T_LOGS" EntityType="Self.T_LOGS" />
     <EntitySet Name="T_QUEUE_HIST" EntityType="Self.T_QUEUE_HIST" />
     <EntitySet Name="T_QUEUE_LIST" EntityType="Self.T_QUEUE_LIST" />
     <EntitySet Name="T_SETS" EntityType="Self.T_SETS" />
     <EntitySet Name="T_USER" EntityType="Self.T_USER" />
+    <EntitySet Name="T_VOICE" EntityType="Self.T_VOICE" />
     <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" />
+    <EntitySet Name="View_Screen" EntityType="Self.View_Screen" />
+    <EntitySet Name="View_Screen_depart" EntityType="Self.View_Screen_depart" />
     <FunctionImport Name="ADDQUEUE">
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="ADD_CREATETIME_QUENUM">
-      <Parameter Name="PATIENTID" Mode="In" Type="String" />
-      <Parameter Name="DEPTCODE" Mode="In" Type="String" />
-      <Parameter Name="NUM_DEPT" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="COMPUTE_TWAIT">
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
@@ -199,79 +287,9 @@
       <Parameter Name="RES_DEPTNAME" Mode="Out" Type="String" />
       <Parameter Name="RES_DEPTNUM" Mode="Out" Type="Decimal" />
     </FunctionImport>
-    <FunctionImport Name="FIND_MIN_DEPT">
-      <Parameter Name="PATIENTID" Mode="In" Type="String" />
-      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-      <Parameter Name="NUMDEPT" Mode="Out" Type="Decimal" />
-    </FunctionImport>
-    <EntitySet Name="T_CLINIC" EntityType="Model1.T_CLINIC" />
-    <FunctionImport Name="TEST">
-      <Parameter Name="PATIENTID" Mode="In" Type="String" />
-      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-      <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
-      <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
-    </FunctionImport>
-    <FunctionImport Name="NEXT_PATIENT">
-      <Parameter Name="PATIENTID" Mode="In" Type="String" />
-      <Parameter Name="DEPTCODE" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="OVER_NUMBER">
       <Parameter Name="PATIENTID" Mode="In" Type="String" />
       <Parameter Name="DEPTCODE" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="T_VOICE" EntityType="Model1.T_VOICE" />
-    <FunctionImport Name="GETNXTDEPT">
-      <Parameter Name="PATIENTID" Mode="In" Type="String" />
-      <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-      <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
-      <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
-    </FunctionImport>
-    <FunctionImport Name="PROC_SALARY" />
-    <FunctionImport Name="ScrrrnQueue" />
-    <FunctionImport Name="ScreenQueue" />
-    <EntitySet Name="View_Screen" EntityType="Model1.View_Screen" />
   </EntityContainer>
-  <EntityType Name="T_CLINIC">
-    <Key>
-      <PropertyRef Name="CLINIC_ID" />
-    </Key>
-    <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="DEPT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="FLOOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-    <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="IP_ADDR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-    <Property Name="CREATE_TIME" Type="DateTime" />
-    <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
-    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="T_VOICE">
-    <Key>
-      <PropertyRef Name="Voice_id" />
-    </Key>
-    <Property Name="Voice_id" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-    <Property Name="CLINIC_ID" Type="Decimal" />
-    <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Voices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="PATIENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="View_Screen">
-    <Key>
-      <PropertyRef Name="CLINIC_ID" />
-    </Key>
-    <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
-    <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-    <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="CREAT_TIME" Type="DateTime" />
-  </EntityType>
 </Schema>

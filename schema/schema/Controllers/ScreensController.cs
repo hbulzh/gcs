@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using schema.Service;
 using schema.Utills;
 using Newtonsoft.Json;
+using schema.Dao;
 
 namespace schema.Controllers
 {
@@ -13,9 +14,10 @@ namespace schema.Controllers
     {
         private ScreensService screensScrice = new ScreensService();
         private ScreenSerice screenService = new ScreenSerice();
+        private DepartManageService departService = new DepartManageService();
         string departid ="";
         // GET: Screens                            
-        public ActionResult Screens( string id)
+        public ActionResult Screens(string id)
         {
             departid = id;
             //当前科室的名字
@@ -24,6 +26,30 @@ namespace schema.Controllers
             ViewBag.userkist = screensScrice.ScreenDisplay(id);
             //获得当前科室的所有诊室
             // ViewBag.clincName = screensScrice.GetClincsByDepartCode(id);
+
+            //获取当前科室下所有诊室id
+            List<decimal> cids = departService.getClinicsByDeptCode(id);
+
+            int cnt = 0;
+            ViewBag.patientAndDept = new List<String[]>();
+            ViewBag.clinicNames = new List<String>();
+            ViewBag.departs = new List<String>();
+            foreach (decimal cid in cids)
+            {
+                ViewBag.clinicNames.Add(departService.getClinicName(cid));
+                string name = GetPatientName(id, cid);
+                string depart = " ";
+                if(name != " ")
+                {   
+                    if (screenService.getStutes(name, id) == 2)
+                    {
+                        ViewBag.depart.Add(GetNexDept(screensScrice.GetClinicPatienid(id, name)));
+                    }
+                }
+                string[] info = { name, depart };
+                ViewBag.patientAndDept.Add(info);
+            }
+            /*
             string clinc1 = "诊室1";
             string clinc2 = "诊室3";
             string clinc3 = "诊室4";
@@ -34,7 +60,7 @@ namespace schema.Controllers
             decimal cid3 = screensScrice.GetClincID(id, clinc3);
             decimal cid4 = screensScrice.GetClincID(id, clinc4);
 
-
+            
             //正在就诊的名字
             string name1 = GetPatientName(id, cid1);
             string name2 = GetPatientName(id, cid2);
@@ -115,7 +141,7 @@ namespace schema.Controllers
             {
                 ViewBag.depart = " ";
             }
-
+            */
 
 
             return View();

@@ -4,21 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="002e76b952254444b0731a3c567403bc" Name="Diagram1" ZoomLevel="55">
+      <Diagram DiagramId="73a2c4e5ae3f4568b31467c7c0cc329f" Name="Diagram1">
         <EntityTypeShape EntityType="Model1.DEPT_DICT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.PAT_CLASS_NOTE" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.PHYSICAL_MASTER_INDEX" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_ITEM_PREPOSITION" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_LOGS" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_QUEUE_HIST" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.ITEM_DICT" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.PAT_CLASS_NOTE" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.PHYSICAL_MASTER_INDEX" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_CLINIC" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_ITEM_PREPOSITION" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_LOGS" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_QUEUE_HIST" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.T_QUEUE_LIST" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_SETS" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_USER" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_DEPART_MANAGE" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.T_CLINIC" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="Model1.T_VOICE" Width="1.5" PointX="9.375" PointY="9.75" />
-        <EntityTypeShape EntityType="Model1.View_Screen" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Model1.View_Screen_depart" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Model1.T_SETS" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_USER" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_VOICE" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.T_DEPART_MANAGE" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.View_Screen" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.View_Screen_depart" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

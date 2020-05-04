@@ -16,7 +16,7 @@ namespace schema
     {
         public int SERIAL_NO { get; set; }
         public string PATIENT_ID { get; set; }
-        public Nullable<byte> AMOUNT { get; set; }
+        public byte AMOUNT { get; set; }
         public string PAT_VISIT { get; set; }
         public Nullable<System.DateTime> CREATE_DATE { get; set; }
         public Nullable<System.DateTime> IC_CREATE_DATE { get; set; }
@@ -47,5 +47,15 @@ namespace schema
         public string NOTE { get; set; }
         public string SPECIMAN_CODE { get; set; }
         public string PHY_NAME { get; set; }
+        public Nullable<decimal> TOTAL_CHARGE { get; set; }
+        public Nullable<decimal> PATIENT_DISCOUNT { get; set; }
+        public string PATIENT_GRADE { get; set; }
+        public string IS_SUBSTITUTED { get; set; }
+        public string SUBSTITUTE_INFO { get; set; }
+        public string IS_SPECIFICAL { get; set; }
+        public string SPECIFICAL_INFO { get; set; }
+        public string IS_ADMINED { get; set; }
+        public string CORP_NO { get; set; }
+        public string INDIVIDUAL_NO { get; set; }
     }
 }

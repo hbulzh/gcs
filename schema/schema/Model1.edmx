@@ -4,45 +4,64 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model1.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="10.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DEPT_DICT">
           <Key>
-            <PropertyRef Name="SERIAL_NO" />
+            <PropertyRef Name="DEPT_CODE" />
+          </Key>
+          <Property Name="SERIAL_NO" Type="number" Precision="3" Scale="0" />
+          <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" Nullable="false" />
+          <Property Name="INPUT_CODE" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ITEM_DICT">
+          <Key>
+            <PropertyRef Name="ITEM_CODE" />
           </Key>
           <Property Name="SERIAL_NO" Type="number" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
-          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
+          <Property Name="ITEM_CODE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ITEM_NAME" Type="varchar2" MaxLength="40" />
           <Property Name="INPUT_CODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ITEM_CLASS" Type="varchar2" MaxLength="10" />
+          <Property Name="ITEM_CLASS_SORT" Type="number" Precision="3" Scale="0" />
+          <Property Name="PRINT_MASTER_STATION" Type="varchar2" MaxLength="1" />
+          <Property Name="PAT_CLASS_STATION" Type="varchar2" MaxLength="1" />
+          <Property Name="ITEM_TYPE" Type="varchar2" MaxLength="10" />
         </EntityType>
         <EntityType Name="PAT_CLASS_NOTE">
           <Key>
             <PropertyRef Name="SERIAL_NO" />
+            <PropertyRef Name="PATIENT_ID" />
+            <PropertyRef Name="AMOUNT" />
+            <PropertyRef Name="CLASS_CODE" />
+            <PropertyRef Name="ITEM_CODE" />
+            <PropertyRef Name="ITEM_DETAIL_CODE" />
           </Key>
           <Property Name="SERIAL_NO" Type="number" Precision="12" Scale="0" Nullable="false" />
-          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="12" />
-          <Property Name="AMOUNT" Type="number" Precision="2" Scale="0" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="AMOUNT" Type="number" Precision="2" Scale="0" Nullable="false" />
           <Property Name="CREATE_DATE" Type="date" />
+          <Property Name="NAME" Type="varchar2" MaxLength="20" />
           <Property Name="SEX_CODE" Type="varchar2" MaxLength="3" />
-          <Property Name="CLASS_CODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CLASS_CODE" Type="varchar2" MaxLength="20" Nullable="false" />
           <Property Name="ITEM_NO" Type="number" Precision="6" Scale="0" />
-          <Property Name="ITEM_CODE" Type="varchar2" MaxLength="20" />
-          <Property Name="ITEM_DETAIL_CODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ITEM_CODE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ITEM_DETAIL_CODE" Type="varchar2" MaxLength="20" Nullable="false" />
           <Property Name="NOTE_ID" Type="number" Precision="6" Scale="0" />
-          <Property Name="BAR_CODE" Type="varchar2" MaxLength="20" />
         </EntityType>
         <EntityType Name="PHYSICAL_MASTER_INDEX">
           <Key>
-            <PropertyRef Name="SERIAL_NO" />
+            <PropertyRef Name="PATIENT_ID" />
           </Key>
           <Property Name="SERIAL_NO" Type="number" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
-          <Property Name="AMOUNT" Type="number" Precision="3" Scale="0" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="AMOUNT" Type="number" Precision="3" Scale="0" Nullable="false" />
           <Property Name="PAT_VISIT" Type="varchar2" MaxLength="1" />
           <Property Name="CREATE_DATE" Type="date" />
           <Property Name="IC_CREATE_DATE" Type="date" />
           <Property Name="DEPT_CODE" Type="varchar2" MaxLength="500" />
           <Property Name="BRANCH_CODE" Type="varchar2" MaxLength="100" />
-          <Property Name="ID_CARD" Type="varchar2" MaxLength="18" />
+          <Property Name="ID_CARD" Type="varchar2" MaxLength="30" />
           <Property Name="BED_NO" Type="number" Precision="5" Scale="0" />
           <Property Name="NAME" Type="varchar2" MaxLength="20" />
           <Property Name="NAME_PHONETIC" Type="varchar2" MaxLength="100" />
@@ -67,7 +86,26 @@
           <Property Name="NOTE" Type="varchar2" MaxLength="10" />
           <Property Name="SPECIMAN_CODE" Type="varchar2" MaxLength="40" />
           <Property Name="PHY_NAME" Type="varchar2" MaxLength="150" />
+          <Property Name="TOTAL_CHARGE" Type="float" Precision="126" Scale="0" />
+          <Property Name="PATIENT_DISCOUNT" Type="float" Precision="126" Scale="0" />
+          <Property Name="PATIENT_GRADE" Type="varchar2" MaxLength="1" />
+          <Property Name="IS_SUBSTITUTED" Type="varchar2" MaxLength="1" />
+          <Property Name="SUBSTITUTE_INFO" Type="varchar2" MaxLength="200" />
+          <Property Name="IS_SPECIFICAL" Type="varchar2" MaxLength="1" />
+          <Property Name="SPECIFICAL_INFO" Type="varchar2" MaxLength="200" />
+          <Property Name="IS_ADMINED" Type="varchar2" MaxLength="10" />
+          <Property Name="CORP_NO" Type="varchar2" MaxLength="20" />
+          <Property Name="INDIVIDUAL_NO" Type="varchar2" MaxLength="20" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“ZNDJ.T_ALGO_RESULT”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="T_ALGO_RESULT">
+          <Property Name="T_WAIT" Type="number" Precision="38" Scale="0" />
+          <Property Name="PREDICTTIME" Type="number" Precision="38" Scale="0" />
+          <Property Name="FLOOR" Type="number" Precision="38" Scale="0" />
+          <Property Name="NUM_DEPT" Type="number" Precision="38" Scale="0" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="20" />
+        </EntityType>-->
         <EntityType Name="T_CLINIC">
           <Key>
             <PropertyRef Name="CLINIC_ID" />
@@ -183,6 +221,16 @@
           <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="200" />
           <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="200" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“ZNDJ.T_TEMP_RESULT”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="T_TEMP_RESULT">
+          <Property Name="T_WAIT" Type="number" Precision="38" Scale="0" />
+          <Property Name="PREDICTTIME" Type="number" Precision="38" Scale="0" />
+          <Property Name="FLOOR" Type="number" Precision="38" Scale="0" />
+          <Property Name="NUM_DEPT" Type="number" Precision="38" Scale="0" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="20" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="50" />
+        </EntityType>-->
         <EntityType Name="T_USER">
           <Key>
             <PropertyRef Name="USER_ID" />
@@ -200,13 +248,13 @@
         </EntityType>
         <EntityType Name="T_VOICE">
           <Key>
-            <PropertyRef Name="Voice_id" />
+            <PropertyRef Name="VOICE_ID" />
           </Key>
-          <Property Name="Voice_id" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VOICE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="PATIENT_ID" Type="varchar2" MaxLength="50" />
           <Property Name="CLINIC_ID" Type="number" Precision="38" Scale="0" />
           <Property Name="DEPT_CODE" Type="varchar2" MaxLength="50" />
-          <Property Name="Voices" Type="varchar2" MaxLength="50" />
+          <Property Name="VOICES" Type="varchar2" MaxLength="500" />
           <Property Name="RESERVE_ONE" Type="varchar2" MaxLength="50" />
           <Property Name="RESERVE_TWO" Type="varchar2" MaxLength="50" />
           <Property Name="RESERVE_THREE" Type="varchar2" MaxLength="50" />
@@ -215,11 +263,13 @@
 警告 6002: 表/视图“ZNDJ.View_Screen”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="View_Screen">
           <Key>
+            <PropertyRef Name="DEPT_CODE" />
+            <PropertyRef Name="PATIENT_ID" />
             <PropertyRef Name="CLINIC_ID" />
           </Key>
           <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
-          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
-          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" Nullable="false" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="15" Nullable="false" />
           <Property Name="NAME" Type="varchar2" MaxLength="20" />
           <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
           <Property Name="CREAT_TIME" Type="date" />
@@ -231,11 +281,13 @@
         <EntityType Name="View_Screen_depart">
           <Key>
             <PropertyRef Name="QUE_ID" />
+            <PropertyRef Name="DEPT_CODE" />
+            <PropertyRef Name="PATIENT_ID" />
           </Key>
           <Property Name="QUE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="DEPT_NAME" Type="varchar2" MaxLength="500" />
-          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" />
-          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="20" />
+          <Property Name="DEPT_CODE" Type="varchar2" MaxLength="8" Nullable="false" />
+          <Property Name="PATIENT_ID" Type="varchar2" MaxLength="15" Nullable="false" />
           <Property Name="NAME" Type="varchar2" MaxLength="20" />
           <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
           <Property Name="CREAT_TIME" Type="date" />
@@ -253,12 +305,11 @@
           <Parameter Name="PATIENTID" Type="varchar2" Mode="In" />
           <Parameter Name="DEPTCODE" Type="varchar2" Mode="In" />
         </Function>
-        <Function Name="PROC_SALARY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ" />
-        <Function Name="ScreenQueue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ZNDJ" />
         <EntityContainer Name="Model1StoreContainer">
-          <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="ZNDJ" store:Type="Tables" />
-          <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" Schema="ZNDJ" store:Type="Tables" />
-          <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" Schema="ZNDJ" store:Type="Tables" />
+          <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" Schema="COMM" store:Type="Tables" />
+          <EntitySet Name="ITEM_DICT" EntityType="Self.ITEM_DICT" Schema="COMM" store:Type="Tables" />
+          <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" Schema="PHYSICAL_ARCHIVES" store:Type="Tables" />
+          <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" Schema="PHYSICAL_ARCHIVES" store:Type="Tables" />
           <EntitySet Name="T_CLINIC" EntityType="Self.T_CLINIC" Schema="ZNDJ" store:Type="Tables" />
           <EntitySet Name="T_ITEM_PREPOSITION" EntityType="Self.T_ITEM_PREPOSITION" Schema="ZNDJ" store:Type="Tables" />
           <EntitySet Name="T_LOGS" EntityType="Self.T_LOGS" Schema="ZNDJ" store:Type="Tables" />
@@ -305,48 +356,68 @@ FROM "ZNDJ"."View_Screen" "View_Screen"</DefiningQuery>
 FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="DEPT_DICT">
           <Key>
-            <PropertyRef Name="SERIAL_NO" />
+            <PropertyRef Name="DEPT_CODE" />
+          </Key>
+          <Property Name="SERIAL_NO" Type="Byte" />
+          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INPUT_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ITEM_DICT">
+          <Key>
+            <PropertyRef Name="ITEM_CODE" />
           </Key>
           <Property Name="SERIAL_NO" Type="Byte" Nullable="false" />
-          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ITEM_NAME" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="INPUT_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_CLASS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_CLASS_SORT" Type="Byte" />
+          <Property Name="PRINT_MASTER_STATION" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="PAT_CLASS_STATION" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PAT_CLASS_NOTE">
           <Key>
             <PropertyRef Name="SERIAL_NO" />
+            <PropertyRef Name="PATIENT_ID" />
+            <PropertyRef Name="AMOUNT" />
+            <PropertyRef Name="CLASS_CODE" />
+            <PropertyRef Name="ITEM_CODE" />
+            <PropertyRef Name="ITEM_DETAIL_CODE" />
           </Key>
           <Property Name="SERIAL_NO" Type="Int64" Nullable="false" />
-          <Property Name="PATIENT_ID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="AMOUNT" Type="Byte" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AMOUNT" Type="Byte" Nullable="false" />
           <Property Name="CREATE_DATE" Type="DateTime" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="SEX_CODE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="CLASS_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ITEM_NO" Type="Int32" />
-          <Property Name="ITEM_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ITEM_DETAIL_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ITEM_DETAIL_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NOTE_ID" Type="Int32" />
-          <Property Name="BAR_CODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PHYSICAL_MASTER_INDEX">
           <Key>
-            <PropertyRef Name="SERIAL_NO" />
+            <PropertyRef Name="PATIENT_ID" />
           </Key>
           <Property Name="SERIAL_NO" Type="Int32" Nullable="false" />
-          <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AMOUNT" Type="Byte" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AMOUNT" Type="Byte" Nullable="false" />
           <Property Name="PAT_VISIT" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CREATE_DATE" Type="DateTime" />
           <Property Name="IC_CREATE_DATE" Type="DateTime" />
           <Property Name="DEPT_CODE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="BRANCH_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ID_CARD" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CARD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="BED_NO" Type="Int16" />
           <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="NAME_PHONETIC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -371,6 +442,33 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
           <Property Name="NOTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SPECIMAN_CODE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="PHY_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAL_CHARGE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PATIENT_DISCOUNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PATIENT_GRADE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="IS_SUBSTITUTED" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="SUBSTITUTE_INFO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IS_SPECIFICAL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="SPECIFICAL_INFO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IS_ADMINED" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CORP_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="INDIVIDUAL_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_CLINIC">
+          <Key>
+            <PropertyRef Name="CLINIC_ID" />
+          </Key>
+          <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FLOOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IP_ADDR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" />
+          <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="T_ITEM_PREPOSITION">
           <Key>
@@ -446,7 +544,7 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
           <Property Name="SET_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="SET_TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="SET_ITEM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SET_VALUE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SET_VALUE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CREATE_TIME" Type="DateTime" />
           <Property Name="RESERVE_ONE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="RESERVE_TWO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -467,6 +565,19 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
           <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="T_VOICE">
+          <Key>
+            <PropertyRef Name="VOICE_ID" />
+          </Key>
+          <Property Name="VOICE_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VOICES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="T_DEPART_MANAGE">
           <Key>
             <PropertyRef Name="D_ID" />
@@ -483,24 +594,53 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
           <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DYNAMIC_TIME" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
+        <EntityType Name="View_Screen">
+          <Key>
+            <PropertyRef Name="DEPT_CODE" />
+            <PropertyRef Name="PATIENT_ID" />
+            <PropertyRef Name="CLINIC_ID" />
+          </Key>
+          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CREAT_TIME" Type="DateTime" />
+          <Property Name="CLINIC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_Screen_depart">
+          <Key>
+            <PropertyRef Name="QUE_ID" />
+            <PropertyRef Name="DEPT_CODE" />
+            <PropertyRef Name="PATIENT_ID" />
+          </Key>
+          <Property Name="QUE_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATIENT_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CREAT_TIME" Type="DateTime" />
+        </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DEPT_DICT" EntityType="Self.DEPT_DICT" />
+          <EntitySet Name="ITEM_DICT" EntityType="Self.ITEM_DICT" />
           <EntitySet Name="PAT_CLASS_NOTE" EntityType="Self.PAT_CLASS_NOTE" />
           <EntitySet Name="PHYSICAL_MASTER_INDEX" EntityType="Self.PHYSICAL_MASTER_INDEX" />
+          <EntitySet Name="T_CLINIC" EntityType="Self.T_CLINIC" />
           <EntitySet Name="T_ITEM_PREPOSITION" EntityType="Self.T_ITEM_PREPOSITION" />
           <EntitySet Name="T_LOGS" EntityType="Self.T_LOGS" />
           <EntitySet Name="T_QUEUE_HIST" EntityType="Self.T_QUEUE_HIST" />
           <EntitySet Name="T_QUEUE_LIST" EntityType="Self.T_QUEUE_LIST" />
           <EntitySet Name="T_SETS" EntityType="Self.T_SETS" />
           <EntitySet Name="T_USER" EntityType="Self.T_USER" />
+          <EntitySet Name="T_VOICE" EntityType="Self.T_VOICE" />
           <EntitySet Name="T_DEPART_MANAGE" EntityType="Self.T_DEPART_MANAGE" />
+          <EntitySet Name="View_Screen" EntityType="Self.View_Screen" />
+          <EntitySet Name="View_Screen_depart" EntityType="Self.View_Screen_depart" />
           <FunctionImport Name="ADDQUEUE">
-          <Parameter Name="PATIENTID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ADD_CREATETIME_QUENUM">
             <Parameter Name="PATIENTID" Mode="In" Type="String" />
-            <Parameter Name="DEPTCODE" Mode="In" Type="String" />
-            <Parameter Name="NUM_DEPT" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="COMPUTE_TWAIT">
             <Parameter Name="PATIENTID" Mode="In" Type="String" />
@@ -508,94 +648,11 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
             <Parameter Name="RES_DEPTNAME" Mode="Out" Type="String" />
             <Parameter Name="RES_DEPTNUM" Mode="Out" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="FIND_MIN_DEPT">
-            <Parameter Name="PATIENTID" Mode="In" Type="String" />
-            <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-            <Parameter Name="NUMDEPT" Mode="Out" Type="Decimal" />
-          </FunctionImport>
-          <EntitySet Name="T_CLINIC" EntityType="Model1.T_CLINIC" />
-          <FunctionImport Name="TEST">
-            <Parameter Name="PATIENTID" Mode="In" Type="String" />
-            <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-            <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
-            <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="NEXT_PATIENT">
-            <Parameter Name="PATIENTID" Mode="In" Type="String" />
-            <Parameter Name="DEPTCODE" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="OVER_NUMBER">
             <Parameter Name="PATIENTID" Mode="In" Type="String" />
             <Parameter Name="DEPTCODE" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="T_VOICE" EntityType="Model1.T_VOICE" />
-          <FunctionImport Name="GETNXTDEPT">
-            <Parameter Name="PATIENTID" Mode="In" Type="String" />
-            <Parameter Name="DEPTCODE" Mode="Out" Type="String" />
-            <Parameter Name="DEPTNAME" Mode="Out" Type="String" />
-            <Parameter Name="DEPTNUM" Mode="Out" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="PROC_SALARY" />
-          <FunctionImport Name="ScrrrnQueue" />
-          <FunctionImport Name="ScreenQueue" />
-          <EntitySet Name="View_Screen" EntityType="Model1.View_Screen" />
-          <EntitySet Name="View_Screen_depart" EntityType="Model1.View_Screen_depart" />
         </EntityContainer>
-        <EntityType Name="T_CLINIC">
-          <Key>
-            <PropertyRef Name="CLINIC_ID" />
-          </Key>
-          <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DEPT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="FLOOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="POSITION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IP_ADDR" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="SEX_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_TIME" Type="DateTime" />
-          <Property Name="IS_USE" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="T_VOICE">
-          <Key>
-            <PropertyRef Name="Voice_id" />
-          </Key>
-          <Property Name="Voice_id" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="CLINIC_ID" Type="Decimal" />
-          <Property Name="DEPT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Voices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_ONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_TWO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RESERVE_THREE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PATIENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="View_Screen">
-          <Key>
-            <PropertyRef Name="CLINIC_ID" />
-          </Key>
-          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CLINIC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="CLINIC_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CREAT_TIME" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="View_Screen_depart">
-          <Key>
-            <PropertyRef Name="QUE_ID" />
-          </Key>
-          <Property Name="QUE_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="DEPT_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DEPT_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="PATIENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CREAT_TIME" Type="DateTime" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -612,6 +669,21 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ITEM_DICT">
+            <EntityTypeMapping TypeName="Model1.ITEM_DICT">
+              <MappingFragment StoreEntitySet="ITEM_DICT">
+                <ScalarProperty Name="SERIAL_NO" ColumnName="SERIAL_NO" />
+                <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
+                <ScalarProperty Name="ITEM_NAME" ColumnName="ITEM_NAME" />
+                <ScalarProperty Name="INPUT_CODE" ColumnName="INPUT_CODE" />
+                <ScalarProperty Name="ITEM_CLASS" ColumnName="ITEM_CLASS" />
+                <ScalarProperty Name="ITEM_CLASS_SORT" ColumnName="ITEM_CLASS_SORT" />
+                <ScalarProperty Name="PRINT_MASTER_STATION" ColumnName="PRINT_MASTER_STATION" />
+                <ScalarProperty Name="PAT_CLASS_STATION" ColumnName="PAT_CLASS_STATION" />
+                <ScalarProperty Name="ITEM_TYPE" ColumnName="ITEM_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PAT_CLASS_NOTE">
             <EntityTypeMapping TypeName="Model1.PAT_CLASS_NOTE">
               <MappingFragment StoreEntitySet="PAT_CLASS_NOTE">
@@ -619,13 +691,13 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
                 <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
                 <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
                 <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
                 <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
                 <ScalarProperty Name="ITEM_NO" ColumnName="ITEM_NO" />
                 <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
                 <ScalarProperty Name="ITEM_DETAIL_CODE" ColumnName="ITEM_DETAIL_CODE" />
                 <ScalarProperty Name="NOTE_ID" ColumnName="NOTE_ID" />
-                <ScalarProperty Name="BAR_CODE" ColumnName="BAR_CODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -665,6 +737,34 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
                 <ScalarProperty Name="NOTE" ColumnName="NOTE" />
                 <ScalarProperty Name="SPECIMAN_CODE" ColumnName="SPECIMAN_CODE" />
                 <ScalarProperty Name="PHY_NAME" ColumnName="PHY_NAME" />
+                <ScalarProperty Name="TOTAL_CHARGE" ColumnName="TOTAL_CHARGE" />
+                <ScalarProperty Name="PATIENT_DISCOUNT" ColumnName="PATIENT_DISCOUNT" />
+                <ScalarProperty Name="PATIENT_GRADE" ColumnName="PATIENT_GRADE" />
+                <ScalarProperty Name="IS_SUBSTITUTED" ColumnName="IS_SUBSTITUTED" />
+                <ScalarProperty Name="SUBSTITUTE_INFO" ColumnName="SUBSTITUTE_INFO" />
+                <ScalarProperty Name="IS_SPECIFICAL" ColumnName="IS_SPECIFICAL" />
+                <ScalarProperty Name="SPECIFICAL_INFO" ColumnName="SPECIFICAL_INFO" />
+                <ScalarProperty Name="IS_ADMINED" ColumnName="IS_ADMINED" />
+                <ScalarProperty Name="CORP_NO" ColumnName="CORP_NO" />
+                <ScalarProperty Name="INDIVIDUAL_NO" ColumnName="INDIVIDUAL_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_CLINIC">
+            <EntityTypeMapping TypeName="Model1.T_CLINIC">
+              <MappingFragment StoreEntitySet="T_CLINIC">
+                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+                <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
+                <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
+                <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+                <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+                <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -769,6 +869,20 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="T_VOICE">
+            <EntityTypeMapping TypeName="Model1.T_VOICE">
+              <MappingFragment StoreEntitySet="T_VOICE">
+                <ScalarProperty Name="VOICE_ID" ColumnName="VOICE_ID" />
+                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="VOICES" ColumnName="VOICES" />
+                <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
+                <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
+                <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T_DEPART_MANAGE">
             <EntityTypeMapping TypeName="Model1.T_DEPART_MANAGE">
               <MappingFragment StoreEntitySet="T_DEPART_MANAGE">
@@ -785,70 +899,36 @@ FROM "ZNDJ"."View_Screen_depart" "View_Screen_depart"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="ADDQUEUE" FunctionName="Model1.Store.ADDQUEUE" />
-          <FunctionImportMapping FunctionImportName="COMPUTE_TWAIT" FunctionName="Model1.Store.COMPUTE_TWAIT" />
-          <EntitySetMapping Name="T_CLINIC">
-            <EntityTypeMapping TypeName="Model1.T_CLINIC">
-              <MappingFragment StoreEntitySet="T_CLINIC">
-                <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
-                <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
-                <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
-                <ScalarProperty Name="IS_USE" ColumnName="IS_USE" />
-                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
-                <ScalarProperty Name="SEX_CODE" ColumnName="SEX_CODE" />
-                <ScalarProperty Name="IP_ADDR" ColumnName="IP_ADDR" />
-                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
-                <ScalarProperty Name="FLOOR" ColumnName="FLOOR" />
-                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-                <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
-                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="OVER_NUMBER" FunctionName="Model1.Store.OVER_NUMBER" />
-          <EntitySetMapping Name="T_VOICE">
-            <EntityTypeMapping TypeName="Model1.T_VOICE">
-              <MappingFragment StoreEntitySet="T_VOICE">
-                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
-                <ScalarProperty Name="RESERVE_THREE" ColumnName="RESERVE_THREE" />
-                <ScalarProperty Name="RESERVE_TWO" ColumnName="RESERVE_TWO" />
-                <ScalarProperty Name="RESERVE_ONE" ColumnName="RESERVE_ONE" />
-                <ScalarProperty Name="Voices" ColumnName="Voices" />
-                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-                <ScalarProperty Name="Voice_id" ColumnName="Voice_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="PROC_SALARY" FunctionName="Model1.Store.PROC_SALARY" />
-          <FunctionImportMapping FunctionImportName="ScreenQueue" FunctionName="Model1.Store.ScreenQueue" />
           <EntitySetMapping Name="View_Screen">
             <EntityTypeMapping TypeName="Model1.View_Screen">
               <MappingFragment StoreEntitySet="View_Screen">
-                <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
-                <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
-                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
-                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
                 <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
+                <ScalarProperty Name="CLINIC_ID" ColumnName="CLINIC_ID" />
+                <ScalarProperty Name="CLINIC_NAME" ColumnName="CLINIC_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="View_Screen_depart">
             <EntityTypeMapping TypeName="Model1.View_Screen_depart">
               <MappingFragment StoreEntitySet="View_Screen_depart">
-                <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
-                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
-                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
                 <ScalarProperty Name="QUE_ID" ColumnName="QUE_ID" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="PATIENT_ID" ColumnName="PATIENT_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="CREAT_TIME" ColumnName="CREAT_TIME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ADDQUEUE" FunctionName="Model1.Store.ADDQUEUE" />
+          <FunctionImportMapping FunctionImportName="COMPUTE_TWAIT" FunctionName="Model1.Store.COMPUTE_TWAIT" />
+          <FunctionImportMapping FunctionImportName="OVER_NUMBER" FunctionName="Model1.Store.OVER_NUMBER" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

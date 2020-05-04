@@ -11,8 +11,13 @@ namespace schema.Dao
     /// </summary>
     public class DepartManageDao
     {
+
         private Entities db = new Entities();
 
+        public List<T_CLINIC> getClinicsByDeptCode(string deptcode)
+        {
+            return db.T_CLINIC.Where(x => x.DEPT_CODE == deptcode).ToList();
+        }
         /// <summary>
         /// 返回所有科室信息
         /// </summary>
@@ -61,6 +66,10 @@ namespace schema.Dao
         public string  GetDepartByDepartId(string  departid)
         {
             return db.DEPT_DICT.Where(x => x.DEPT_CODE == departid).ToList().ElementAt(0).DEPT_NAME;
+        }
+        public string getClinicNameById(decimal clinic_id)
+        {
+            return db.T_CLINIC.Where(x => x.CLINIC_ID == clinic_id).Single().CLINIC_NAME;
         }
     }
 }

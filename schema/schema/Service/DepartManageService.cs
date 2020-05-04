@@ -39,5 +39,19 @@ namespace schema.Service
         {
             return departDao.GetDepartByKey(key);
         }
+        public List<decimal> getClinicsByDeptCode(string deptcode)
+        {
+            List<T_CLINIC> clinics = departDao.getClinicsByDeptCode(deptcode);
+            List<decimal> cids = new List<decimal>();
+            foreach(T_CLINIC clinic in clinics)
+            {
+                cids.Add(clinic.CLINIC_ID);
+            }
+            return cids;
+        }
+        public string getClinicName(decimal clinicId)
+        {
+            return departDao.getClinicNameById(clinicId);
+        }
     }
 }

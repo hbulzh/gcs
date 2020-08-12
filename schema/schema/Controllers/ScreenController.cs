@@ -13,36 +13,17 @@ namespace schema.Controllers
     {
 
 
-        private ScreenSerice screenScrice = new ScreenSerice();
+        private ScreenSerice screenService = new ScreenSerice();
         // GET: Screen
-        public ActionResult Screen(string id)
+        public ActionResult Screen(string IP)
         {
-
-            //当前就诊病人的名字
-            string PatienName = screenScrice.GetfistPatient(id);
-            ViewBag.patientName = PatienName;
-            //当前科室的名字
-            ViewBag.name = screenScrice.GetdepartNamebyid(id);
-            //当前科室的待诊队列
-            ViewBag.userkist = screenScrice.ScreenDisplay(id);
-
-            //就诊病人结束后下一站的地方
-            if(PatienName!=" ")
-            {
-                if (screenScrice.getStutes(PatienName, id) != 2)
-                {
-                    ViewBag.depart = " ";
-                }
-                else
-                {
-                    ViewBag.depart = screenScrice.GetNexdepart(PatienName);
-                }
-            }
-            else
-            {
-                ViewBag.depart = "";
-            }
-           
+            ViewBag.clinicId = screenService.getClinicId(IP);
+            ViewBag.deptCode = screenService.getDeptCode(ViewBag.clinicId);
+            ViewBag.deptName = screenService.getDeptName(ViewBag.deptCode);
+            ViewBag.curPName = screenService.getCurPatientName(ViewBag.deptCode, ViewBag.clinicId);
+            ViewBag.waittingPatients = screenService.waittingPatients(ViewBag.deptCode);
+            ViewBag.prePName = screenService.getPrePatientName(ViewBag.deptCode, ViewBag.clinicId);
+            ViewBag.nxtDeptName = screenService.getNxtDeptName(ViewBag.deptCode,ViewBag.clinicId);
             return View();
         }
         /// <summary>
@@ -92,7 +73,7 @@ namespace schema.Controllers
                         //  }
 
                         //  View_Screen showcontent = screenScrice.GetLeftContent(queid);     //上方正在叫号信息
-                        string voice = screenScrice.GetVoiceURL(queid, depart, serverpath);     //调用语音合成，返回语音文件的URL                                                      
+                        string voice = screenService.GetVoiceURL(queid, depart, serverpath);     //调用语音合成，返回语音文件的URL                                                      
                         WaveInfo waveInfo = new WaveInfo(serverpath + voice);   //得到语音文件的信息           
 
                         result.Add("Voice", host + ":" + Request.Url.Port + "\\" + voice);      //语音文件URL

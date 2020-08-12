@@ -29,9 +29,9 @@
                     <tr class="wait_check">
                         <td class="clearfix" colspan="4">
                             <span>候诊人：</span>
-                            @foreach (var item in (List<View_Screen_depart>)ViewBag.userkist)
+                            @foreach (var name in ViewBag.pnames)
                             {
-                                <p>@item.NAME</p>
+                                <p>@name</p>
                             }
                            
                            

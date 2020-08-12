@@ -12,75 +12,66 @@ namespace schema.Service
        
     public class ScreensService
     {
-
-        ScreenDao screendao = new ScreenDao();
-        DepartManageDao departdao = new DepartManageDao();
-        RoomManageDao roomDao = new RoomManageDao();
-        AlgorithmDao algorithmDao = new AlgorithmDao();
-        VoiceDao voicDao = new VoiceDao();
-
+        private DepartDao departDao = new DepartDao();
+        private VoiceDao voicDao = new VoiceDao();
+        private PatientDao patientDao = new PatientDao();
+        private ClinicDao clinicDao = new ClinicDao();
         /// <summary>
         /// 得到当前科室的所有等待队列
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<View_Screen_depart> ScreenDisplay(string id)
+      
+        internal string getdepartName(string deptCode)
         {
-            return screendao.GetScreenQueue(id);
+            return departDao.getName(deptCode);
         }
         /// <summary>
-        /// 得到所在科室诊室的数量
+        /// 当前科室下status = 0， 1 的病人
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="deptId"></param>
         /// <returns></returns>
-        public  List<View_Screen> GetClincsByDepartCode(string id)
+        public List<String> getAllPatients(string deptId)
         {
-            return screendao.GetClincsByDepartCode(id);
+            List<String> pids = patientDao.getIds(deptId, 0, 1);
+            List<String> pnames = new List<string>();
+            foreach(string pid in pids)
+            {
+                pnames.Add(patientDao.getName(pid));
+            }
+            return pnames;
         }
 
         /// <summary>
-        /// 得到该诊室正在就诊的病人
+        /// 获取当前科室下所有诊室名称
         /// </summary>
-        /// <param name="ClincId"></param>
         /// <param name="departid"></param>
         /// <returns></returns>
-        public   string GetClinicPatienName( string  departid, decimal ClincId)
+        public List<String> getClinicNames(string departid)
         {
-            return screendao.GetClincName(departid, ClincId);
+            return clinicDao.getNames(departid);
         }
         /// <summary>
-        /// 得到该诊室正在就诊的病人
+        /// 获取当前科室下所有诊室的上一个病人 下一站
         /// </summary>
-        /// <param name="ClincId"></param>
-        /// <param name="departid"></param>
+        /// <param name="deptCode"></param>
         /// <returns></returns>
-        public string GetClinicPatienid(string departid, string  name)
+        public List<String[]> getPatientAndDept(string deptCode)
         {
-            return screendao.getPatienID(departid, name);
+            List<string[]> patientAndDept = new List<string[]>();
+            List<decimal> cids = clinicDao.getIds(deptCode);
+            foreach(decimal cid in cids)
+            {
+                string patientid = patientDao.getId(deptCode, cid, 2);
+                string patientName = patientDao.getName(patientid);
+                string nxtDeptCode = departDao.getId(patientid, 0);
+                string nxtDeptName = departDao.getName(nxtDeptCode);
+                patientAndDept.Add(new string[] { patientName, nxtDeptName});
+            }
+            return patientAndDept;
         }
 
-        /// <summary>
-        /// 根据科室id和诊室名返回诊室id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public decimal GetClincID (string id, string name)
-        {
-            return screendao.GetClincID(id, name);
-        }
-        /// <summary>
-        /// 返回下一个人的地方
-        /// </summary>
-        /// <param name="patientid"></param>
-        /// <returns></returns>
-        public String GetNexDept(string patientid)
-        {
-
-            Dictionary<string, string> dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(algorithmDao.GetNxtDeptInfo(patientid));
-            string departNamr = dic["deptname"];
-            return departNamr;
-        }
+       
 
        /// <summary>
        /// 根据检查人id和检查诊室得出声音
@@ -100,9 +91,5 @@ namespace schema.Service
             return JsonConvert.SerializeObject(dic);
 
         }
-
-
-
-
     }
 }

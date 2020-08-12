@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="73a2c4e5ae3f4568b31467c7c0cc329f" Name="Diagram1">
-        <EntityTypeShape EntityType="Model1.DEPT_DICT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.DEPT_DICT" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.ITEM_DICT" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.PAT_CLASS_NOTE" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.PHYSICAL_MASTER_INDEX" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />

@@ -29,7 +29,8 @@ namespace schema.Controllers
 
             ViewBag.deptName = aService.getDeptName(IP);
             ViewBag.clinicId = adao.getClinicId(IP);
-            ViewBag.doctorId = 123;
+            ViewBag.doctorId = (decimal)123;
+            aService.rollback(ViewBag.deptName, ViewBag.clinicId);
             return View();
         }
         /// <summary>
@@ -38,12 +39,11 @@ namespace schema.Controllers
         /// <param name="patientName"></param>
         /// <param name="deptName"></param>
         /// <returns></returns>
-        public JsonResult getNxtDeptInfo(string patientName,string deptName)
+        public JsonResult getNxtDeptInfo(string patientId,string deptName)
         {
 
-
-            if (patientName == "") return Json("");
-            return Json(aService.getNxtDeptInfo(patientName, deptName));
+            if (patientId == "" || deptName == "") return Json("");
+            return Json(aService.getNxtDeptInfo(patientId, deptName));
         }
         /// <summary>
         /// 获取 当前科室 下第一个人信息
@@ -55,7 +55,7 @@ namespace schema.Controllers
         /// <returns></returns>
         public JsonResult getFirstUserInfo(string deptName,decimal clinicId,decimal doctorId)
         {
-
+            if (deptName == "") return Json("");
 
             return Json(aService.getFirstUserInfo(deptName, clinicId, doctorId));   
         }
@@ -68,18 +68,22 @@ namespace schema.Controllers
         public int getDeptNumber(string deptName)
         {
             //status = 0;
+            if (deptName == "") return 0;
             return aService.getDeptNumber(deptName);
             
         }
         /// <summary>
         /// 过号
         /// </summary>
-        public JsonResult OverNumber(string patientName,string deptName)
+        public JsonResult OverNumber(string patientId,string deptName,decimal clinicId,decimal doctorId)
         {
+            if (patientId == "" || deptName == "") return Json("");
             //回滚病人状态Call_time Clinic_id,Doctor_id status (1（就诊) -> 0（等待）)
-            rollback(patientName,deptName);
-            //当前人过号 并返回下一位病人
-            return Json(aService.OverNumber(patientName, deptName));
+            aService.rollback(deptName, clinicId);
+            //当前人过号 
+            aService.OverNumber(patientId, deptName);
+            //并返回下一位病人
+            return Json(aService.getFirstUserInfo(deptName, clinicId, doctorId));
             
         }
         /// <summary>
@@ -89,6 +93,7 @@ namespace schema.Controllers
         /// <returns></returns>
         public JsonResult getFirstDeptInfo(string patientid)
         {
+            if (patientid == "") return Json("");
             return Json(adao.GetNxtDeptInfo(patientid));
         }
         /// <summary>
@@ -97,6 +102,7 @@ namespace schema.Controllers
         /// <param name="patientid"></param>
         public void addQueue(string patientid)
         {
+            if (patientid == "") return;
             adao.addQueue(patientid);
         }
         /// <summary>
@@ -106,17 +112,8 @@ namespace schema.Controllers
         /// <returns></returns>
         public JsonResult GetUserInfo(string patientid)
         {
+            if (patientid == "") return Json("");
             return Json(adao.GetUserInfo(patientid));
-        }
-        /// <summary>
-        /// 界面误按刷新按钮 或者 掉线 回滚当前病人的队列状态
-        /// </summary>
-        /// <param name="patientName"></param>
-        /// <param name="deptName"></param>
-        public void rollback(string patientName,string deptName)
-        {
-            if (patientName == "") return;
-            aService.updatePatientStatus(patientName,deptName);
         }
     }
 }

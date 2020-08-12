@@ -220,9 +220,12 @@
     <Compile Include="Controllers\SetsController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Dao\AlgorithmDao.cs" />
+    <Compile Include="Dao\ClinicDao.cs" />
+    <Compile Include="Dao\DepartDao.cs" />
     <Compile Include="Dao\DepartManageDao.cs" />
     <Compile Include="Dao\ItemsDao.cs" />
     <Compile Include="Dao\LogsDao.cs" />
+    <Compile Include="Dao\PatientDao.cs" />
     <Compile Include="Dao\RoomManageDao.cs" />
     <Compile Include="Dao\ScreenDao.cs" />
     <Compile Include="Dao\SetDao.cs" />
@@ -476,6 +479,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\schema.pubxml" />
+    <None Include="Properties\PublishProfiles\zndj.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\data.js" />
     <Content Include="Scripts\doc.js" />
@@ -517,6 +521,13 @@
     <Content Include="Scripts\js\popper\popper.min.js" />
     <Content Include="Scripts\js\prettymaps.js" />
     <Content Include="Scripts\js\Screen\Calling.js" />
+    <Content Include="Scripts\js\Screen\css\index.css" />
+    <Content Include="Scripts\js\Screen\images\bigbrid.png" />
+    <Content Include="Scripts\js\Screen\images\current.png" />
+    <Content Include="Scripts\js\Screen\images\down.png" />
+    <Content Include="Scripts\js\Screen\images\down1.png" />
+    <Content Include="Scripts\js\Screen\images\logo.png" />
+    <Content Include="Scripts\js\Screen\images\wait.png" />
     <Content Include="Scripts\js\Screen\left.js" />
     <Content Include="Scripts\js\Screen\ScreenPlay.js" />
     <Content Include="Scripts\js\select2.js" />
@@ -593,8 +604,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Resources\Exception\" />
     <Folder Include="Resources\Voices\" />
-    <Folder Include="Scripts\js\Screen\css\" />
-    <Folder Include="Scripts\js\Screen\images\" />
     <Folder Include="Scripts\NewFolder1\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\Log\" />

@@ -7,6 +7,7 @@
 <html lang="en" style="height: 100%;">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>导诊小屏</title>
     <link rel="stylesheet" href="~/Scripts/js/Screen/css/index.css">
@@ -15,13 +16,13 @@
     <div class="littlescreen">
         <div class="border_line">
             <div class="littlescreen_header">
-                <p><img src="./images/logo.png" alt="">@ViewBag.name</p>
+                <p><img src="./images/logo.png" alt="">@ViewBag.deptName</p>
 
             </div>
             <div class="littlescreen_main">
                 <ul class="littlescreen_mainList">
                     <li class="littlescreen_mainCurrent">
-                        <p>当前检查：<i> @ViewBag.patientName</i></p>
+                        <p>当前检查：<i> @ViewBag.curPName</i></p>
                     </li>
                     <li class="littlescreen_mainWait">
                         <p>等待检查:</p>
@@ -34,10 +35,10 @@
 
                             <ul class="clearfix">
 
-                                @foreach (var item in (List<View_Screen_depart>)ViewBag.userkist)
+                                @foreach (var name in ViewBag.waittingPatients)
                                 {
                                     <li>
-                                        <span>@item.NAME</span>
+                                        <span>@name</span>
                                     </li>
                                 }
 
@@ -48,7 +49,7 @@
 
                     </li>
                     <li class="littlescreen_mainStation">
-                        <p><span>@ViewBag.patientName</span>下一站<i>@ViewBag.depart</i></p>
+                        <p><span>@ViewBag.prePName</span>下一站<i>@ViewBag.nxtDeptName</i></p>
                     </li>
                 </ul>
             </div>

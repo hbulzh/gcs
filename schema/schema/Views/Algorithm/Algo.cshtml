@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../Content/index.css">
 </head>
 
-<body style="background-color: #000;" onbeforeunload="rollback()">
+<body style="background-color: #000;">
     <div class="doc_main">
         <div class="doc_mainHeader">
             <p id="deptName">@ViewBag.deptName</p>
@@ -19,6 +19,7 @@
                 <p>当前候检人数<i id="deptNum"></i></p>
             </div>
             <div class="doc_main_content clearfix">
+                <p class="doc_main_name" style="display:none">候检人Id<i id="CurId"></i></p>
                 <p class="doc_main_name">候检人姓名<i id="CurName">@ViewBag.CurName</i></p>
                 <p class="doc_main_sex">性别<i id="CurSex"></i>@ViewBag.CurSex</p>
                 <p class="doc_main_age">年龄<i id="CurAge"></i>@ViewBag.CurAge</p>
@@ -29,14 +30,15 @@
                 <button onclick="getUserInfo()">查询</button>
             </div>
             <div class="doc_main_content clearfix">
+                <p class="doc_main_name" style="display:none">到检人Id<i id="ComeId">@ViewBag.ComeId</i></p>
                 <p class="doc_main_name" >到检人姓名<i id="ComeName"></i></p>
                 <p class="doc_main_sex" >性别<i id="ComeSex"></i></p>
                 <p class="doc_main_age" >年龄<i id="ComeAge"></i></p>
             </div>
             <div class="doc_main_btn clearfix">
                 <button onclick="CurPatient()" id="start">开始</button>
-                <button onclick="recall()">重新呼叫</button>
-                <button onclick="OverNumber()">过号</button>
+                <button onclick="recall()" id="recall">重新呼叫</button>
+                <button onclick="OverNumber()" id="overnumber">过号</button>
             </div>
             <div class="doc_main_next">
                 <span id="CurName1">@ViewBag.name</span>
@@ -49,32 +51,47 @@
 </html>
 
 <script type="text/javascript">
-    function rollback() {
-        $.post('/Algorithm/rollback',
-            {
-                patientName: document.getElementById('CurName').innerHTML,
-                deptName: document.getElementById('deptName').innerHTML
-            },
-            function () {
-                console.log(data);
-                NxtPatient();
-            })
-    }
+    
     function recall()
     {
-        $.post('/Algorithm/getFirstUserInfo',
+        $.post('/Algorithm/getDeptNumber',
+        {
+            deptName:document.getElementById('deptName').innerText
+        },
+        function (deptNum, state) {
+            if (deptNum <= 0)
             {
-                deptName: document.getElementById('deptName').innerText,
-                clinicId: '@ViewBag.clinicId',
-                doctorId: '@ViewBag.doctorId'
-            },
-            function (data, status) {
-                console.log(data)
-                user = JSON.parse(data);
-                document.getElementById('CurName').innerHTML = user.name
-                document.getElementById('CurSex').innerHTML = user.sex
-                document.getElementById('CurAge').innerHTML = user.age
-            })
+                alert("当前已无候检人，请勿重复操作")
+                document.getElementById('CurId').innerHTML = ''
+                document.getElementById('CurName').innerHTML = ''
+                document.getElementById('CurSex').innerHTML = ''
+                document.getElementById('CurAge').innerHTML = ''
+            }
+            else
+            {
+                $.post('/Algorithm/rollback',
+                 {
+                     patientId: document.getElementById('CurId').innerHTML,
+                     deptName: document.getElementById('deptName').innerHTML
+                 },
+                 function () {
+                     $.post('/Algorithm/getFirstUserInfo',
+                     {
+                         deptName: document.getElementById('deptName').innerText,
+                         clinicId: '@ViewBag.clinicId',
+                         doctorId: '@ViewBag.doctorId'
+                     },
+                     function (data, status) {
+                         user = JSON.parse(data);
+                         document.getElementById('CurId').innerHTML = user.patient_id
+                         document.getElementById('CurName').innerHTML = user.name
+                         document.getElementById('CurSex').innerHTML = user.sex
+                         document.getElementById('CurAge').innerHTML = user.age
+                     })
+                 })
+            }
+
+        })
     }
     function getUserInfo()
     {
@@ -85,6 +102,7 @@
             },
             function (data, status) {
                 user = JSON.parse(data);
+                document.getElementById('ComeId').innerHTML = user.patient_id
                 document.getElementById('ComeName').innerHTML = user.name
                 document.getElementById('ComeSex').innerHTML = user.sex
                 document.getElementById('ComeAge').innerHTML = user.age
@@ -102,6 +120,10 @@
             if (deptNum <= 0)
             {
                 alert("当前已无候检人，请勿重复操作")
+                document.getElementById('CurId').innerHTML = ''
+                document.getElementById('CurName').innerHTML = ''
+                document.getElementById('CurSex').innerHTML = ''
+                document.getElementById('CurAge').innerHTML = ''
             }
             else {
                 //更新诊室数量
@@ -116,7 +138,7 @@
                 },
                 function (data, status) {
                     user = JSON.parse(data);
-                    console.log(data)
+                    document.getElementById('CurId').innerHTML = user.patient_id
                     document.getElementById('CurName').innerHTML = user.name
                     document.getElementById('CurSex').innerHTML = user.sex
                     document.getElementById('CurAge').innerHTML = user.age
@@ -127,10 +149,9 @@
     }
     function CurPatient()
     {
-        //下一站
         $.post('/Algorithm/getNxtDeptInfo',
             {
-                patientName:document.getElementById('CurName').innerHTML,
+                patientId:document.getElementById('CurId').innerHTML,
                 deptName:document.getElementById('deptName').innerHTML
             },
             function (data, status) {
@@ -139,10 +160,7 @@
                     document.getElementById('CurName1').innerHTML = user.name
                     document.getElementById('nxtDept').innerText = dept.deptname + '科室(您的排序序号' + Number(dept.deptnum) + 1 + ')'
                 }
-                else {
-                    document.getElementById('CurName1').innerHTML = ''
-                    document.getElementById('nxtDept').innerText = ''
-                }
+
                 NxtPatient();
             })
     }
@@ -156,20 +174,27 @@
               if (deptNum <= 0)
               {
                   alert("当前已无候检人，请勿重复操作")
+                  document.getElementById('CurId').innerHTML = ''
+                  document.getElementById('CurName').innerHTML = ''
+                  document.getElementById('CurSex').innerHTML = ''
+                  document.getElementById('CurAge').innerHTML = ''
               }
               else {
                   $.post('/Algorithm/OverNumber',
                     {
-                        patientName:document.getElementById('CurName').innerHTML,
-                        deptName:document.getElementById('deptName').innerHTML
+                        patientId:document.getElementById('CurId').innerHTML,
+                        deptName:document.getElementById('deptName').innerHTML,
+                        clinicId: '@ViewBag.clinicId',
+                        doctorId: '@ViewBag.doctorId'
                     },
                     function (data, status)
                     {
                         user = JSON.parse(data);
+                        document.getElementById('CurId').innerHTML = user.patient_id
                         document.getElementById('CurName').innerHTML = user.name
                         document.getElementById('CurSex').innerHTML = user.sex
                         document.getElementById('CurAge').innerHTML = user.age
-                        console.log(status)
+
                     })
               }
           })

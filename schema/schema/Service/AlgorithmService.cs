@@ -11,6 +11,7 @@ namespace schema.Service
     public class AlgorithmService
     {
         AlgorithmDao adao = new AlgorithmDao();
+        private PatientDao patientDao = new PatientDao();
         public string getDeptName(string IP)
         {
             //通过IP初始化诊室信息
@@ -21,16 +22,27 @@ namespace schema.Service
             string deptName = adao.getDeptName(deptCode);
             return deptName;
         }
-        public string getNxtDeptInfo(string patientName,string deptName)
+        public string getNxtDeptInfo(string patientId,string deptName)
         {
             // 对当前病人的检查完成时间 和 状态 赋值 1(就诊) -> 2(完成)
-            string patientId = adao.getPatientId(patientName);
             string deptCode = adao.getDeptCode(deptName);
             adao.updateCompleteStatus(patientId, deptCode);
 
             //返回当前病人下一站要去的地方
             return adao.GetNxtDeptInfo(patientId);
         }
+        /// <summary>
+        /// 意外情况发成 回滚正在检查的病人情况
+        /// </summary>
+        /// <param name="deptName"></param>
+        /// <param name="clinicID"></param>
+        public void rollback(string deptName, decimal clinicID)
+        {
+            string deptCode = adao.getDeptCode(deptName);
+            string patientId = patientDao.getId(deptCode, clinicID, 1);
+            adao.updatePatientStatus(patientId, deptCode, null, 0, null, null);
+        }
+
         public string getFirstUserInfo(string deptName,decimal clinicId,decimal doctorId)
         {
 
@@ -42,7 +54,7 @@ namespace schema.Service
             //获取PatientId
             JavaScriptSerializer jss = new JavaScriptSerializer();
             Dictionary<string, string> dic = jss.Deserialize<Dictionary<string, string>>(UserInfo);
-            string patientId = adao.getPatientId(dic["name"]);
+            string patientId = dic["patient_id"];
 
             
 
@@ -50,28 +62,23 @@ namespace schema.Service
             adao.updatePatientStatus(patientId, deptCode, System.DateTime.Now, 1, clinicId, doctorId);
 
             //将这个人加入叫号队列
-            SynthesisUtil.GetVoiceURL(patientId, deptCode, clinicId);
+            //SynthesisUtil.GetVoiceURL(patientId, deptCode, clinicId);
 
             return UserInfo;
         }
-        public string OverNumber(string patientName,string deptName)
+        public void OverNumber(string patientId,string deptName)
         {
-            string patientId = adao.getPatientId(patientName);
             string deptCode = adao.getDeptCode(deptName);
             //过号
             adao.overNumber(patientId, deptCode);
-            
-            
-            return adao.GetFirstUserInfo(deptName);
         }
         public int getDeptNumber(string deptName)
         {
             string deptCode = adao.getDeptCode(deptName);
             return adao.GetDeptNum(deptCode);
         }
-        public void updatePatientStatus(string patientName,string deptName)
+        public void updatePatientStatus(string patientId,string deptName)
         {
-            string patientId = adao.getPatientId(patientName);
             string deptCode = adao.getDeptCode(deptName);
             //更新病人Call_time Clinic_id,Doctor_id status (1（就诊) -> 0（等待）)
             adao.updatePatientStatus(patientId, deptCode, null, 0, null, null);

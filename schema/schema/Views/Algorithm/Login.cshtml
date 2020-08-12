@@ -56,8 +56,6 @@
                 patientid: document.getElementById('patientid').value
             },
             function (status) {
-                console.log(status)
-
                 $.post('/Algorithm/getFirstDeptInfo',
                     {
                         patientid: document.getElementById('patientid').value

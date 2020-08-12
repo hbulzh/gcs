@@ -14,76 +14,12 @@ namespace schema.Service
     public class ScreenSerice
     {
         ScreenDao screendao = new ScreenDao();
-        DepartManageDao departdao = new DepartManageDao();
-        RoomManageDao roomDao = new RoomManageDao();
-        AlgorithmDao algorithmDao = new AlgorithmDao();
-
-        /// <summary>
-        /// 大屏显示
-        /// </summary>
-        /*
-        public string BigScreenDisplay(string id)
-        {
-            IDictionary<string, string> map = new Dictionary<string, string>();
-            List<View_Screen> firstlist = screendao.GetScreenQueue(id);
-            string queue = JsonConvert.SerializeObject(firstlist);
-            map.Add("FirstVist", queue);
-            map.Add("room", departdao.GetDepartByDepartId(id).DEPT_NAME);
-            return  JsonConvert.SerializeObject(map);
-        }
-        */
-        public  List<View_Screen_depart> ScreenDisplay(string id)
-        {
-            return screendao.GetScreenQueue(id);
-        }
-        /// <summary>
-        /// 根据科室id得到科室名
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-       public  string   GetdepartNamebyid(string id)
-        {
-            return departdao.GetDepartByDepartId(id);
-        }
-        /// <summary>
-        /// 获取当前科室的第一个人
-        /// </summary>
-        /// <param name="deptcode"></param>
-        /// <returns></returns>
-
-        public string GetfistPatient(string deptcode)
-        {
-
-                  
-
-           // Dictionary<string, string > dic = JsonConvert.DeserializeObject<Dictionary<string, string >>(algorithmDao.GetFirstUserInfo(deptcode));
-
-           // string name = dic["name"];
-            return screendao.GetScreenPatientQueue(deptcode);
-        }
-        /// <summary>
-        /// 得到当前人检查的状态
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="departid"></param>
-        /// <returns></returns>
-         public   int  getStutes(string name ,string departid)
-        {
-            return screendao.GetStatus(name, departid);
-        }
-        /// <summary>
-        /// 得到当前病人的下一个地方
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-         public   string GetNexdepart(string name)
-        {
-            string patientId = algorithmDao.getPatientId(name);
-            //对json反序列化成字典
-            Dictionary<string, string> dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(algorithmDao.GetNxtDeptInfo(patientId));
-            string departNamr = dic["deptname"];
-            return departNamr;
-        }
+        private ClinicDao clinicDao = new ClinicDao();
+        private DepartDao departDao = new DepartDao();
+        private PatientDao patientDao = new PatientDao();
+        private RoomManageDao roomDao = new RoomManageDao(); 
+      
+         
 
         public string GetVoiceURL(string queid, string departcode, string serverpath)
         {
@@ -108,6 +44,53 @@ namespace schema.Service
 
             return args[2];
         }
+
+        public string getPrePatientName(string deptCode, decimal clinicId)
+        {
+            string prePId = patientDao.getId(deptCode, clinicId, 2);
+            string prePName = patientDao.getName(prePId);
+            return prePName;
+        }
+        public string getNxtDeptName(string deptCode, decimal clinicId)
+        {
+            string prePId = patientDao.getId(deptCode, clinicId, 2);
+            string nxtdeptCode = departDao.getId(prePId, 0);
+            return departDao.getName(nxtdeptCode);
+        }
+
+        public List<String> waittingPatients(string deptCode)
+        {
+            List<string> ids = patientDao.getIds(deptCode, 0, 0);
+            List<string> names = new List<string>();
+            foreach(string id in ids)
+            {
+                names.Add(patientDao.getName(id));
+            }
+            return names;
+        }
+
+        public string getCurPatientName(string deptCode, decimal clinicId)
+        {
+            string curpId = patientDao.getId(deptCode, clinicId, 1);
+            string curpName = patientDao.getName(curpId);
+            return curpName;
+        }
+
+        internal string getDeptName(string deptCode)
+        {
+            return departDao.getName(deptCode);
+        }
+
+        public string getDeptCode(decimal clinicId)
+        {
+            return departDao.getId(clinicId);
+        }
+
+        public decimal getClinicId(string IP)
+        {
+            return clinicDao.getId(IP);
+        }
+
         /// <summary>
         /// 语音合成线程
         /// </summary>

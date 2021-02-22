@@ -42,6 +42,17 @@ namespace schema.Service
             return pnames;
         }
 
+        public List<String> getCurPatients(string deptId)
+        {
+            List<String> pids = patientDao.getIds(deptId, 1, 1);
+            List<String> pnames = new List<string>();
+            foreach (string pid in pids)
+            {
+                pnames.Add(patientDao.getName(pid));
+            }
+            return pnames;
+        }
+
         /// <summary>
         /// 获取当前科室下所有诊室名称
         /// </summary>

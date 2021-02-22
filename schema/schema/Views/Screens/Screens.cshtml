@@ -7,12 +7,12 @@
 <html style="height: 100%;">
 <head>
     <title>智能导检大屏</title>
-    <meta http-equiv="refresh" content="5">
+    <meta http-equiv="refresh" content="25">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Scripts/js/Screen/css/index.css">
 </head>
-<body style="height: 100%;">
+<body style="height: 100%;" onload="callPatient()">
     <div class="bigscreen">
         <div class="bigscreen_top">
             <span>@ViewBag.departName</span>
@@ -57,10 +57,28 @@
 
     </div>
     alert(12)
-    @Scripts.Render("~/Scripts/js/Screen/Calling.js")
+    @Scripts.Render("~/bundles/jquery")
 
 </body>
 </html>
 <script type="text/javascript">
-	console.log(123);
+    function callPatient() {
+        $.post("/Screens/GetCallQue",
+            {
+
+            },
+            function (msg, status) {
+                if (msg != '')
+                {
+                    msg = new SpeechSynthesisUtterance(msg);
+                    msg.rate = 0.9
+                    window.speechSynthesis.speak(msg);
+                    window.speechSynthesis.speak(msg);
+                    window.speechSynthesis.speak(msg);
+                }
+            });
+       
+       
+       
+    }
 </script>

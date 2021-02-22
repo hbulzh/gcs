@@ -12,8 +12,9 @@ namespace schema.Controllers
     public class AlgorithmController : Controller
     {
         AlgorithmDao adao = new AlgorithmDao();
+        ClinicDao clinicDao = new ClinicDao();
         AlgorithmService aService = new AlgorithmService();
-
+        DepartDao departDao = new DepartDao();
         public ActionResult Login()
         {
             return View();
@@ -29,6 +30,8 @@ namespace schema.Controllers
 
             ViewBag.deptName = aService.getDeptName(IP);
             ViewBag.clinicId = adao.getClinicId(IP);
+            ViewBag.floor = clinicDao.getFloor(IP);
+            ViewBag.deptCode = departDao.getId(ViewBag.clinicId);
             ViewBag.doctorId = (decimal)123;
             aService.rollback(ViewBag.deptName, ViewBag.clinicId);
             return View();

@@ -40,6 +40,13 @@ namespace schema.Dao
             return ids;
         }
 
+        public decimal getFloor(string iP)
+        {
+            T_CLINIC[] infos = db.T_CLINIC.Where(x => (x.IP_ADDR == iP)).ToArray();
+            if (infos.Length == 0) return -1;
+            return infos[0].FLOOR;
+        }
+
         public decimal getId(string IP)
         {
             T_CLINIC[] infos = db.T_CLINIC.Where(x => (x.IP_ADDR == IP)).ToArray();

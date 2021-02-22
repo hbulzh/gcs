@@ -16,6 +16,7 @@ namespace schema.Controllers
    
         private DepartManageService departService = new DepartManageService();
         private string departid;
+        private static List<string> calQue = new List<string>();
         // GET: Screens                            
         public ActionResult Screens(string id)
         {
@@ -27,9 +28,14 @@ namespace schema.Controllers
             //当前科室的待诊队列 status = 0， 1的病人名称
             ViewBag.pnames = screensService.getAllPatients(departid);
 
+            //当前科室的正在就诊 status = 1的病人名称
+            ViewBag.cpnames = screensService.getCurPatients(departid);
             //
             ViewBag.patientAndDept = screensService.getPatientAndDept(departid);
             ViewBag.clinicNames = screensService.getClinicNames(departid);
+
+            //
+            ViewBag.callmsg = new List<string>();
             return View();
         }
         /// <summary>
@@ -37,7 +43,6 @@ namespace schema.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        [HttpGet]
         public string OnCalling (string name)
         {
 
@@ -46,6 +51,24 @@ namespace schema.Controllers
 
             return "";
            // return screensService.GetVoice(departid, patientid);
+        }
+        public void AddCallQue(string msg)
+        {
+            foreach(string m in calQue)
+            {
+                if (m == msg) return;
+            }
+            calQue.Add(msg);
+        }
+        public string GetCallQue()
+        {
+            string msg = "";
+            if (calQue.Count() > 0)
+            {
+                msg = calQue[0];
+                calQue.Remove(calQue[0]);
+            }
+            return msg;
         }
 
     }

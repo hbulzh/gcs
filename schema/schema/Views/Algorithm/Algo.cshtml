@@ -51,50 +51,21 @@
 </html>
 
 <script type="text/javascript">
-    
-    function recall()
-    {
-        $.post('/Algorithm/getDeptNumber',
-        {
-            deptName:document.getElementById('deptName').innerText
-        },
-        function (deptNum, state) {
-            if (deptNum <= 0)
-            {
-                alert("当前已无候检人，请勿重复操作")
-                document.getElementById('CurId').innerHTML = ''
-                document.getElementById('CurName').innerHTML = ''
-                document.getElementById('CurSex').innerHTML = ''
-                document.getElementById('CurAge').innerHTML = ''
-            }
-            else
-            {
-                $.post('/Algorithm/rollback',
-                 {
-                     patientId: document.getElementById('CurId').innerHTML,
-                     deptName: document.getElementById('deptName').innerHTML
-                 },
-                 function () {
-                     $.post('/Algorithm/getFirstUserInfo',
-                     {
-                         deptName: document.getElementById('deptName').innerText,
-                         clinicId: '@ViewBag.clinicId',
-                         doctorId: '@ViewBag.doctorId'
-                     },
-                     function (data, status) {
-                         user = JSON.parse(data);
-                         document.getElementById('CurId').innerHTML = user.patient_id
-                         document.getElementById('CurName').innerHTML = user.name
-                         document.getElementById('CurSex').innerHTML = user.sex
-                         document.getElementById('CurAge').innerHTML = user.age
-                     })
-                 })
-            }
 
-        })
+    function recall() {
+        name = document.getElementById('CurName').innerHTML
+        if (name == '') {
+            alert("当前已无候检人，请勿重复操作")
+        }
+        else {
+            $.post("/Screens/AddCallQue",
+            {
+                msg: "请" + name + "到" + '@ViewBag.floor' + "楼" + '@ViewBag.deptName' + '@ViewBag.clinicId' + "号诊室就诊"
+            })
+
+        }
     }
-    function getUserInfo()
-    {
+    function getUserInfo() {
 
         $.post('/Algorithm/GetUserInfo',
             {
@@ -109,17 +80,16 @@
             })
     }
 
-    function NxtPatient()
-    {
+    function NxtPatient() {
         document.getElementById('start').innerHTML = '下一位';
         $.post('/Algorithm/getDeptNumber',
         {
-            deptName:document.getElementById('deptName').innerText
+            deptName: document.getElementById('deptName').innerText
         },
         function (deptNum, state) {
-            if (deptNum <= 0)
-            {
+            if (deptNum <= 0) {
                 alert("当前已无候检人，请勿重复操作")
+                document.getElementById('deptNum').innerHTML = 0
                 document.getElementById('CurId').innerHTML = ''
                 document.getElementById('CurName').innerHTML = ''
                 document.getElementById('CurSex').innerHTML = ''
@@ -142,38 +112,50 @@
                     document.getElementById('CurName').innerHTML = user.name
                     document.getElementById('CurSex').innerHTML = user.sex
                     document.getElementById('CurAge').innerHTML = user.age
+                    $.post("/Screens/AddCallQue",
+                        {
+                            msg: "请" + user.name + "到" + '@ViewBag.floor' + "楼" + '@ViewBag.deptName' + '@ViewBag.clinicId' + "号诊室就诊"
+                        })
+
                 })
             }
 
         })
     }
-    function CurPatient()
-    {
+    function CurPatient() {
         $.post('/Algorithm/getNxtDeptInfo',
             {
-                patientId:document.getElementById('CurId').innerHTML,
-                deptName:document.getElementById('deptName').innerHTML
+                patientId: document.getElementById('CurId').innerHTML,
+                deptName: document.getElementById('deptName').innerHTML
             },
             function (data, status) {
                 if (data != '') {
                     dept = JSON.parse(data)
-                    document.getElementById('CurName1').innerHTML = user.name
+                    document.getElementById('CurName1').innerHTML = document.getElementById('CurName').innerHTML
                     document.getElementById('nxtDept').innerText = dept.deptname + '科室(您的排序序号' + Number(dept.deptnum) + 1 + ')'
                 }
+                else {
+                    document.getElementById('CurName1').innerHTML = document.getElementById('CurName').innerHTML
+                    if (document.getElementById('CurName1').innerHTML != '') {
+                        document.getElementById('nxtDept').innerText = '已完成所有体验'
+                    }
+                    else {
+                        document.getElementById('nxtDept').innerText = ''
+                    }
 
+                }
                 NxtPatient();
             })
     }
-    function OverNumber()
-    {
+    function OverNumber() {
         $.post('/Algorithm/getDeptNumber',
           {
-              deptName:document.getElementById('deptName').innerText
+              deptName: document.getElementById('deptName').innerText
           },
           function (deptNum, state) {
-              if (deptNum <= 0)
-              {
+              if (deptNum <= 0) {
                   alert("当前已无候检人，请勿重复操作")
+                  document.getElementById('deptNum').innerHTML = 0
                   document.getElementById('CurId').innerHTML = ''
                   document.getElementById('CurName').innerHTML = ''
                   document.getElementById('CurSex').innerHTML = ''
@@ -182,19 +164,21 @@
               else {
                   $.post('/Algorithm/OverNumber',
                     {
-                        patientId:document.getElementById('CurId').innerHTML,
-                        deptName:document.getElementById('deptName').innerHTML,
+                        patientId: document.getElementById('CurId').innerHTML,
+                        deptName: document.getElementById('deptName').innerHTML,
                         clinicId: '@ViewBag.clinicId',
                         doctorId: '@ViewBag.doctorId'
                     },
-                    function (data, status)
-                    {
+                    function (data, status) {
                         user = JSON.parse(data);
                         document.getElementById('CurId').innerHTML = user.patient_id
                         document.getElementById('CurName').innerHTML = user.name
                         document.getElementById('CurSex').innerHTML = user.sex
                         document.getElementById('CurAge').innerHTML = user.age
-
+                         $.post("/Screens/AddCallQue",
+                            {
+                                msg: "请" + user.name + "到" + '@ViewBag.floor' + "楼" + '@ViewBag.deptName' + '@ViewBag.clinicId' + "号诊室就诊"
+                            })
                     })
               }
           })
